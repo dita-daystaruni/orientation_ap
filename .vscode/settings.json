@@ -1,0 +1,5 @@
+{
+    "files.autoSave": "onWindowChange",
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "css.format.enable": false
+}
