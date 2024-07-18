@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class SignIn extends StatelessWidget {
                         height: 20,
                       ),
                       const Text(
-                        "Sign in to your Account",
+                        "Confirm your details",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
@@ -48,7 +47,7 @@ class SignIn extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
-                          "You're just one step away from diving into this incredible journey. At Daystar University, we believe in your potential.",
+                          "Please enter your admission number",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
@@ -70,21 +69,24 @@ class SignIn extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
+                            TextButton.icon(
+                                onPressed: () => {},
+                                icon: const Icon(
+                                  Icons.done_rounded,
+                                  color: Colors.green,
+                                ),
+                                label: const Text("Confirm")),
                             TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Password'),
+                              decoration: const InputDecoration(
+                                  labelText: 'First time password'),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            // TextFormField(
-                            //   decoration: const InputDecoration(
-                            //       labelText: 'Confirm Password'),
-                            // ),
-                            const Text("Are you a first time user & Freshman?"),
-                            TextButton(
-                                onPressed: navigatetosingup,
-                                child: const Text("Sing Up Here"))
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                  labelText: 'Confirm Password'),
+                            ),
                           ],
                         ),
                       ),
@@ -113,7 +115,7 @@ class SignIn extends StatelessWidget {
                         right: 120,
                         left: 120,
                         child: ElevatedButton(
-                          onPressed: navigatetohomepage,
+                          onPressed: navigatetosingin,
                           child: const Text(
                             "Sign In",
                             style: TextStyle(fontSize: 16),
@@ -131,11 +133,7 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  navigatetohomepage() {
-    Get.toNamed("/home_page");
-  }
-
-  navigatetosingup() {
-    Get.toNamed("/sign_up");
+  navigatetosingin() {
+    Get.toNamed("/sign_in");
   }
 }
