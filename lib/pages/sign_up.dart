@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+class SignUp extends StatefulWidget {
+  SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final TextEditingController admnocontroller = TextEditingController();
+
+  final TextEditingController firsttimepassword = TextEditingController();
+
+  final TextEditingController confirmpassword = TextEditingController();
+
+  bool isvisible = false;
+  bool ischecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +78,9 @@ class SignUp extends StatelessWidget {
                           children: [
                             TextFormField(
                               decoration: const InputDecoration(
-                                  labelText: 'Admission Number'),
+                                labelText: 'Admission Number',
+                              ),
+                              controller: admnocontroller,
                             ),
                             const SizedBox(
                               height: 20,
@@ -77,15 +93,36 @@ class SignUp extends StatelessWidget {
                                 ),
                                 label: const Text("Confirm")),
                             TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: 'First time password'),
+                              controller: firsttimepassword,
+                              decoration: InputDecoration(
+                                labelText: 'First time password',
+                                icon: IconButton(
+                                  onPressed: togglepasswordvisibility,
+                                  icon: Icon(
+                                    isvisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                ),
+                              ),
+                              obscureText: true,
                             ),
                             const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: 'Confirm Password'),
+                              controller: confirmpassword,
+                              decoration: InputDecoration(
+                                labelText: 'Confirm Password',
+                                icon: IconButton(
+                                  onPressed: togglepasswordvisibility(),
+                                  icon: Icon(
+                                    isvisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -97,8 +134,8 @@ class SignUp extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Checkbox(
-                            value: false,
-                            onChanged: (value) => {},
+                            value: ischecked,
+                            onChanged: toggleischecked(),
                           ),
                           const Text(
                             "I agree to Terms & Conditions",
@@ -133,7 +170,17 @@ class SignUp extends StatelessWidget {
     );
   }
 
+  toggleischecked() {
+    ischecked = !ischecked;
+  }
+
   navigatetosingin() {
     Get.toNamed("/sign_in");
+  }
+
+  togglepasswordvisibility() {
+    setState(() {
+      isvisible = !isvisible;
+    });
   }
 }

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignIn extends StatefulWidget {
+  SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  TextEditingController admnocontroller = TextEditingController();
+
+  TextEditingController passwordcontroller = TextEditingController();
+  bool? ischecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +74,19 @@ class SignIn extends StatelessWidget {
                           children: [
                             TextFormField(
                               decoration: const InputDecoration(
-                                  labelText: 'Admission Number'),
+                                labelText: 'Admission Number',
+                              ),
+                              //Controller for ADM Number
+                              controller: admnocontroller,
                             ),
                             const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Password'),
+                              decoration: const InputDecoration(
+                                labelText: 'Password',
+                              ),
+                              controller: passwordcontroller,
                             ),
                             const SizedBox(
                               height: 20,
@@ -95,8 +109,12 @@ class SignIn extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Checkbox(
-                            value: false,
-                            onChanged: (value) => {},
+                            value: ischecked,
+                            onChanged: (value) => {
+                              setState(() {
+                                ischecked = !false;
+                              }),
+                            },
                           ),
                           const Text(
                             "I agree to Terms & Conditions",
