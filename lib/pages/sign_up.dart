@@ -2,190 +2,96 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({super.key});
+  const SignUp({super.key});
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController admnocontroller = TextEditingController();
+  int x = 0;
+  bool showPassword = false;
+  bool showConfirmPassword = false;
 
-  final TextEditingController firsttimepassword = TextEditingController();
-
-  final TextEditingController confirmpassword = TextEditingController();
-
-  bool isvisible = false;
-  bool ischecked = false;
-
+  TextEditingController admnoController = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Colors.blue,
-              Colors.white,
+      body: SafeArea(
+        minimum: const EdgeInsets.all(22),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(
+                "assets/images/profile.png",
+                height: 200,
+              ),
+              const SizedBox(height: 22),
+              Text(
+                "Hi there!",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 32),
+              TextFormField(
+                decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.person_2),
+                  hintText: "Admission Number",
+                ),
+              ),
+              const SizedBox(height: 22),
+              TextFormField(
+                controller: password,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    icon: Icon(
+                      showPassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                  ),
+                ),
+                obscureText: showPassword,
+              ),
+              const SizedBox(height: 22),
+              TextFormField(
+                controller: confirmPassword,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        showConfirmPassword = !showConfirmPassword;
+                      });
+                    },
+                    icon: Icon(
+                      showConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                  ),
+                ),
+                obscureText: showConfirmPassword,
+              ),
+              const SizedBox(height: 22),
+              FilledButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                child: const Text("Sign up"),
+              ),
             ],
           ),
         ),
-        child: Stack(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/business-3d-black-graduation-cap.png",
-                        height: 150,
-                        width: 200,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        "Confirm your details",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          "Please enter your admission number",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: 'Admission Number',
-                              ),
-                              controller: admnocontroller,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextButton.icon(
-                                onPressed: () => {},
-                                icon: const Icon(
-                                  Icons.done_rounded,
-                                  color: Colors.green,
-                                ),
-                                label: const Text("Confirm")),
-                            TextFormField(
-                              controller: firsttimepassword,
-                              decoration: InputDecoration(
-                                labelText: 'First time password',
-                                prefixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isvisible = !isvisible;
-                                    });
-                                    print('hELLO');
-                                  },
-                                  icon: Icon(
-                                    isvisible
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  ),
-                                ),
-                              ),
-                              obscureText: isvisible,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              controller: confirmpassword,
-                              decoration: InputDecoration(
-                                labelText: 'Confirm Password',
-                                icon: IconButton(
-                                  onPressed: togglepasswordvisibility(),
-                                  icon: Icon(
-                                    isvisible
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Checkbox(
-                            value: ischecked,
-                            onChanged: (value) {},
-                          ),
-                          const Text(
-                            "I agree to Terms & Conditions",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        right: 120,
-                        left: 120,
-                        child: ElevatedButton(
-                          onPressed: navigatetosingin,
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
-  }
-
-  toggleischecked() {
-    ischecked = !ischecked;
-  }
-
-  navigatetosingin() {
-    Get.toNamed("/sign_in");
-  }
-
-  togglepasswordvisibility() {
-    setState(() {
-      isvisible = !isvisible;
-    });
   }
 }
