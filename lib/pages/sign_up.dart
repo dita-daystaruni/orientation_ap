@@ -96,8 +96,13 @@ class _SignUpState extends State<SignUp> {
                               controller: firsttimepassword,
                               decoration: InputDecoration(
                                 labelText: 'First time password',
-                                icon: IconButton(
-                                  onPressed: togglepasswordvisibility,
+                                prefixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isvisible = !isvisible;
+                                    });
+                                    print('hELLO');
+                                  },
                                   icon: Icon(
                                     isvisible
                                         ? Icons.visibility_off
@@ -105,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
                               ),
-                              obscureText: true,
+                              obscureText: isvisible,
                             ),
                             const SizedBox(
                               height: 20,
@@ -135,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                         children: [
                           Checkbox(
                             value: ischecked,
-                            onChanged: toggleischecked(),
+                            onChanged: (value) {},
                           ),
                           const Text(
                             "I agree to Terms & Conditions",
