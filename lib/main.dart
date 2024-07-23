@@ -8,6 +8,7 @@ void main() {
       initialRoute: "splash_screen",
       getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
+      //Get.to()and offnamed
     ),
   );
 }

@@ -19,64 +19,57 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: Stack(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/3d-casual-life-group-of-young-people-discussing-something-while-working.png",
-                      height: 200,
-                      width: 200,
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  Image.asset(
+                    "assets/images/3d-casual-life-group-of-young-people-discussing-something-while-working.png",
+                    height: 210,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Welcome to Daystar",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      "Welcome to  our vibrant community. Get ready to commence this journey of learning, growth, and unforgettable experiences.",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      selectionColor: Colors.blue,
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 20,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FilledButton(
+                    onPressed: gettonextsignin,
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
                     ),
-                    const Text(
-                      "Welcome to Daystar",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        "Welcome to  our vibrant community. Get ready to commence this journey of learning, growth, and unforgettable experiences.",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    IconButton(
-                      color: Colors.white,
-                      onPressed: gettonextsignin,
-                      icon: const Icon(Icons.forward),
-                      iconSize: 30,
-                    ),
-                  ],
-                ),
+                    child: const Text('Get Started'),
+                  ),
+                  const Spacer(),
+                  Image.asset(
+                    "assets/images/powered_by_dita1.png",
+                    height: 120,
+                  ),
+                ],
               ),
             ),
-            Positioned(
-              bottom: 10,
-              right: 40,
-              left: 40,
-              child: Image.asset(
-                "assets/images/powered_by_dita1.png",
-                height: 80,
-                width: 80,
-                alignment: Alignment.bottomCenter,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

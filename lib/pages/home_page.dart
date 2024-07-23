@@ -142,6 +142,28 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(4.0),
                       child: CircleAvatar(
+                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
+                        radius: 25,
+                        child: Text(
+                          "BR",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: CircleAvatar(
+                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
+                        radius: 25,
+                        child: Text(
+                          "BR",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: CircleAvatar(
                         backgroundColor: Color.fromARGB(255, 177, 102, 75),
                         radius: 25,
                         child: Text(
@@ -284,6 +306,70 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              const Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.circle_notifications_rounded,
+                        size: 45,
+                        color: Colors.blue,
+                      ),
+                      SizedBox(
+                        height: 80,
+                        width: 250,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Noticication Title - Senders_Name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              style: TextStyle(fontWeight: FontWeight.normal),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              //End of card
+              const Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.circle_notifications_rounded,
+                        size: 45,
+                        color: Colors.blue,
+                      ),
+                      SizedBox(
+                        height: 80,
+                        width: 250,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Noticication Title - Senders_Name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              style: TextStyle(fontWeight: FontWeight.normal),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              //end of another card
               const Card(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
