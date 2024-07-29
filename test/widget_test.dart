@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:orientation_app/main.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 
 void main() {

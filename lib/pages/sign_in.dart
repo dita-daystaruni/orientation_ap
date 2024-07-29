@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/services/authentication.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -103,9 +104,7 @@ class _SignInState extends State<SignIn> {
                             height: 20,
                           ),
                           TextButton(
-                            onPressed: () {
-                              Get.toNamed("/sign_up");
-                            },
+                            onPressed: () {},
                             child: const Text(
                               "First time user or freshman ? Click Here",
                               // style: TextStyle(
@@ -142,8 +141,11 @@ class _SignInState extends State<SignIn> {
                       height: 20,
                     ),
                     FilledButton(
-                      onPressed: () {
-                        Get.toNamed('/home_page');
+                      onPressed: () async {
+                        await signIn(
+                          admnocontroller.text.trim(),
+                          passwordcontroller.text.trim(),
+                        );
                       },
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),

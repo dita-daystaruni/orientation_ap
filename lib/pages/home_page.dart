@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(),
+              const CustomAppBar(),
               //end of the Nav_ListTile
               const SizedBox(
                 height: 20,
