@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Routines extends StatelessWidget {
   const Routines({super.key});
@@ -20,13 +21,14 @@ class Routines extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {},
+                  autofocus: true,
                   child: const Text(
                     'Routine',
                     style: TextStyle(color: Colors.blue),
                   ),
                 ),
                 const SizedBox(
-                  height: 22,
+                  width: 35,
                 ),
                 OutlinedButton(
                   onPressed: () {},
@@ -38,6 +40,15 @@ class Routines extends StatelessWidget {
                     style: TextStyle(color: Colors.blue),
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [Card()],
+                  ),
+                )
               ],
             ),
           ),

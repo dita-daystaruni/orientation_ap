@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/services/authentication.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -141,12 +140,16 @@ class _SignInState extends State<SignIn> {
                       height: 20,
                     ),
                     FilledButton(
-                      onPressed: () async {
-                        await signIn(
-                          admnocontroller.text.trim(),
-                          passwordcontroller.text.trim(),
-                        );
+                      onPressed: () {
+                        Get.offAndToNamed('/landing_page');
                       },
+                      //() async {
+                      //   await signIn(
+                      //     admnocontroller.text.trim(),
+                      //     passwordcontroller.text.trim(),
+                      //   );
+
+                      //},
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),
                       ),

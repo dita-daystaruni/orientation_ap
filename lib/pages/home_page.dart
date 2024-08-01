@@ -261,11 +261,11 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Noticication Title - Senders_Name",
+                              "Noticication - Senders_Name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              "Lorem ipsum dolor sit amet,consectetur ",
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -292,11 +292,11 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Noticication Title - Senders_Name",
+                              "Noticication  - Senders_Name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              "Lorem ipsum dolor sit amet,consectetur ",
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -323,11 +323,11 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Noticication Title - Senders_Name",
+                              "Noticication  - Senders_Name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              "Lorem ipsum dolor sit amet,consectetur ",
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -355,11 +355,11 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Noticication Title - Senders_Name",
+                              "Noticication  - Senders_Name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              "Lorem ipsum dolor sit amet,consectetur ",
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -387,11 +387,11 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Noticication Title - Senders_Name",
+                              "Noticication  - Senders_Name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              "Lorem ipsum dolor sit amet,consectetur ",
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
