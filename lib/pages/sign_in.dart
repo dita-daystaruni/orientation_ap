@@ -15,6 +15,7 @@ class _SignInState extends State<SignIn> {
   TextEditingController passwordcontroller = TextEditingController();
   bool ischecked = false;
   bool ispasswordvisible = false;
+  bool iswaiting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -140,21 +141,56 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 20,
                     ),
-                    FilledButton(
-                      onPressed: () async {
-                        await signIn(
-                          admnocontroller.text.trim(),
-                          passwordcontroller.text.trim(),
-                        );
-                      },
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                      ),
-                      child: const Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
+                    iswaiting
+                        ? const CircularProgressIndicator()
+                        : FilledButton(
+                            onPressed: () async {
+                              // validating user input
+                              if (admnocontroller.text.trim().isEmpty ||
+                                  passwordcontroller.text.trim().isEmpty) {
+                                Get.snackbar('Empty Field(s)',
+                                    'Ensure you have filled all the fiels');
+                              } else if (!ischecked) {
+                                Get.snackbar('Required',
+                                    'Please Accept Terms And Conditions');
+                              } else {
+                                setState(() {
+                                  iswaiting = !iswaiting;
+                                });
+                                // sending login request
+                                var response = await signIn(
+                                  admnocontroller.text.trim(),
+                                  passwordcontroller.text.trim(),
+                                );
+                                switch (response[0]) {
+                                  case 200:
+                                    // required processes for login
+                                    Get.offAndToNamed('/home_page');
+                                  case < 500:
+                                    setState(() {
+                                      iswaiting = !iswaiting;
+                                    });
+                                    Get.snackbar('Error', response[1]['error']);
+                                  default:
+                                    // server problems
+                                    debugPrint(response[0] as String);
+                                    setState(() {
+                                      iswaiting = !iswaiting;
+                                    });
+                                    Get.snackbar('Something Went Wrong!!',
+                                        'Retry Or Contact dita@daystar.ac.ke To Report Incidence');
+                                }
+                              }
+                            },
+                            style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.blue),
+                            ),
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
                   ],
                 ),
               ),
