@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:orientation_app/models/custom_appbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,9 +8,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,6 +91,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+              // TODO Convert To A List View Builder
               const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -255,20 +257,30 @@ class HomePage extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       SizedBox(
-                        height: 80,
-                        width: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Noticication - Senders_Name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet,consectetur ",
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                          ],
+                        height: 20,
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 80,
+                          width: 320,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Noticication Title - Senders_Name",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Center(
+                                child: Text(
+                                  "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -285,52 +297,24 @@ class HomePage extends StatelessWidget {
                         size: 45,
                         color: Colors.blue,
                       ),
-                      SizedBox(
-                        height: 80,
-                        width: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Noticication  - Senders_Name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet,consectetur ",
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.circle_notifications_rounded,
-                        size: 45,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(
-                        height: 80,
-                        width: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Noticication  - Senders_Name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet,consectetur ",
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                          ],
+                      Center(
+                        child: SizedBox(
+                          height: 80,
+                          width: 320,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Noticication Title - Senders_Name",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                                style: TextStyle(fontWeight: FontWeight.normal),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -338,69 +322,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               //End of card
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.circle_notifications_rounded,
-                        size: 45,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(
-                        height: 80,
-                        width: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Noticication  - Senders_Name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet,consectetur ",
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              //end of another card
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.circle_notifications_rounded,
-                        size: 45,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(
-                        height: 80,
-                        width: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Noticication  - Senders_Name",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet,consectetur ",
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
