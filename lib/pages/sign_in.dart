@@ -14,7 +14,7 @@ class _SignInState extends State<SignIn> {
 
   TextEditingController passwordcontroller = TextEditingController();
   bool ischecked = false;
-  bool ispasswordvisible = false;
+  bool ispasswordvisible = true;
   bool iswaiting = false;
 
   @override
@@ -136,7 +136,7 @@ class _SignInState extends State<SignIn> {
                         const Text(
                           "I agree to Terms & Conditions",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.normal),
+                              fontSize: 16, fontWeight: FontWeight.normal,),
                         ),
                       ],
                     ),

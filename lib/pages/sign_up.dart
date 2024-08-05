@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/services/authentication.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -167,7 +168,9 @@ class _SignUpState extends State<SignUp> {
                       height: 20,
                     ),
                     FilledButton(
-                      onPressed: navigatetosingin,
+                      onPressed: ()async{
+                        var response = await singUp(admnocontroller.text.trim(), emailcon, userName)
+                      },
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),
                       ),

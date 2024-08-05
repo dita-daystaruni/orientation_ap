@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:orientation_app/models/custom_appbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -58,7 +59,7 @@ class HomePage extends StatelessWidget {
                         Row(
                           children: [
                             Icon(Icons.place_outlined),
-                            Text("Loacation")
+                            Text("Location")
                           ],
                         ),
                         SizedBox(
@@ -91,7 +92,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              // TODO Convert To A List View Builder
+
               const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -238,7 +239,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.blue,
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {Get.toNamed('/notifications')},
                     ),
                   ),
                 ],

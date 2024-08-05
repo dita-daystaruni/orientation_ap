@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
+import '../pages/faq.dart';
+import '../pages/profile.dart';
 import '../pages/routines.dart';
 
 class BottomNav extends StatefulWidget {
@@ -15,8 +17,8 @@ class _BottomNavState extends State<BottomNav> {
   final pages = [
     const HomePage(),
     const Routines(),
-    // const Faq(),
-    // const Profile(),
+    const Faq(),
+    const Profile(),
   ];
 
   @override
