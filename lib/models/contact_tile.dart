@@ -4,30 +4,38 @@ class ContactTile extends StatelessWidget {
   final String label;
   final String? name;
   final String? contact;
+  final Color bgColor;
 
-  ContactTile({super.key, required this.label, this.name, this.contact});
+  const ContactTile(
+      {super.key,
+      required this.label,
+      this.name,
+      this.contact,
+      required this.bgColor});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            children: [
-              CircleAvatar(
-                child: Text(label),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, bottom: 8),
+        child: Column(
+          children: [
+            CircleAvatar(
+              maxRadius: 27,
+              backgroundColor: bgColor,
+              child: Text(
+                label,
+                style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(
-                height: 18,
-              ),
-              name != null ? Text(name!) : const Text(''),
-              const SizedBox(
-                height: 18,
-              ),
-              contact != null ? Text(contact!) : const Text(''),
-            ],
-          ),
+            ),
+            name != null
+                ? Text(name!)
+                : const Text(
+                    'Title',
+                    style: TextStyle(fontWeight: FontWeight.w200),
+                  ),
+            contact != null ? Text(contact!) : const Text(''),
+          ],
         ),
       ),
     );

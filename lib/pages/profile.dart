@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/contact_tile.dart';
+
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
@@ -30,11 +32,24 @@ class Profile extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const CircleAvatar(
-              child: Text('MN'),
+            const Column(
+              children: [
+                Row(
+                  children: [
+                    ContactTile(label: 'MN', bgColor: Colors.blueGrey),
+                     SizedBox(
+                      width: 22,
+                    ),
+                    ContactTile(label: "BG", bgColor: Colors.brown),
+                    SizedBox(width: 22,),
+                    ContactTile(label: 'MN', bgColor: Colors.blueGrey),
+                    
+                  ],
+                )
+              ],
             ),
-            const Spacer(),
-            OutlinedButton(
+            // const Spacer(),
+            FilledButton(
               onPressed: () {
                 const AboutDialog(
                   applicationLegalese: 'Are you sure?',

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/models/contact_tile.dart';
 import 'package:orientation_app/models/custom_appbar.dart';
+import 'package:orientation_app/models/eventnotification.dart';
+import 'package:orientation_app/models/freshmandashboard.dart';
+import 'package:orientation_app/models/g9dashb.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,207 +17,16 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomAppBar(),
-              //end of the Nav_ListTile
               const SizedBox(
                 height: 20,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 12.0),
-                child: Text(
-                  "Upcoming activity",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Card(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/images/students.png",
-                        height: 170,
-                        width: 110,
-                      ),
-                    ),
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Activity name",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.place_outlined),
-                            Text("Location")
-                          ],
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.watch_later_outlined),
-                            Text("8:00AM - 10:00AM")
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              //end of the card
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 12.0),
-                child: Text(
-                  "Contacts",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
 
-              const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 177, 102, 75),
-                        radius: 25,
-                        child: Text(
-                          "MN",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 177, 102, 75),
-                        radius: 25,
-                        child: Text(
-                          "MN",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 177, 102, 75),
-                        radius: 25,
-                        child: Text(
-                          "MN",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 177, 102, 75),
-                        radius: 25,
-                        child: Text(
-                          "MN",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 75, 157, 177),
-                        radius: 25,
-                        child: Text(
-                          "BR",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const FreshmanDashboard(),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -258,34 +71,40 @@ class HomePage extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       SizedBox(
-                        height: 20,
+                        width: 10,
                       ),
-                      Center(
-                        child: SizedBox(
-                          height: 80,
-                          width: 320,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Noticication Title - Senders_Name",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 80,
+                        width: 320,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Noticication Title - Senders_Name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
                               ),
-                              Center(
-                                child: Text(
-                                  "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       )
                     ],
                   ),
+                ),
+              ),
+              const Card(
+                child: EventsNotification(
+                  event: 'Event name',
+                  content:
+                      'Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por',
                 ),
               ),
               const Card(
@@ -298,24 +117,30 @@ class HomePage extends StatelessWidget {
                         size: 45,
                         color: Colors.blue,
                       ),
-                      Center(
-                        child: SizedBox(
-                          height: 80,
-                          width: 320,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Noticication Title - Senders_Name",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SizedBox(
+                        height: 80,
+                        width: 320,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Noticication Title - Senders_Name",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
                               ),
-                              Text(
-                                "Lorem ipsum dolor sit amet,consectetur adipiscing elit pulor por",
-                                style: TextStyle(fontWeight: FontWeight.normal),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       )
                     ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/services/authentication.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -17,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController confirmpasswordcontroller =
       TextEditingController();
 
+  var usertype = 'freshman';
   bool ispasswordvisible = true;
   bool isconfirmpasswordvisible = true;
   bool ischecked = false;
@@ -168,8 +168,9 @@ class _SignUpState extends State<SignUp> {
                       height: 20,
                     ),
                     FilledButton(
-                      onPressed: ()async{
-                        var response = await singUp(admnocontroller.text.trim(), emailcon, userName)
+                      onPressed: () async {
+                        navigatetosingin();
+                        // var response = await singUp(admnocontroller.text.trim(), , userName)
                       },
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),

@@ -136,7 +136,9 @@ class _SignInState extends State<SignIn> {
                         const Text(
                           "I agree to Terms & Conditions",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.normal,),
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ],
                     ),
@@ -148,7 +150,6 @@ class _SignInState extends State<SignIn> {
                         : FilledButton(
                             onPressed: () async {
                               // validating user input
-                              Get.offAllNamed('landing_page');
                               if (admnocontroller.text.trim().isEmpty ||
                                   passwordcontroller.text.trim().isEmpty) {
                                 Get.snackbar('Empty Field(s)',
@@ -168,7 +169,8 @@ class _SignInState extends State<SignIn> {
                                 switch (response[0]) {
                                   case 200:
                                     // required processes for login
-                                    Get.offAndToNamed('/home_page');
+                                    Get.offAndToNamed('/landing_page');
+                                    print(response[1]);
                                   case < 500:
                                     setState(() {
                                       iswaiting = !iswaiting;

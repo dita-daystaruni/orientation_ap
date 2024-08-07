@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:http/http.dart' as http;
 
 String baseUrl = 'http://34.239.49.60:80';
@@ -13,7 +12,7 @@ Future signIn(
   String password,
 ) async {
   var response = await http.post(
-    Uri.parse('$baseUrl/api/login/'),
+    Uri.parse('$baseUrl/account/login/'),
     headers: headers,
     body: jsonEncode(<String, String>{
       "admission_number": admissionNo,
