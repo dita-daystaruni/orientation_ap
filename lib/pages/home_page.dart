@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:orientation_app/models/contact_tile.dart';
 import 'package:orientation_app/models/custom_appbar.dart';
 import 'package:orientation_app/models/eventnotification.dart';
 import 'package:orientation_app/models/freshmandashboard.dart';
-import 'package:orientation_app/models/g9dashb.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

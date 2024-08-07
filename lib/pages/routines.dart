@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:orientation_app/models/events_tile.dart';
 
 class Routines extends StatelessWidget {
@@ -24,7 +23,6 @@ class Routines extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {},
-                    autofocus: true,
                     child: const Text(
                       'Routine',
                       style: TextStyle(color: Colors.blue),
@@ -135,26 +133,26 @@ class Routines extends StatelessWidget {
                 ),
                 Divider(),
                 EventsTile(
-                  time: '8:00 AM',
-                  eventtitle: 'Ruto 4 President',
-                  eventdesc: 'Jaba Jaba Jaba',
+                  time: '8:00AM',
+                  eventtitle: 'Activity name',
+                  eventdesc: 'Location',
                 ),
                 Divider(),
                 EventsTile(
-                  time: '10:00 AM',
-                  eventtitle: 'Pastor na Ragged',
-                  eventdesc: 'Gen Z',
+                  time: '10:00AM',
+                  eventtitle: 'Activity name',
+                  eventdesc: 'Location',
                 ),
                 Divider(),
                 EventsTile(
                     time: '13.00PM',
-                    eventtitle: 'Lunch Time',
-                    eventdesc: 'Kuninama'),
+                    eventtitle: 'Activity name',
+                    eventdesc: 'Location'),
                 Divider(),
                 EventsTile(
-                    time: '16.00',
-                    eventtitle: 'Home Time',
-                    eventdesc: 'Sasa ni saa kumi kwaheri'),
+                    time: '16.00PM',
+                    eventtitle: 'Activity name',
+                    eventdesc: 'Location'),
                 Divider(),
               ],
             ),

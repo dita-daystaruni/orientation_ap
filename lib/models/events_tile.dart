@@ -14,36 +14,32 @@ class EventsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Divider(),
-        Text(time),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              eventtitle,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              eventdesc,
-              style: const TextStyle(
-                fontStyle: FontStyle.normal,
-              ),
-            ),
-          ],
-        ),
-        IconButton(
-          icon: const Icon(Icons.navigate_next),
-          onPressed: () {},
-        ),
-        const Divider(),
-      ],
-
+    return ListTile(
+      leading: Text(
+        time,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      horizontalTitleGap: 40,
+      title: Text(
+        eventtitle,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      subtitle: Row(
+        children: [
+          const Icon(
+            Icons.place_outlined,
+            color: Colors.blue,
+          ),
+          Text(
+            eventdesc,
+            style: const TextStyle(fontWeight: FontWeight.w300),
+          )
+        ],
+      ),
+      trailing: const Icon(
+        Icons.navigate_next,
+        size: 30,
+      ),
     );
   }
 }
