@@ -29,12 +29,21 @@ class ContactTile extends StatelessWidget {
               ),
             ),
             name != null
-                ? Text(name!)
+                ? Text(
+                    name!,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  )
                 : const Text(
                     'Title',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   ),
-            contact != null ? Text(contact!) : const Text(''),
+            contact != null
+                ? Text(
+                    contact!,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.grey),
+                  )
+                : const Text(''),
           ],
         ),
       ),

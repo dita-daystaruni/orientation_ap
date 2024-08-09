@@ -150,6 +150,7 @@ class _SignInState extends State<SignIn> {
                         : FilledButton(
                             onPressed: () async {
                               // validating user input
+                              Get.offAllNamed('/landing_page');
                               if (admnocontroller.text.trim().isEmpty ||
                                   passwordcontroller.text.trim().isEmpty) {
                                 Get.snackbar('Empty Field(s)',

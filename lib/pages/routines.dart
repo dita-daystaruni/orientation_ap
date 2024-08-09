@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:orientation_app/models/daystile.dart';
 import 'package:orientation_app/models/events_tile.dart';
 
 class Routines extends StatelessWidget {
@@ -21,24 +24,29 @@ class Routines extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Routine',
-                      style: TextStyle(color: Colors.blue),
+                  SizedBox(
+                    width: 120,
+                    height: 48,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Routine',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 35,
                   ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.white),
-                    ),
-                    child: const Text(
-                      "Routine",
-                      style: TextStyle(color: Colors.blue),
+                  SizedBox(
+                    width: 120,
+                    height: 48,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Events',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                     ),
                   ),
                 ],
@@ -50,75 +58,29 @@ class Routines extends StatelessWidget {
             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //card1
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('Mon'),
-                          Text('17th'),
-                        ],
-                      ),
-                    ),
-                  ),
+                  DaysTile(day: 'Mon', date: '17'),
                   SizedBox(
                     height: 20,
                   ),
-                  //card 2
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('Tue'),
-                          Text('18th'),
-                        ],
-                      ),
-                    ),
-                  ),
+                  DaysTile(day: 'Tue', date: '18'),
                   SizedBox(
                     height: 20,
                   ),
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('Wed'),
-                          Text('19th'),
-                        ],
-                      ),
-                    ),
-                  ),
+                  DaysTile(day: 'Wed', date: '19'),
                   SizedBox(
                     height: 20,
                   ),
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('Thur'),
-                          Text('20th'),
-                        ],
-                      ),
-                    ),
-                  ),
+                  DaysTile(day: 'Thur', date: '20'),
                   SizedBox(
                     height: 20,
                   ),
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('Fri'),
-                          Text('21st'),
-                        ],
-                      ),
-                    ),
+                  DaysTile(day: 'Fri', date: '21'),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),

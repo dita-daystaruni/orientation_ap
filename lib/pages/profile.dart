@@ -1,72 +1,55 @@
 import 'package:flutter/material.dart';
 
-import '../models/contact_tile.dart';
-
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const ListTile(
-              trailing: Icon(Icons.notifications),
+            ListTile(
+              leading: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.notifications_outlined)),
+              trailing: const Icon(Icons.logout),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             Image.asset(
               'assets/images/profile.png',
               height: 150,
             ),
+            const SizedBox(
+              height: 30,
+            ),
             Text(
               'John Kamau',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
+            //const FamilyList(),
             Text(
-              'Family',
+              'contact',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Column(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    ContactTile(label: 'MN', bgColor: Colors.blueGrey),
-                     SizedBox(
-                      width: 22,
-                    ),
-                    ContactTile(label: "BG", bgColor: Colors.brown),
-                    SizedBox(width: 22,),
-                    ContactTile(label: 'MN', bgColor: Colors.blueGrey),
-                    
-                  ],
-                )
+                Text(
+                  'Personal Details',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ],
             ),
-            // const Spacer(),
-            FilledButton(
-              onPressed: () {
-                const AboutDialog(
-                  applicationLegalese: 'Are you sure?',
-                  applicationName: 'Confrim Action',
-                  applicationIcon: Icon(Icons.logout_outlined),
-                );
-              },
-              style: const ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(Colors.blue)),
-              child: const Text(
-                'Log Out',
-                style: TextStyle(),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            )
+
+            const Spacer(),
           ],
         ),
       ),

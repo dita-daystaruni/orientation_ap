@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Faq extends StatelessWidget {
+class Faq extends StatefulWidget {
   const Faq({super.key});
+
+  @override
+  State<Faq> createState() => _FaqState();
+}
+
+class _FaqState extends State<Faq> {
+  bool isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +35,25 @@ class Faq extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ListTile(
-                      leading: const Icon(
-                        Icons.question_mark,
-                        color: Colors.amber,
-                        size: 40,
-                        weight: 10,
+                      leading: Image.asset(
+                        'assets/images/questionmark.png',
+                        height: 67,
                       ),
                       title: const Text(
                         'Where is the PAC?',
                       ),
                       trailing: IconButton(
-                        icon: const Icon(
-                          Icons.navigate_next,
+                        icon: Icon(
+                          isExpanded
+                              ? Icons.keyboard_arrow_down
+                              : Icons.navigate_next,
                         ),
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
+                        },
                       ),
                     ),
                   ),
@@ -56,19 +67,25 @@ class Faq extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ListTile(
-                      leading: const Icon(
-                        Icons.question_mark,
-                        color: Colors.deepPurpleAccent,
-                        size: 40,
-                        weight: 10,
+                      leading: Image.asset(
+                        'assets/images/questionmark.png',
+                        height: 67,
                       ),
                       title: const Text(
                         'Are we coming to school tomorrow?',
                       ),
                       trailing: IconButton(
-                        icon: const Icon(Icons.navigate_next),
+                        icon: Icon(
+                          isExpanded
+                              ? Icons.keyboard_arrow_down
+                              : Icons.navigate_next,
+                        ),
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
+                        },
                       ),
                     ),
                   ),
