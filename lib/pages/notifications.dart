@@ -9,6 +9,10 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Hello'),
+        automaticallyImplyLeading: true,
+      ),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(16.0),

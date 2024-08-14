@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:orientation_app/pages/eventspage.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
 import '../pages/faq.dart';
 import '../pages/profile.dart';
-import '../pages/routines.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -27,11 +27,10 @@ class _BottomNavState extends State<BottomNav> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BottomNavigationBar(
-          elevation: 18,
           currentIndex: selectedIndex,
+          elevation: 0,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
-          enableFeedback: true,
           onTap: (int value) {
             setState(() {
               selectedIndex = value;

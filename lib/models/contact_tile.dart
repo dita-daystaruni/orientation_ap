@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/pages/contactdetails.dart';
 
 class ContactTile extends StatelessWidget {
   final String label;
@@ -20,12 +23,17 @@ class ContactTile extends StatelessWidget {
         padding: const EdgeInsets.only(left: 8, bottom: 8),
         child: Column(
           children: [
-            CircleAvatar(
-              maxRadius: 27,
-              backgroundColor: bgColor,
-              child: Text(
-                label,
-                style: const TextStyle(color: Colors.white),
+            InkWell(
+              onTap: () {
+                Get.to(const ContactDetails());
+              },
+              child: CircleAvatar(
+                maxRadius: 27,
+                backgroundColor: bgColor,
+                child: Text(
+                  label,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
             name != null

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:orientation_app/models/contact_tile.dart';
 
 class FreshmanDashboard extends StatelessWidget {
@@ -15,6 +16,8 @@ class FreshmanDashboard extends StatelessWidget {
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Card(
+          color: Colors.white,
+          elevation: 5,
           child: Row(
             children: [
               Padding(

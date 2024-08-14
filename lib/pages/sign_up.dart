@@ -46,7 +46,7 @@ class _SignUpState extends State<SignUp> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/business-3d-black-graduation-cap.png",
+                      "assets/images/grajweshencap.png",
                       height: 150,
                     ),
                     const SizedBox(
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                         Icons.done_rounded,
                         color: Colors.green,
                       ),
-                      label: const Text("Confrim"),
+                      label: const Text("Confirm"),
                     ),
                     const SizedBox(
                       height: 20,

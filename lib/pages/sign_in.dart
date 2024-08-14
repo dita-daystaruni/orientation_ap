@@ -41,7 +41,7 @@ class _SignInState extends State<SignIn> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/business-3d-black-graduation-cap.png",
+                      "assets/images/grajweshencap.png",
                       height: 150,
                       width: 200,
                     ),
