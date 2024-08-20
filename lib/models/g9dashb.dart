@@ -1,84 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/models/contact_tile.dart';
+import 'package:orientation_app/models/events_tile.dart';
 
 class G9dashboard extends StatelessWidget {
   const G9dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Statistics Card
-              Card(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // Statistics Card
+            SizedBox(
+              height: 210,
+              width: 165,
+              child: Card(
                 elevation: 5,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
                         'Statistics',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(
-                        height: 22,
+                        height: 20,
                       ),
                       Text(
                         '327',
-                        style: Theme.of(context).textTheme.headlineLarge,
+                        // style: TextStyle(fontSize: 64),
+                        style: Theme.of(context).textTheme.displayLarge,
+                      ),
+                      const Text(
+                        'New students',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w200, fontSize: 12),
                       ),
                       const SizedBox(
-                        height: 22,
-                      ),
-                      Text(
-                        'New students',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                        height: 20,
+                      )
                     ],
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              // Families Card
-              Card(
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+
+            // Families Card
+            SizedBox(
+              height: 210,
+              width: 165,
+              child: Card(
                 elevation: 5,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         'Families',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(
-                        height: 22,
+                        height: 10,
                       ),
                       // First row of Contact Tiles
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ContactTile(
-                            label: "MN",
-                            name: 'Parent',
-                            bgColor: Colors.brown,
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 22,
+                                backgroundColor:
+                                    Color.fromRGBO(209, 153, 85, 1),
+                                child: Text(
+                                  'MN',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Text('data'),
+                            ],
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          ContactTile(
-                            label: "BR",
-                            name: 'Parent',
-                            bgColor: Colors.blueGrey,
-                          ),
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 22,
+                                backgroundColor: Colors.blueGrey,
+                                child: Text(
+                                  'MN',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Text('data'),
+                            ],
+                          )
                         ],
                       ),
 
@@ -86,29 +111,68 @@ class G9dashboard extends StatelessWidget {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ContactTile(
-                            label: "JK",
-                            name: 'Parent',
-                            bgColor: Colors.brown,
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 22,
+                                backgroundColor: Colors.blueGrey,
+                                child: Text(
+                                  'MN',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Text('data'),
+                            ],
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          ContactTile(
-                            label: "LC",
-                            name: 'Parent',
-                            bgColor: Colors.blueGrey,
-                          ),
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 22,
+                                backgroundColor:
+                                    Color.fromRGBO(209, 153, 85, 1),
+                                child: Text(
+                                  'MN',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Text('data'),
+                            ],
+                          )
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "  Upcoming activity",
+                style: Theme.of(context).textTheme.titleSmall,
+                textAlign: TextAlign.start,
+              ),
+              const Divider(),
+              const EventsTile(
+                time: '8.00AM',
+                eventdesc: 'Location',
+                eventtitle: 'Activity name',
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
