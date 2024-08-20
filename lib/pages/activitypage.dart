@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({super.key});
@@ -7,6 +8,7 @@ class ActivityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

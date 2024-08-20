@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 import 'package:orientation_app/services/authentication.dart';
 
 class SignIn extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 import 'package:orientation_app/models/custom_appbar.dart';
 import 'package:orientation_app/models/eventnotification.dart';
 import 'package:orientation_app/models/freshmandashboard.dart';
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,7 +19,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const CustomAppBar(),
-            const SizedBox(height: 20),
+            const Spacer(),
             const FreshmanDashboard(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +47,10 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            // TODO fix spacing
+            const SizedBox(
+              height: 10,
+            ),
             // Wrapping the notifications section in a SingleChildScrollView
             const Expanded(
               child: SingleChildScrollView(
@@ -69,6 +74,8 @@ class Homepagenotifications extends StatelessWidget {
     return const Column(
       children: [
         Card(
+          surfaceTintColor: CustomColors.backgroundColor,
+          color: CustomColors.backgroundColor,
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(

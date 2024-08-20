@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 
 class Faq extends StatefulWidget {
   const Faq({super.key});
@@ -13,6 +14,7 @@ class _FaqState extends State<Faq> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

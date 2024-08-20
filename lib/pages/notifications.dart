@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 import 'package:orientation_app/models/notificationslide.dart';
 
 class Notifications extends StatelessWidget {
@@ -9,6 +10,7 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       appBar: AppBar(
         title: const Text('Hello'),
         automaticallyImplyLeading: true,

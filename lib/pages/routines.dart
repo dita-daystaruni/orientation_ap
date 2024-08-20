@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 import 'package:orientation_app/models/daystile.dart';
 import 'package:orientation_app/models/events_tile.dart';
 
@@ -8,6 +9,7 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

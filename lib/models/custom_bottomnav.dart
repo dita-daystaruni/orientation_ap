@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 import 'package:orientation_app/pages/eventspage.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
@@ -24,13 +25,15 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BottomNavigationBar(
+          backgroundColor: CustomColors.backgroundColor,
           currentIndex: selectedIndex,
           elevation: 0,
           selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
+          unselectedItemColor: CustomColors.buttonColor,
           onTap: (int value) {
             setState(() {
               selectedIndex = value;
@@ -38,6 +41,7 @@ class _BottomNavState extends State<BottomNav> {
           },
           items: const [
             BottomNavigationBarItem(
+              backgroundColor: CustomColors.backgroundColor,
               icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
