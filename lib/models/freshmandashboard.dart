@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:orientation_app/models/contact_tile.dart';
 
 class FreshmanDashboard extends StatelessWidget {
@@ -43,7 +42,9 @@ class FreshmanDashboard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.place_outlined,
-                        color: Colors.blue,
+                      ),
+                      SizedBox(
+                        width: 10,
                       ),
                       Text("Location")
                     ],
@@ -55,7 +56,9 @@ class FreshmanDashboard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.watch_later_outlined,
-                        color: Colors.blue,
+                      ),
+                      SizedBox(
+                        width: 10,
                       ),
                       Text("8:00AM - 10:00AM")
                     ],
@@ -85,42 +88,52 @@ class FreshmanDashboard extends StatelessWidget {
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ContactTile(
+                
                 label: 'MN',
                 bgColor: Color.fromRGBO(209, 153, 85, 1),
               ),
               ContactTile(
+                
                 label: 'BR',
                 bgColor: Color.fromRGBO(49, 125, 137, 1),
               ),
               ContactTile(
+                
                 label: 'MN',
                 bgColor: Color.fromRGBO(209, 153, 85, 1),
               ),
               ContactTile(
+                
                 label: 'BR',
                 bgColor: Color.fromRGBO(49, 125, 137, 1),
               ),
               ContactTile(
+                
                 label: 'MN',
                 bgColor: Color.fromRGBO(209, 153, 85, 1),
               ),
               ContactTile(
+                
                 label: 'BR',
                 bgColor: Color.fromRGBO(49, 125, 137, 1),
               ),
               ContactTile(
+                
                 label: 'MN',
                 bgColor: Color.fromRGBO(209, 153, 85, 1),
               ),
               ContactTile(
+                
                 label: 'BR',
                 bgColor: Color.fromRGBO(49, 125, 137, 1),
               ),
               ContactTile(
+                
                 label: 'MN',
                 bgColor: Color.fromRGBO(209, 153, 85, 1),
               ),
               ContactTile(
+                
                 label: 'BR',
                 bgColor: Color.fromRGBO(49, 125, 137, 1),
               ),

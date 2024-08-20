@@ -9,7 +9,7 @@ class Faq extends StatefulWidget {
 }
 
 class _FaqState extends State<Faq> {
-  bool isExpanded = true;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {

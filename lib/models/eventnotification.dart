@@ -13,6 +13,7 @@ class EventsNotification extends StatelessWidget {
         'assets/images/notify.png',
         height: 80,
       ),
+      // isThreeLine: true,
       title: Text(
         event,
         style: Theme.of(context).textTheme.titleMedium,

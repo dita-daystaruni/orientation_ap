@@ -1,7 +1,7 @@
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:orientation_app/models/custom_bottomnav.dart';
 import 'package:orientation_app/pages/activitypage.dart';
-import 'package:orientation_app/pages/eventspage.dart';
+import 'package:orientation_app/pages/routines&events.dart';
 import 'package:orientation_app/pages/notifications.dart';
 import 'package:orientation_app/pages/routines.dart';
 import 'package:orientation_app/pages/sign_in.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants.dart/custom_colors.dart';
-import 'package:orientation_app/pages/eventspage.dart';
+import 'package:orientation_app/pages/routines&events.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
 import '../pages/faq.dart';

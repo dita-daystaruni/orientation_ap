@@ -12,13 +12,10 @@ class NotificationSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: IconButton(
-        icon: const Icon(
-          Icons.notifications_none_outlined,
-          color: Colors.blue,
-          size: 35,
-        ),
-        onPressed: () {},
+      leading: const Icon(
+        Icons.notifications_none_outlined,
+        color: Colors.blue,
+        size: 35,
       ),
       title: Text(
         title,

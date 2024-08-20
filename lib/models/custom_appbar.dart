@@ -7,7 +7,7 @@ const CustomAppBar({super.key});
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 20.0,
+        top: 10.0,
       ),
       child: ListTile(
         leading: Image.asset(
