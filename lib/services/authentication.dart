@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-String baseUrl = 'http://34.239.49.60:80';
+String baseUrl = 'http://62.169.16.219:81';
 const Map<String, String> headers = {
   'Content-type': 'application/json; charset=UTF-8',
 };
