@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants.dart/custom_colors.dart';
-import 'package:orientation_app/models/contact_tile.dart';
+import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/pages/profile.dart';
 
 class ContactDetails extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants.dart/custom_colors.dart';
-import 'package:orientation_app/models/familylist.dart';
+import 'package:orientation_app/widgets/familylist.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

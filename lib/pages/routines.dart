@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants.dart/custom_colors.dart';
-import 'package:orientation_app/models/daystile.dart';
-import 'package:orientation_app/models/events_tile.dart';
+import 'package:orientation_app/widgets/daystile.dart';
+import 'package:orientation_app/widgets/events_tile.dart';
 
 class EventsPage extends StatelessWidget {
   const EventsPage({super.key});
@@ -97,26 +97,20 @@ class EventsPage extends StatelessWidget {
                     ),
                     Divider(),
                     EventsTile(
-                      time: '8:00AM',
                       eventtitle: 'Activity name',
                       eventdesc: 'Location',
                     ),
                     Divider(),
                     EventsTile(
-                      time: '10:00AM',
                       eventtitle: 'Activity name',
                       eventdesc: 'Location',
                     ),
                     Divider(),
                     EventsTile(
-                        time: '13.00PM',
-                        eventtitle: 'Activity name',
-                        eventdesc: 'Location'),
+                        eventtitle: 'Activity name', eventdesc: 'Location'),
                     Divider(),
                     EventsTile(
-                        time: '16.00PM',
-                        eventtitle: 'Activity name',
-                        eventdesc: 'Location'),
+                        eventtitle: 'Activity name', eventdesc: 'Location'),
                     Divider(),
                   ],
                 ),
