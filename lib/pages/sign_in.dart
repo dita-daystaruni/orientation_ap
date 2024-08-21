@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/services/authentication.dart';
+import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -20,196 +23,176 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Colors.blue,
-              Colors.white,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/grajweshencap.png",
-                      height: 150,
-                      width: 200,
+      resizeToAvoidBottomInset: true,
+      backgroundColor: CustomColors.backgroundColor,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/grajweshencap.png",
+                  height: 150,
+                  width: 200,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Sign in to your Account",
+                  style: TextStyle(
+                    color: CustomColors.textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 28,
+                  ),
+                ),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Please enter your details to login to your account and keep track of your orientation progress.",
+                    style: TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Sign in to your Account",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        "Please enter your details to login to your account and keep track of your orientation progress.",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: admnocontroller,
                         textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          hintText: 'Admission Number',
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: admnocontroller,
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                              hintText: 'Enter Admission number',
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              hintText: 'Password',
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    ispasswordvisible = !ispasswordvisible;
-                                  });
-                                },
-                                icon: Icon(ispasswordvisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                              ),
-                            ),
-                            controller: passwordcontroller,
-                            obscureText: ispasswordvisible,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextButton(
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          suffixIcon: IconButton(
                             onPressed: () {
-                              Get.offAllNamed('/sign_up');
+                              setState(() {
+                                ispasswordvisible = !ispasswordvisible;
+                              });
                             },
-                            child: const Text(
-                              "First time user or freshman ? Click Here",
-                              // style: TextStyle(
-                              //   decoration: TextDecoration.underline,
-
-                              // ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          value: ischecked,
-                          onChanged: (value) {
-                            setState(() {
-                              ischecked = !ischecked;
-                            });
-                          },
-                        ),
-                        const Text(
-                          "I agree to Terms & Conditions",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                            icon: Icon(ispasswordvisible
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                           ),
                         ),
-                      ],
+                        controller: passwordcontroller,
+                        obscureText: ispasswordvisible,
+                      ),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      activeColor: CustomColors.buttonColor,
+                      value: ischecked,
+                      onChanged: (value) {
+                        setState(() {
+                          ischecked = !ischecked;
+                        });
+                      },
                     ),
-                    const SizedBox(
-                      height: 20,
+                    const Text(
+                      "I agree to Terms & Conditions",
+                      style: TextStyle(
+                        color: CustomColors.textColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
-                    iswaiting
-                        ? const CircularProgressIndicator()
-                        : FilledButton(
-                            onPressed: () async {
-                              // validating user input
-                              Get.offAllNamed('/landing_page');
-                              if (admnocontroller.text.trim().isEmpty ||
-                                  passwordcontroller.text.trim().isEmpty) {
-                                Get.snackbar('Empty Field(s)',
-                                    'Ensure you have filled all the fiels');
-                              } else if (!ischecked) {
-                                Get.snackbar('Required',
-                                    'Please Accept Terms And Conditions');
-                              } else {
+                  ],
+                ),
+                const Spacer(),
+                iswaiting
+                    ? const CircularProgressIndicator(
+                        color: CustomColors.buttonColor,
+                      )
+                    : FilledButton(
+                        onPressed: () async {
+                          // validating user input
+                          if (admnocontroller.text.trim().isEmpty ||
+                              passwordcontroller.text.trim().isEmpty) {
+                            Get.snackbar('Empty Field(s)',
+                                'Ensure you have filled all the fiels');
+                          } else if (!ischecked) {
+                            Get.snackbar('Required',
+                                'Please Accept Terms And Conditions');
+                          } else {
+                            setState(() {
+                              iswaiting = !iswaiting;
+                            });
+                            // sending login request
+                            var response = await signIn(
+                              admnocontroller.text.trim(),
+                              passwordcontroller.text.trim(),
+                            );
+                            switch (response[0]) {
+                              case 200:
+                                // successful login take user to login page
+                                User user = User.fromJson(response[1]);
+                                // Get.offAndToNamed("/landing_page");
+                                if (!context.mounted) return;
+                                // drop the current page
+                                Navigator.pop(context);
+                                // move to the next page
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (builder) => BottomNav(
+                                        user: user,
+                                      ),
+                                    ));
+                              case < 500:
                                 setState(() {
                                   iswaiting = !iswaiting;
                                 });
-                                // sending login request
-                                var response = await signIn(
-                                  admnocontroller.text.trim(),
-                                  passwordcontroller.text.trim(),
+                                Get.snackbar('Error', response[1]['error']);
+                              default:
+                                // server problems
+                                debugPrint(response[0] as String);
+                                setState(() {
+                                  iswaiting = !iswaiting;
+                                });
+                                Get.snackbar(
+                                  'Something Went Wrong!!',
+                                  'Retry Or Contact dita@daystar.ac.ke To Report Incidence',
                                 );
-                                switch (response[0]) {
-                                  case 200:
-                                    // required processes for login
-                                    Get.offAndToNamed('/landing_page');
-                                    print(response[1]);
-                                  case < 500:
-                                    setState(() {
-                                      iswaiting = !iswaiting;
-                                    });
-                                    Get.snackbar('Error', response[1]['error']);
-                                  default:
-                                    // server problems
-                                    debugPrint(response[0] as String);
-                                    setState(() {
-                                      iswaiting = !iswaiting;
-                                    });
-                                    Get.snackbar(
-                                      'Something Went Wrong!!',
-                                      'Retry Or Contact dita@daystar.ac.ke To Report Incidence',
-                                    );
-                                }
-                              }
-                            },
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.blue),
-                            ),
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                  ],
-                ),
-              ),
+                            }
+                          }
+                        },
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              CustomColors.buttonColor),
+                        ),
+                        child: const Text(
+                          "Log In",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+              ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  navigatetosingup() {
-    Get.toNamed("/sign_up");
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/models/contact_tile.dart';
+import 'package:orientation_app/widgets/contact_tile.dart';
 
 class FreshmanDashboard extends StatelessWidget {
   const FreshmanDashboard({super.key});
@@ -88,55 +88,55 @@ class FreshmanDashboard extends StatelessWidget {
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ContactTile(
-                
                 label: 'MN',
-                bgColor: Color.fromRGBO(209, 153, 85, 1),
+                idx: 0,
+                sizes: 28,
               ),
-              ContactTile(
-                
-                label: 'BR',
-                bgColor: Color.fromRGBO(49, 125, 137, 1),
-              ),
-              ContactTile(
-                
-                label: 'MN',
-                bgColor: Color.fromRGBO(209, 153, 85, 1),
-              ),
-              ContactTile(
-                
-                label: 'BR',
-                bgColor: Color.fromRGBO(49, 125, 137, 1),
-              ),
-              ContactTile(
-                
-                label: 'MN',
-                bgColor: Color.fromRGBO(209, 153, 85, 1),
-              ),
-              ContactTile(
-                
-                label: 'BR',
-                bgColor: Color.fromRGBO(49, 125, 137, 1),
-              ),
-              ContactTile(
-                
-                label: 'MN',
-                bgColor: Color.fromRGBO(209, 153, 85, 1),
-              ),
-              ContactTile(
-                
-                label: 'BR',
-                bgColor: Color.fromRGBO(49, 125, 137, 1),
-              ),
-              ContactTile(
-                
-                label: 'MN',
-                bgColor: Color.fromRGBO(209, 153, 85, 1),
-              ),
-              ContactTile(
-                
-                label: 'BR',
-                bgColor: Color.fromRGBO(49, 125, 137, 1),
-              ),
+              // ContactTile(
+
+              //   label: 'BR',
+              //   bgColor: Color.fromRGBO(49, 125, 137, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'MN',
+              //   bgColor: Color.fromRGBO(209, 153, 85, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'BR',
+              //   bgColor: Color.fromRGBO(49, 125, 137, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'MN',
+              //   bgColor: Color.fromRGBO(209, 153, 85, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'BR',
+              //   bgColor: Color.fromRGBO(49, 125, 137, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'MN',
+              //   bgColor: Color.fromRGBO(209, 153, 85, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'BR',
+              //   bgColor: Color.fromRGBO(49, 125, 137, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'MN',
+              //   bgColor: Color.fromRGBO(209, 153, 85, 1),
+              // ),
+              // ContactTile(
+
+              //   label: 'BR',
+              //   bgColor: Color.fromRGBO(49, 125, 137, 1),
+              // ),
             ],
           ),
         ),

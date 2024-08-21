@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/constants.dart/custom_colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -8,74 +9,61 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Colors.blue,
-              Colors.white,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  Image.asset(
-                    "assets/images/3d-casual-life-group-of-young-people-discussing-something-while-working.png",
-                    height: 210,
+      backgroundColor: CustomColors.backgroundColor,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Image.asset(
+                  "assets/images/3d-casual-life-group-of-young-people-discussing-something-while-working.png",
+                  height: 210,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Welcome To Daystar",
+                  style: TextStyle(
+                    color: CustomColors.textColor,
+                    fontSize: 35,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Welcome to Daystar",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      "Welcome to  our vibrant community. Get ready to commence this journey of learning, growth, and unforgettable experiences.",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      selectionColor: Colors.blue,
-                      textAlign: TextAlign.center,
+                ),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Welcome to  our vibrant community. Get ready to commence this journey of learning, growth, and unforgettable experiences.",
+                    style: TextStyle(
+                      color: CustomColors.textColor,
                     ),
+                    selectionColor: Colors.blue,
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 20,
+                ),
+                const Spacer(),
+                FilledButton(
+                  onPressed: () => Get.toNamed("/sign_in"),
+                  style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll(CustomColors.buttonColor),
                   ),
-                  FilledButton(
-                    onPressed: gettonextsignin,
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                    ),
-                    child: const Text('Get Started'),
-                  ),
-                  const Spacer(),
-                  Image.asset(
-                    "assets/images/powered_by_dita1.png",
-                    height: 120,
-                  ),
-                ],
-              ),
+                  child: const Text('Get Started'),
+                ),
+                const Spacer(),
+                Image.asset(
+                  "assets/images/powered_by_dita1.png",
+                  height: 120,
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  gettonextsignin() {
-    Get.toNamed("/sign_in");
   }
 }
