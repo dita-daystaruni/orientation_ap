@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/models/events_tile.dart';
+import 'package:orientation_app/widgets/events_tile.dart';
+import 'package:orientation_app/widgets/upcoming_acitivity.dart';
 
 class G9dashboard extends StatelessWidget {
   const G9dashboard({super.key});
@@ -15,7 +16,7 @@ class G9dashboard extends StatelessWidget {
           children: [
             // Statistics Card
             SizedBox(
-              height: 210,
+              height: MediaQuery.of(context).size.height * 0.35,
               width: 165,
               child: Card(
                 elevation: 5,
@@ -153,25 +154,7 @@ class G9dashboard extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "  Upcoming activity",
-                style: Theme.of(context).textTheme.titleSmall,
-                textAlign: TextAlign.start,
-              ),
-              const Divider(),
-              const EventsTile(
-                time: '8.00AM',
-                eventdesc: 'Location',
-                eventtitle: 'Activity name',
-              ),
-            ],
-          ),
-        ),
+        UpcomingActivity(),
       ],
     );
   }

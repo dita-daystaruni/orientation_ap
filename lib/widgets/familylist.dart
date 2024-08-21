@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:orientation_app/models/contact_tile.dart';
+import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/pages/profile.dart';
 
 class FamilyList extends StatelessWidget {
@@ -36,7 +36,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'MN',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(209, 153, 85, 1),
+                  idx: 0,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -49,7 +50,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'BR',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(49, 125, 137, 1),
+                  idx: 1,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -66,7 +68,8 @@ class FamilyList extends StatelessWidget {
                   child: const ContactTile(
                     label: 'MN',
                     name: 'Name',
-                    bgColor: Color.fromRGBO(209, 153, 85, 1),
+                    idx: 2,
+                    sizes: 28,
                   ),
                 ),
               ),
@@ -85,7 +88,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'MN',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(209, 153, 85, 1),
+                  idx: 0,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -98,7 +102,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'BR',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(49, 125, 137, 1),
+                  idx: 1,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -111,7 +116,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'MN',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(209, 153, 85, 1),
+                  idx: 0,
+                  sizes: 28,
                 ),
               ),
             ],
@@ -129,7 +135,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'MN',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(209, 153, 85, 1),
+                  idx: 0,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -142,7 +149,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'BR',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(49, 125, 137, 1),
+                  idx: 1,
+                  sizes: 28,
                 ),
               ),
               const SizedBox(
@@ -155,7 +163,8 @@ class FamilyList extends StatelessWidget {
                 child: const ContactTile(
                   label: 'MN',
                   name: 'Name',
-                  bgColor: Color.fromRGBO(209, 153, 85, 1),
+                  idx: 0,
+                  sizes: 28,
                 ),
               ),
             ],
