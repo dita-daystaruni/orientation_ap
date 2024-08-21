@@ -24,15 +24,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/3d-casual-life-group-of-young-people-discussing-something-while-working.png
-    - assets/images/business-3d-black-graduation-cap.png
-    - assets/images/powered_by_dita1.png
-    - assets/images/profile.png
-    - assets/images/students.png
-    - assets/images/notify.png
-    - assets/images/questionmark.png
-    - assets/images/fluent-emoji-flat_e-mail.png
-    - assets/images/call.png
-    - assets/images/grajweshencap.png
+    - assets/images/
 
     
