@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/services/authentication.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
@@ -165,7 +165,9 @@ class _SignInState extends State<SignIn> {
                                 setState(() {
                                   iswaiting = !iswaiting;
                                 });
-                                Get.snackbar('Error', response[1]['error']);
+                                print(response[0]);
+                                print(response[1]);
+                                Get.snackbar('Error', response[1]['message']);
                               default:
                                 // server problems
                                 debugPrint(response[0] as String);

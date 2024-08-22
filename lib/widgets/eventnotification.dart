@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 
+// notification for events
 class EventsNotification extends StatelessWidget {
   final String event;
   final String content;

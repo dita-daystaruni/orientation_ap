@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/freshman_dashboard_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
 import 'package:orientation_app/pages/parent_dashboard_page.dart';
-import 'package:orientation_app/pages/routines&events.dart';
+import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
 import '../pages/faq.dart';

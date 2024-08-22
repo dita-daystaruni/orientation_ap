@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/custom_appbar.dart';
