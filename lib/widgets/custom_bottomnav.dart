@@ -7,7 +7,7 @@ import 'package:orientation_app/pages/parent_dashboard_page.dart';
 import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
-import '../pages/faq.dart';
+import '../pages/faq_page.dart';
 import '../pages/profile.dart';
 
 class BottomNav extends StatefulWidget {
@@ -26,7 +26,7 @@ class _BottomNavState extends State<BottomNav> {
   int selectedIndex = 0;
   final pages = [
     const Routines(),
-    const Faq(),
+    const FaqPage(),
     const Profile(),
   ];
 

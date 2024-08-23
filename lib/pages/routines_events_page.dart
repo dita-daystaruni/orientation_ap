@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/routes_sessions_controllers.dart';
-import 'package:orientation_app/widgets/daystile.dart';
 import 'package:orientation_app/widgets/upcoming_acitivity.dart';
 
 class Routines extends StatelessWidget {
