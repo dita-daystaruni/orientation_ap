@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/constants.dart/custom_colors.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({super.key});
@@ -8,31 +8,22 @@ class ActivityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: CustomColors.backgroundColor,
+        title: const Text(
+          "Activity Name",
+          style: TextStyle(
+              color: CustomColors.textColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 24),
+        ),
+      ),
       backgroundColor: CustomColors.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            ListTile(
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.navigate_before,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              title: Text(
-                'Activivty Name',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              //trailing: const Icon(Icons.edit),
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 30,
-            ),
             Text(
               '8.00 AM',
               style: Theme.of(context).textTheme.titleMedium,

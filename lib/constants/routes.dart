@@ -1,6 +1,6 @@
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:orientation_app/pages/activitypage.dart';
-import 'package:orientation_app/pages/routines&events.dart';
+import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/notifications.dart';
 import 'package:orientation_app/pages/sign_in.dart';
 import 'package:orientation_app/pages/sign_up.dart';
