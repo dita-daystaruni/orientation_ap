@@ -25,7 +25,7 @@ class G9DashboardPage extends StatelessWidget {
           ),
           // statistics page
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 0,
               horizontal: 8.0,
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/widgets/contact_tile.dart';
-import 'package:orientation_app/pages/profile.dart';
+import 'package:orientation_app/pages/g9_profile_page.dart';
 
 class ContactDetails extends StatelessWidget {
   const ContactDetails({super.key});

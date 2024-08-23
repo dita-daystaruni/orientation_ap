@@ -8,7 +8,7 @@ import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
 
 import '../pages/faq_page.dart';
-import '../pages/profile.dart';
+import '../pages/g9_profile_page.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({
@@ -27,7 +27,7 @@ class _BottomNavState extends State<BottomNav> {
   final pages = [
     const Routines(),
     const FaqPage(),
-    const Profile(),
+    const G9ProfilePage(),
   ];
 
   @override

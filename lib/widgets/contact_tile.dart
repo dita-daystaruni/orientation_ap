@@ -12,6 +12,7 @@ class ContactTile extends StatelessWidget {
     this.title,
     required this.idx,
     required this.sizes,
+    required this.redirectionPage,
   });
 
   final String label;
@@ -20,18 +21,17 @@ class ContactTile extends StatelessWidget {
   final int idx;
   final String? title;
   final double sizes;
+  final Widget redirectionPage;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, bottom: 8),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              Get.to(const ContactDetails());
-            },
-            child: CircleAvatar(
+      child: GestureDetector(
+        onTap: () => Get.to(redirectionPage),
+        child: Column(
+          children: [
+            CircleAvatar(
               radius: sizes,
               backgroundColor: idx % 2 == 0
                   ? CustomColors.iconColorOne
@@ -45,35 +45,25 @@ class ContactTile extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          // const SizedBox(height: 8),
-          name != null
-              ? Text(
-                  name!,
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontSize: sizes,
-                    fontWeight: FontWeight.w500,
+            name != null
+                ? Text(
+                    name!,
+                    style: TextStyle(
+                      color: CustomColors.textColor,
+                      fontSize: sizes,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                : const Text(
+                    "Title",
+                    style: TextStyle(
+                      color: CustomColors.thirdTextColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11,
+                    ),
                   ),
-                )
-              : const Text(
-                  "Title",
-                  style: TextStyle(
-                    color: CustomColors.thirdTextColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 11,
-                  ),
-                ),
-          // const SizedBox(height: 4),
-          // TODO the reason for this
-          // contact != null
-          //     ? Text(
-          //         contact!,
-          //         style: const TextStyle(
-          //             fontWeight: FontWeight.w500, color: Colors.grey),
-          //       )
-          //     : const SizedBox.shrink(),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -85,45 +75,54 @@ var contacts = const [
     label: "RM",
     idx: 0,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 1,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 2,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 3,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 4,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 5,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 6,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 7,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   ),
   ContactTile(
     label: "RM",
     idx: 8,
     sizes: 20,
+    redirectionPage: ContactDetails(),
   )
 ];

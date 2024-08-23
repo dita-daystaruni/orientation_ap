@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/pages/contactdetails.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/custom_appbar.dart';
 import 'package:orientation_app/widgets/ongoing_activity.dart';
@@ -45,7 +46,12 @@ class ParentDashboardPage extends StatelessWidget {
               alignment: Alignment.center,
               child: ListView.builder(
                 itemBuilder: (context, idx) {
-                  return ContactTile(label: "MN", idx: idx, sizes: 25);
+                  return ContactTile(
+                    label: "MN",
+                    idx: idx,
+                    sizes: 25,
+                    redirectionPage: ContactDetails(),
+                  );
                 },
                 itemCount: contacts.length,
                 scrollDirection: Axis.horizontal,
