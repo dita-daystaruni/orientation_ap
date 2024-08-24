@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 
@@ -21,7 +23,11 @@ class ParentProfilePage extends StatelessWidget {
         backgroundColor: CustomColors.backgroundColor,
         leading: IconButton(
           onPressed: () {
-            debugPrint("Coming Soon");
+            Get.to(
+              const NotificationsPage(
+                canEdit: true,
+              ),
+            );
           },
           icon: const Icon(
             Icons.notifications_outlined,

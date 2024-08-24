@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/constants/custom_icons/CustomIcons.dart';
+import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class FreshmanProfilePage extends StatelessWidget {
@@ -21,7 +23,9 @@ class FreshmanProfilePage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            debugPrint("Coming Soon");
+            Get.to(
+              const NotificationsPage(),
+            );
           },
           icon: const Icon(
             Icons.notifications_outlined,

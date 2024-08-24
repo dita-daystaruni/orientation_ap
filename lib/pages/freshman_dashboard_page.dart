@@ -52,7 +52,7 @@ class FreshmanDashboardPage extends StatelessWidget {
                       redirectionPage: const ContactDetails(),
                     );
                   },
-                  itemCount: contacts.length,
+                  itemCount: 10,
                   scrollDirection: Axis.horizontal,
                 ),
               ),

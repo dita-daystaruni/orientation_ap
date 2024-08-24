@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/pages/contactdetails.dart';
 
 class ContactTile extends StatelessWidget {
   const ContactTile({
@@ -70,59 +69,59 @@ class ContactTile extends StatelessWidget {
 }
 
 // example contact list
-var contacts = const [
-  ContactTile(
-    label: "RM",
-    idx: 0,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 1,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 2,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 3,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 4,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 5,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 6,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 7,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  ),
-  ContactTile(
-    label: "RM",
-    idx: 8,
-    sizes: 20,
-    redirectionPage: ContactDetails(),
-  )
-];
+// var contacts = const [
+//   ContactTile(
+//     label: "RM",
+//     idx: 0,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 1,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 2,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 3,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 4,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 5,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 6,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 7,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   ),
+//   ContactTile(
+//     label: "RM",
+//     idx: 8,
+//     sizes: 20,
+//     redirectionPage: ContactDetails(),
+//   )
+// ];

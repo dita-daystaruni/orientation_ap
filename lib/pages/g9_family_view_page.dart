@@ -115,7 +115,7 @@ class G9FamilyViewPage extends StatelessWidget {
                     return ContactTile(
                       label: "RM",
                       idx: idx,
-                      sizes: 35,
+                      sizes: 30,
                       redirectionPage: const StudentDetailsPage(),
                     );
                   },

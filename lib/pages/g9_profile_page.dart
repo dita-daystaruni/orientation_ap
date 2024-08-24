@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
+import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 
 class G9ProfilePage extends StatelessWidget {
@@ -21,7 +23,12 @@ class G9ProfilePage extends StatelessWidget {
         backgroundColor: CustomColors.backgroundColor,
         leading: IconButton(
           onPressed: () {
-            debugPrint("Coming Soon");
+            Get.to(
+              const NotificationsPage(
+                isG9: true,
+                canEdit: true,
+              ),
+            );
           },
           icon: const Icon(
             Icons.notifications_outlined,
@@ -87,7 +94,7 @@ class G9ProfilePage extends StatelessWidget {
                     return ContactTile(
                       label: "RM",
                       idx: idx,
-                      sizes: 35,
+                      sizes: 30,
                       redirectionPage: const G9FamilyViewPage(),
                     );
                   },

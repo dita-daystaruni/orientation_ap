@@ -24,6 +24,8 @@ class ParentDashboardPage extends StatelessWidget {
         children: [
           CustomAppBar(
             firstName: user.firstName,
+            isG9: false,
+            canEdit: true,
           ),
           const Padding(
             padding: EdgeInsets.all(8.0),
@@ -53,7 +55,7 @@ class ParentDashboardPage extends StatelessWidget {
                     redirectionPage: ContactDetails(),
                   );
                 },
-                itemCount: contacts.length,
+                itemCount: 7,
                 scrollDirection: Axis.horizontal,
               ),
             ),

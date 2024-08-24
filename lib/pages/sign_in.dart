@@ -185,8 +185,9 @@ class _SignInState extends State<SignIn> {
                           }
                         },
                         style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              CustomColors.buttonColor),
+                          backgroundColor: WidgetStatePropertyAll(
+                            CustomColors.buttonColor,
+                          ),
                         ),
                         child: const Text(
                           "Log In",

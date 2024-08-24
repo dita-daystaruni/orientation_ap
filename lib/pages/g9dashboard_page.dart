@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/pages/g9_family_view_page.dart';
+import 'package:orientation_app/pages/statistics_page.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/custom_appbar.dart';
 import 'package:orientation_app/widgets/recentnotifications.dart';
@@ -22,6 +25,8 @@ class G9DashboardPage extends StatelessWidget {
         children: [
           CustomAppBar(
             firstName: user.firstName,
+            isG9: true,
+            canEdit: true,
           ),
           // statistics page
           Padding(
@@ -30,7 +35,7 @@ class G9DashboardPage extends StatelessWidget {
               horizontal: 8.0,
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: MediaQuery.of(context).size.height * 0.30,
               child: Row(
                 children: [
                   Padding(
@@ -40,38 +45,43 @@ class G9DashboardPage extends StatelessWidget {
                       left: 4.0,
                       right: 4.0,
                     ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.46,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: CustomColors.iconColorOne,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(30),
-                        ),
+                    child: GestureDetector(
+                      onTap: () => Get.to(
+                        const StatisticsPage(),
                       ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Statistics",
-                            style: TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.44,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: CustomColors.iconColorOne,
                           ),
-                          Text(
-                            "327",
-                            style: TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 64,
-                            ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(30),
                           ),
-                          Text("New Students"),
-                        ],
+                        ),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Statistics",
+                              style: TextStyle(
+                                color: CustomColors.textColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "327",
+                              style: TextStyle(
+                                color: CustomColors.textColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 64,
+                              ),
+                            ),
+                            Text("New Students"),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -84,7 +94,7 @@ class G9DashboardPage extends StatelessWidget {
                       right: 4.0,
                     ),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.46,
+                      width: MediaQuery.of(context).size.width * 0.44,
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: CustomColors.iconColorTwo,
@@ -106,8 +116,7 @@ class G9DashboardPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.25,
+                          Expanded(
                             child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
@@ -116,7 +125,12 @@ class G9DashboardPage extends StatelessWidget {
                                 mainAxisSpacing: 5,
                               ),
                               itemBuilder: (context, idx) {
-                                return contacts[idx];
+                                return const ContactTile(
+                                  label: "RM",
+                                  idx: 8,
+                                  sizes: 20,
+                                  redirectionPage: G9FamilyViewPage(),
+                                );
                               },
                               itemCount: 5,
                               scrollDirection: Axis.vertical,
@@ -133,7 +147,10 @@ class G9DashboardPage extends StatelessWidget {
           const UpcomingActivity(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
-            child: const RecentNotificationsPage(),
+            child: const RecentNotificationsPage(
+              isG9: true,
+              canEdit: true,
+            ),
           )
         ],
       ),

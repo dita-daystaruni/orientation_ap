@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/constants/custom_icons/CustomIcons.dart';
+import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/widgets/documents_tile.dart';
 import 'package:orientation_app/widgets/faqtile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
