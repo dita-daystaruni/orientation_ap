@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orientation_app/widgets/custom_appbar.dart';
 import 'package:orientation_app/widgets/recentnotifications.dart';
-import 'package:orientation_app/pages/freshman_dashboard_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

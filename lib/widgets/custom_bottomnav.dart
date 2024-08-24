@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/freshman_dashboard_page.dart';
+import 'package:orientation_app/pages/freshman_profile_page.dart';
+import 'package:orientation_app/pages/g9_profile_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
 import 'package:orientation_app/pages/parent_dashboard_page.dart';
+import 'package:orientation_app/pages/parent_profile_page.dart';
 import 'package:orientation_app/pages/routines_events_page.dart';
-import 'package:orientation_app/pages/home_page.dart';
 
 import '../pages/faq_page.dart';
-import '../pages/g9_profile_page.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({
@@ -27,7 +28,6 @@ class _BottomNavState extends State<BottomNav> {
   final pages = [
     const Routines(),
     const FaqPage(),
-    const G9ProfilePage(),
   ];
 
   @override
@@ -39,6 +39,7 @@ class _BottomNavState extends State<BottomNav> {
   // initializing user
   void setUser() {
     User user = widget.user;
+    // setting the dashboard
     pages.insert(
       0,
       user.userType == "regular"
@@ -50,6 +51,32 @@ class _BottomNavState extends State<BottomNav> {
                   user: user,
                 )
               : G9DashboardPage(
+                  user: user,
+                ),
+    );
+
+    // setting the faq page
+    pages.insert(
+      2,
+      user.userType == "parent"
+          ? const FaqPage(
+              isParent: true,
+            )
+          : const FaqPage(),
+    );
+
+    // setting the profile page
+    pages.insert(
+      3,
+      user.userType == "regular"
+          ? FreshmanProfilePage(
+              user: user,
+            )
+          : user.userType == "parent"
+              ? ParentProfilePage(
+                  user: user,
+                )
+              : G9ProfilePage(
                   user: user,
                 ),
     );

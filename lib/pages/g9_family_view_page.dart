@@ -54,7 +54,7 @@ class G9FamilyViewPage extends StatelessWidget {
                   ),
                 ),
                 trailingIcon: Icon(
-                  Icons.phone_callback,
+                  Icons.phone,
                   color: CustomColors.buttonColor,
                 ),
               ),

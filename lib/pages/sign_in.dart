@@ -68,6 +68,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       TextFormField(
+                        cursorColor: CustomColors.buttonColor,
                         controller: admnocontroller,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
@@ -78,6 +79,7 @@ class _SignInState extends State<SignIn> {
                         height: 20,
                       ),
                       TextFormField(
+                        cursorColor: CustomColors.buttonColor,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: 'Password',
@@ -141,6 +143,7 @@ class _SignInState extends State<SignIn> {
                               iswaiting = !iswaiting;
                             });
                             // sending login request
+                            // TODO check for timeouts
                             var response = await signIn(
                               admnocontroller.text.trim(),
                               passwordcontroller.text.trim(),

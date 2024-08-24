@@ -54,22 +54,22 @@ class ContactDetails extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            TextIcon(
-              leadingIcon: null,
-              label: '+ 254 712 345 678',
-              trailingIcon: Image.asset(
-                'assets/images/call.png',
-                height: 30,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextIcon(
-              label: 'user@daystar.ac.ke',
-              trailingIcon:
-                  Image.asset('assets/images/fluent-emoji-flat_e-mail.png'),
-            ),
+            // TextIcon(
+            //   leadingIcon: null,
+            //   label: '+ 254 712 345 678',
+            //   trailingIcon: Image.asset(
+            //     'assets/images/call.png',
+            //     height: 30,
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // TextIcon(
+            //   label: 'user@daystar.ac.ke',
+            //   trailingIcon:
+            //       Image.asset('assets/images/fluent-emoji-flat_e-mail.png'),
+            // ),
           ],
         ),
       ),
