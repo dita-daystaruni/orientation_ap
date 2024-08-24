@@ -1,34 +1,127 @@
 import 'package:flutter/material.dart';
+import 'package:orientation_app/constants/custom_colors.dart';
 
 class NotificationSlide extends StatelessWidget {
-  final String title;
-  final String contents;
   const NotificationSlide({
     super.key,
     required this.title,
     required this.contents,
+    required this.time,
   });
+
+  final String title;
+  final String contents;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(
-        Icons.notifications_none_outlined,
-        color: Colors.blue,
-        size: 35,
-      ),
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-      subtitle: Text(contents),
-      trailing: const Column(
-        children: [
-          Icon(Icons.navigate_next, color: Colors.blue),
-          Spacer(),
-          Text('8.00 AM')
-        ],
-      ),
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(
+            Icons.notifications_none_outlined,
+            color: CustomColors.buttonColor,
+            size: 35,
+          ),
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: CustomColors.textColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
+          subtitle: Text(
+            // displays only a section of it if its too much
+            contents.trim().length > 56
+                ? "${contents.substring(
+                    0,
+                    56,
+                  )}..."
+                : contents,
+            style: const TextStyle(
+              color: CustomColors.secondaryTextColor,
+              fontWeight: FontWeight.w300,
+              fontSize: 16,
+            ),
+          ),
+          trailing: Column(
+            children: [
+              IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: CustomColors.backgroundColor,
+                        title: Text(
+                          title,
+                          style: const TextStyle(
+                            color: CustomColors.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                          ),
+                        ),
+                        content: IntrinsicHeight(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Description",
+                                style: TextStyle(
+                                  color: CustomColors.textColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                contents,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: CustomColors.textColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Text(
+                                  time,
+                                  style: const TextStyle(
+                                    color: CustomColors.secondaryTextColor,
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(
+                  Icons.navigate_next,
+                  color: CustomColors.buttonColor,
+                ),
+              ),
+              // const Spacer(),
+              // Text(
+              //   time,
+              //   style: const TextStyle(
+              //     color: CustomColors.textColor,
+              //     // fontWeight: FontWeight.w300,
+              //     fontSize: 13,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+        const Divider(
+          color: CustomColors.indicatorColor,
+        ),
+      ],
     );
   }
 }

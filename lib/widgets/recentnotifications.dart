@@ -2,10 +2,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/widgets/eventnotification.dart';
 
 class RecentNotificationsPage extends StatelessWidget {
-  const RecentNotificationsPage({super.key});
+  const RecentNotificationsPage({
+    super.key,
+    this.isG9 = false,
+    this.canEdit = false,
+  });
+
+  final bool isG9;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,6 @@ class RecentNotificationsPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: TextButton(
@@ -37,16 +44,16 @@ class RecentNotificationsPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                onPressed: () => Get.toNamed('/notifications'),
+                onPressed: () => Get.to(
+                  NotificationsPage(
+                    isG9: isG9,
+                    canEdit: canEdit,
+                  ),
+                ),
               ),
             ),
           ],
         ),
-        // TODO fix spacing
-        const SizedBox(
-          height: 10,
-        ),
-        // Wrapping the notifications section in a SingleChildScrollView
         const Expanded(
           child: SingleChildScrollView(
             child: Homepagenotifications(),
@@ -64,48 +71,37 @@ class Homepagenotifications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         NotificationCard(
-            senderName: 'Senders-Name',
-            title: 'Notification Title',
-            content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
-            onSeeMore: () {
-              Get.toNamed('/notifications');
-            }),
-        const EventsNotification(
+          title: 'Notification Title',
+          content:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
+        ),
+        EventsNotification(
           event: 'Event name',
           content:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
         ),
         NotificationCard(
-            senderName: 'Senders-Name',
-            title: 'Notification Title',
-            content:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
-            onSeeMore: () {
-              Get.toNamed('/notifications');
-            })
+          title: 'Notification Title',
+          content:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
+        )
       ],
     );
   }
 }
 
-// TODO make this one card for modularity
 class NotificationCard extends StatelessWidget {
-  final String senderName;
-  final String title;
-  final String content;
-  final VoidCallback onSeeMore;
-
   const NotificationCard({
     super.key,
-    required this.senderName,
     required this.title,
     required this.content,
-    required this.onSeeMore,
   });
+
+  final String title;
+  final String content;
 
   @override
   Widget build(BuildContext context) {
@@ -132,24 +128,18 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  const SizedBox(height: 4.0),
-                  RichText(
-                    text: TextSpan(
-                      text: content,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      children: [
-                        TextSpan(
-                          text: ' See more',
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: CustomColors.buttonColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                          recognizer: TapGestureRecognizer()..onTap = onSeeMore,
-                        ),
-                      ],
+                  Text(
+                    content,
+                    style: const TextStyle(
+                      color: CustomColors.secondaryTextColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 ],
