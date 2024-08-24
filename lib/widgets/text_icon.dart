@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomTextIcon extends StatelessWidget {
   final Text label;
-  final Icon? leadingIcon;
-  final Icon? trailingIcon;
+  final dynamic leadingIcon;
+  final dynamic trailingIcon;
   final double spacing = 8.0;
   const CustomTextIcon({
     super.key,
@@ -18,15 +18,19 @@ class CustomTextIcon extends StatelessWidget {
       children: [
         leadingIcon != null
             ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
                 child: leadingIcon!,
               )
             : const SizedBox(),
         label,
-        trailingIcon != null ? Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-          child: trailingIcon!,
-        ) : const SizedBox(),
+        trailingIcon != null
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                child: trailingIcon!,
+              )
+            : const SizedBox(),
       ],
     );
   }
