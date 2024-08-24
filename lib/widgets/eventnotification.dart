@@ -27,7 +27,14 @@ class EventsNotification extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        subtitle: Text(content),
+        subtitle: Text(
+          content,
+          style: TextStyle(
+            color: CustomColors.secondaryTextColor,
+            fontWeight: FontWeight.w300,
+            fontSize: 14,
+          ),
+        ),
         // trailing: ,
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class   CustomColors {
   static const Color buttonColor = Color(0xff02Aeee);
