@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/constants/custom_icons/CustomIcons.dart';
+import 'package:orientation_app/widgets/documents_tile.dart';
+import 'package:orientation_app/widgets/faqtile.dart';
+import 'package:orientation_app/widgets/text_icon.dart';
 
 class FaqPage extends StatelessWidget {
-  const FaqPage({super.key});
+  const FaqPage({
+    super.key,
+    this.isParent = false,
+  });
+
+  final bool isParent;
 
   static const List<Tab> myTabs = <Tab>[
     Tab(text: "FAQ"),
@@ -46,14 +55,17 @@ class FaqPage extends StatelessWidget {
           automaticallyImplyLeading: false,
         ),
         body: TabBarView(children: [
-          // routines tab view
+          // faq tab view
           Column(
             children: [
-              // list of activities
+              // list of faqs
               Expanded(
                   child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return const FaqTile();
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: FaqTile(),
+                  );
                 },
                 itemCount: 10,
               ))
@@ -61,93 +73,131 @@ class FaqPage extends StatelessWidget {
           ),
           // Documents Page
           Column(
-            children: [Text("Documents Page")],
+            children: [
+              // if user is a parent gives functionality to upload
+              isParent
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 50,
+                      ),
+                      child: CustomTextIcon(
+                        leadingIcon: IconButton(
+                          onPressed: () =>
+                              uploadImportantDocumentDialog(context),
+                          icon: const Icon(
+                            CustomIcons.docAdd,
+                            color: CustomColors.buttonColor,
+                          ),
+                        ),
+                        label: const Text(
+                          "Upload documents",
+                          style: TextStyle(
+                            color: CustomColors.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              // list of documents
+              Expanded(
+                  child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: DocumentsTile(),
+                  );
+                },
+                itemCount: 10,
+              ))
+            ],
           ),
         ]),
       ),
     );
   }
-}
 
-class FaqTile extends StatefulWidget {
-  const FaqTile({
-    super.key,
-  });
-
-  @override
-  State<FaqTile> createState() => _FaqTileState();
-}
-
-class _FaqTileState extends State<FaqTile> {
-  bool isExpanded = false;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          elevation: 4,
-          color: CustomColors.backgroundColor,
-          child: ListTile(
-            minTileHeight: 81,
-            titleTextStyle: const TextStyle(
-              color: CustomColors.textColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
-            // dense: true,
-            leading: Image.asset(
-              'assets/images/questionmark.png',
-              height: 67,
-            ),
+  // function for showing dialog box
+  Future<dynamic> uploadImportantDocumentDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController docTitleController = TextEditingController();
+          return AlertDialog(
+            backgroundColor: CustomColors.backgroundColor,
             title: const Text(
-              'Question:Lorem ipsum dolor sit amet, ',
-            ),
-            trailing: IconButton(
-              icon: Icon(
-                isExpanded ? Icons.keyboard_arrow_down : Icons.navigate_next,
+              "Upload important document",
+              style: TextStyle(
+                color: CustomColors.textColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
               ),
-              color: CustomColors.buttonColor,
-              iconSize: 30,
-              onPressed: () {
-                setState(() {
-                  isExpanded = !isExpanded;
-                });
-              },
             ),
-          ),
-        ),
-        isExpanded
-            ? const Card(
-                elevation: 4,
-                color: CustomColors.backgroundColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Answer",
-                      style: TextStyle(
-                        color: CustomColors.textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
+            content: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Document name",
+                    style: TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: CustomColors.textColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 12.0,
+                      bottom: 18.0,
+                    ),
+                    child: TextField(
+                      cursorColor: CustomColors.buttonColor,
+                      textAlign: TextAlign.center,
+                      controller: docTitleController,
+                      decoration: const InputDecoration(
+                        hintText: "Enter document name",
+                        hintStyle: TextStyle(
+                          color: CustomColors.secondaryTextColor,
                           fontWeight: FontWeight.w300,
-                          fontSize: 16,
+                          fontSize: 13,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CustomColors.thirdTextColor,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CustomColors.thirdTextColor,
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )
-            : const SizedBox(),
-      ],
-    );
+                  ),
+                  CustomTextIcon(
+                      trailingIcon: IconButton(
+                        onPressed: () => debugPrint("Coming Soon"),
+                        icon: const Icon(
+                          CustomIcons.docAdd,
+                          color: CustomColors.buttonColor,
+                        ),
+                      ),
+                      label: const Text(
+                        "Attachment",
+                        style: TextStyle(
+                          color: CustomColors.textColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ))
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
