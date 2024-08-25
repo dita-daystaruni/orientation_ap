@@ -7,7 +7,7 @@ Map<String, String> headers = {
 };
 
 // sends login response to the backend
-Future getUserContacts(int userID, String token) async {
+Future getFaqs(String token) async {
   // adding token to header
   headers.addAll(
     {
@@ -15,7 +15,7 @@ Future getUserContacts(int userID, String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/account/contacts/$userID'),
+    Uri.parse('$baseUrl/faqs/faqs/'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];

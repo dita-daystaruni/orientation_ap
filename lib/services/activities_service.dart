@@ -6,8 +6,7 @@ Map<String, String> headers = {
   'Content-type': 'application/json; charset=UTF-8',
 };
 
-// sends login response to the backend
-Future getUserContacts(int userID, String token) async {
+Future getActivities(String token) async {
   // adding token to header
   headers.addAll(
     {
@@ -15,7 +14,21 @@ Future getUserContacts(int userID, String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/account/contacts/$userID'),
+    Uri.parse('$baseUrl/activities/activities/'),
+    headers: headers,
+  );
+  return [response.statusCode, jsonDecode(response.body)];
+}
+
+Future getEvents(String token) async {
+  // adding token to header
+  headers.addAll(
+    {
+      "Authorization": "Token $token",
+    },
+  );
+  var response = await http.get(
+    Uri.parse('$baseUrl/events/events/'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
