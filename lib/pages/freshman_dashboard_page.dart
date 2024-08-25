@@ -29,7 +29,10 @@ class FreshmanDashboardPage extends StatelessWidget {
             const OngoingActivity(),
             const UpcomingActivity(),
             const Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(
+                left: 8.0,
+                bottom: 4.0,
+              ),
               child: Text(
                 "Contacts",
                 style: TextStyle(
