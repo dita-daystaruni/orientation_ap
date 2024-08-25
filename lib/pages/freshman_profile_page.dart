@@ -5,6 +5,8 @@ import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class FreshmanProfilePage extends StatelessWidget {
   const FreshmanProfilePage({
@@ -37,9 +39,10 @@ class FreshmanProfilePage extends StatelessWidget {
             onPressed: () {
               debugPrint("Coming Soon");
             },
-            icon: const Icon(
-              Icons.logout,
-              color: CustomColors.textColor,
+            icon: IconButton(
+              onPressed: (){},
+              icon: const Icon(Icons.logout,color: CustomColors.textColor,),
+              
             ),
           ),
         ],
@@ -230,8 +233,9 @@ class FreshmanProfilePage extends StatelessWidget {
                   ),
                 ),
                 CustomTextIcon(
-                  trailingIcon: Icon(
-                    Icons.email_outlined,
+                  trailingIcon: IconButton(
+                    icon: Icon(Icons.email_outlined),
+                    onPressed: launchUrl,
                   ),
                   label: Text(
                     'user@daystar.ac.ke',
@@ -250,3 +254,24 @@ class FreshmanProfilePage extends StatelessWidget {
     );
   }
 }
+// void launchUrl()async{
+//      final Uri emailLaunchUri = Uri(
+//     scheme: 'mailto',
+//     path: 'smith@example.com',
+//     query:'subject=${Uri.encodeComponent('Example Subject & Symbols are allowed!')}',
+//   );
+//   if (await canLaunchUrl(emailLaunchUri)) {
+//    // await launchUrl(emailLaunchUri);
+//   } else {
+//     throw 'Could not launch $emailLaunchUri';
+//   }
+//   }
+void launchUrl()async{
+   final Uri url = Uri.parse('https://www.google.com');
+  
+  if (!await canLaunchUrl(url)) {
+   //await launchUrl((emailLaunchUri));
+  
+    throw Exception('Could not launch $url');
+  }
+  }

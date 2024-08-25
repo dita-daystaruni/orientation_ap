@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/widgets/custom_notification_icon.dart';
 
 class CustomAppBar extends StatelessWidget {

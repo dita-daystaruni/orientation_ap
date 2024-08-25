@@ -12,7 +12,8 @@ class DocumentsTile extends StatelessWidget {
       child: ListTile(
         onTap: () => debugPrint("Coming Soon"),
         horizontalTitleGap: 38,
-        minTileHeight: 81,
+
+        // minTileHeight: 81,
         titleTextStyle: const TextStyle(
           color: CustomColors.textColor,
           fontWeight: FontWeight.w500,

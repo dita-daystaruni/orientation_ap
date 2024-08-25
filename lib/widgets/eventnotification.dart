@@ -29,7 +29,7 @@ class EventsNotification extends StatelessWidget {
         ),
         subtitle: Text(
           content,
-          style: TextStyle(
+          style: const TextStyle(
             color: CustomColors.secondaryTextColor,
             fontWeight: FontWeight.w300,
             fontSize: 14,

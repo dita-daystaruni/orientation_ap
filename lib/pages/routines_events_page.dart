@@ -42,9 +42,7 @@ class Routines extends StatelessWidget {
               fontWeight: FontWeight.w500,
               fontSize: 16,
             ),
-            overlayColor: WidgetStatePropertyAll(
-              CustomColors.hoverColor,
-            ),
+            overlayColor: MaterialStatePropertyAll(CustomColors.hoverColor),
             tabs: myTabs,
           ),
           automaticallyImplyLeading: false,

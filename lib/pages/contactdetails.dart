@@ -46,7 +46,7 @@ class ContactDetails extends StatelessWidget {
               padding: EdgeInsets.only(
                 bottom: 8.0,
               ),
-              child: const Text(
+              child:  Text(
                 'Title',
                 style: TextStyle(
                   color: CustomColors.thirdTextColor,

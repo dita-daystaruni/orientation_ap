@@ -52,7 +52,7 @@ class ParentDashboardPage extends StatelessWidget {
                     label: "MN",
                     idx: idx,
                     sizes: 25,
-                    redirectionPage: ContactDetails(),
+                    redirectionPage: const ContactDetails(),
                   );
                 },
                 itemCount: 7,

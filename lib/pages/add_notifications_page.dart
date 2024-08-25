@@ -203,10 +203,10 @@ class AddNotificationsPage extends StatelessWidget {
                         debugPrint("Coming soons");
                       },
                       style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
+                        backgroundColor: MaterialStatePropertyAll(
                           CustomColors.buttonColor,
                         ),
-                        iconColor: WidgetStatePropertyAll(
+                        iconColor: MaterialStatePropertyAll(
                           CustomColors.buttonColor,
                         ),
                       ),

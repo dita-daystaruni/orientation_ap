@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class StudentDetailsPage extends StatelessWidget {
   const StudentDetailsPage({super.key});
@@ -156,9 +158,10 @@ class StudentDetailsPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                trailingIcon: Icon(
-                  Icons.email,
-                  color: CustomColors.buttonColor,
+                trailingIcon: IconButton(
+                 icon:Icon(Icons.email,
+                  color: CustomColors.buttonColor,),
+                  onPressed:_launchUrl,
                 ),
               ),
             ),
@@ -168,3 +171,12 @@ class StudentDetailsPage extends StatelessWidget {
     );
   }
 }
+void _launchUrl()async{
+   final Uri url = Uri.parse('https://www.google.com');
+  
+  if (!await canLaunchUrl(url)) {
+   //await launchUrl((emailLaunchUri));
+  
+    throw Exception('Could not launch $url');
+  }
+  }

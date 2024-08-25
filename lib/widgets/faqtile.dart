@@ -20,7 +20,7 @@ class _FaqTileState extends State<FaqTile> {
           elevation: 4,
           color: CustomColors.backgroundColor,
           child: ListTile(
-            minTileHeight: 81,
+            // minTileHeight: 81,
             titleTextStyle: const TextStyle(
               color: CustomColors.textColor,
               fontWeight: FontWeight.w500,
