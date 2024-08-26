@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_contact.dart';
+import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class ContactDetails extends StatelessWidget {
@@ -77,19 +78,23 @@ class ContactDetails extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: CustomTextIcon(
-                  label: Text(
-                    user.phoneNo,
-                    style: const TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
+                    label: Text(
+                      user.phoneNo,
+                      style: const TextStyle(
+                        color: CustomColors.textColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  trailingIcon: const Icon(
-                    Icons.phone,
-                    color: CustomColors.buttonColor,
-                  ),
-                ),
+                    trailingIcon: IconButton(
+                      onPressed: () async {
+                        makePhoneCall(user.phoneNo);
+                      },
+                      icon: const Icon(
+                        Icons.phone,
+                        color: CustomColors.buttonColor,
+                      ),
+                    )),
               ),
             ),
             IntrinsicWidth(

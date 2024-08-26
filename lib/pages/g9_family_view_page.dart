@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_contact.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
+import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
@@ -48,19 +49,23 @@ class G9FamilyViewPage extends StatelessWidget {
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
-                label: Text(
-                  parent.phoneNo,
-                  style: const TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
+                  label: Text(
+                    parent.phoneNo,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-                trailingIcon: const Icon(
-                  Icons.phone,
-                  color: CustomColors.buttonColor,
-                ),
-              ),
+                  trailingIcon: IconButton(
+                    onPressed: () {
+                      makePhoneCall(parent.phoneNo);
+                    },
+                    icon: const Icon(
+                      Icons.phone,
+                      color: CustomColors.buttonColor,
+                    ),
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -76,9 +81,15 @@ class G9FamilyViewPage extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                trailingIcon: const Icon(
-                  Icons.email,
-                  color: CustomColors.buttonColor,
+                trailingIcon: IconButton(
+                  onPressed: () {
+                    print("pressed");
+                    sendEmail("rodney@gmail.com");
+                  },
+                  icon: const Icon(
+                    Icons.email,
+                    color: CustomColors.buttonColor,
+                  ),
                 ),
               ),
             ),
