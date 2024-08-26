@@ -22,16 +22,16 @@ Future signIn(
   return [response.statusCode, jsonDecode(response.body)];
 }
 
-Future singUp(String admissionNo, String email, String userName,
-    {bool emailverified = true}) async {
+Future changeFirstTimePassword(
+  String admissionNo,
+  String newPassword,
+) async {
   var response = await http.post(
-    Uri.parse('$baseUrl/api/accounts/'),
+    Uri.parse('$baseUrl/account/first-password-change/'),
     headers: headers,
     body: jsonEncode({
       'admission_number': admissionNo,
-      'email': email,
-      'username': userName,
-      'email_verified': emailverified,
+      'new_password': newPassword,
     }),
   );
   return [response.statusCode, jsonDecode(response.body)];

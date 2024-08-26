@@ -1,5 +1,7 @@
 // user model
 
+import 'package:orientation_app/models/parent_model.dart';
+
 class User {
   final int userId;
   final String firstName;
@@ -12,7 +14,9 @@ class User {
   final String course;
   final String phoneNo;
   final String token;
-  final int? parent;
+  final String gender;
+  final String accomodation;
+  final FreshManParent? parent;
 
   User.fromJson(Map<String, dynamic> json)
       : userId = json['user_id'],
@@ -25,7 +29,11 @@ class User {
         userType = json['user_type'],
         admNo = json['admission_number'],
         course = json['course'],
-        parent = json['parent'],
+        parent = json['parent'] != null
+            ? FreshManParent.fromJson(json["parent"])
+            : null,
+        gender = json['gender'],
+        accomodation = json['accomodation'],
         token = json['token'];
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +49,7 @@ class User {
         'phone_no': phoneNo,
         'token': token,
         'parent': parent,
+        'gender': gender,
+        'accomodation': accomodation,
       };
 }

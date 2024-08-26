@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/models/user_contact.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
+import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class G9FamilyViewPage extends StatelessWidget {
-  const G9FamilyViewPage({super.key});
+  const G9FamilyViewPage({super.key, required this.parent});
+
+  final UserContact parent;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +17,9 @@ class G9FamilyViewPage extends StatelessWidget {
       backgroundColor: CustomColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: CustomColors.backgroundColor,
-        title: const Text(
-          "Family For Parent Name",
-          style: TextStyle(
+        title: Text(
+          "Family For ${parent.firstName}",
+          style: const TextStyle(
             color: CustomColors.textColor,
             fontWeight: FontWeight.w500,
             fontSize: 20,
@@ -31,51 +35,61 @@ class G9FamilyViewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Parent Name",
-              style: TextStyle(
+            Text(
+              "${parent.firstName} ${parent.lastName}",
+              style: const TextStyle(
                 color: CustomColors.textColor,
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
-                label: Text(
-                  '+ 254 712 345 678',
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
+                  label: Text(
+                    parent.phoneNo,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-                trailingIcon: Icon(
-                  Icons.phone,
-                  color: CustomColors.buttonColor,
-                ),
-              ),
+                  trailingIcon: IconButton(
+                    onPressed: () {
+                      makePhoneCall(parent.phoneNo);
+                    },
+                    icon: const Icon(
+                      Icons.phone,
+                      color: CustomColors.buttonColor,
+                    ),
+                  )),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
                 label: Text(
-                  'ko@daystar.ac.ke',
-                  style: TextStyle(
+                  parent.email,
+                  style: const TextStyle(
                     color: CustomColors.textColor,
                     fontWeight: FontWeight.w500,
-                    fontSize: 24,
+                    fontSize: 18,
                   ),
                 ),
-                trailingIcon: Icon(
-                  Icons.email,
-                  color: CustomColors.buttonColor,
+                trailingIcon: IconButton(
+                  onPressed: () {
+                    print("pressed");
+                    sendEmail("rodney@gmail.com");
+                  },
+                  icon: const Icon(
+                    Icons.email,
+                    color: CustomColors.buttonColor,
+                  ),
                 ),
               ),
             ),

@@ -47,10 +47,10 @@ class SplashScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 FilledButton(
-                  onPressed: () => Get.toNamed("/sign_in"),
+                  onPressed: () => Get.offAndToNamed("/sign_in"),
                   style: const ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(CustomColors.buttonColor),
+                        WidgetStatePropertyAll(CustomColors.buttonColor),
                   ),
                   child: const Text('Get Started'),
                 ),

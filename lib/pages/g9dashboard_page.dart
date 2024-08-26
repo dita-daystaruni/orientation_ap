@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
 import 'package:orientation_app/pages/statistics_page.dart';
@@ -19,140 +20,170 @@ class G9DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
-      body: Column(
-        children: [
-          CustomAppBar(
-            firstName: user.firstName,
-            isG9: true,
-            canEdit: true,
-          ),
-          // statistics page
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 0,
-              horizontal: 8.0,
+    UserContactController contactController = Get.find<UserContactController>();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: CustomColors.backgroundColor,
+        body: Column(
+          children: [
+            CustomAppBar(
+              firstName: user.firstName,
+              gender: user.gender,
+              isG9: true,
+              canEdit: true,
             ),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.30,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                      bottom: 8.0,
-                      left: 4.0,
-                      right: 4.0,
+            // statistics page
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 0,
+                horizontal: 8.0,
+              ),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.30,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0,
+                        left: 4.0,
+                        right: 4.0,
+                      ),
+                      child: GestureDetector(
+                        onTap: () => Get.to(
+                          const StatisticsPage(),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.44,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: CustomColors.iconColorOne,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Statistics",
+                                style: TextStyle(
+                                  color: CustomColors.textColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                "327",
+                                style: TextStyle(
+                                  color: CustomColors.textColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 64,
+                                ),
+                              ),
+                              Text("New Students"),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                    child: GestureDetector(
-                      onTap: () => Get.to(
-                        const StatisticsPage(),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0,
+                        left: 0,
+                        right: 4.0,
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.44,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: CustomColors.iconColorOne,
+                            color: CustomColors.iconColorTwo,
                           ),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(30),
                           ),
                         ),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
                           children: [
-                            Text(
-                              "Statistics",
-                              style: TextStyle(
-                                color: CustomColors.textColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "Families",
+                                style: TextStyle(
+                                  color: CustomColors.textColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
-                            Text(
-                              "327",
-                              style: TextStyle(
-                                color: CustomColors.textColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 64,
-                              ),
-                            ),
-                            Text("New Students"),
+                            Obx(
+                              () => contactController.userContacts.isNotEmpty
+                                  ? Expanded(
+                                      child: GridView.builder(
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 0,
+                                          mainAxisSpacing: 5,
+                                        ),
+                                        itemBuilder: (context, idx) {
+                                          return ContactTile(
+                                            label:
+                                                '${contactController.userContacts[idx].firstName[0]}${contactController.userContacts[idx].lastName[0]}',
+                                            idx: idx,
+                                            sizes: 23,
+                                            redirectionPage: G9FamilyViewPage(
+                                              parent: contactController
+                                                  .userContacts[idx],
+                                            ),
+                                          );
+                                        },
+                                        itemCount: contactController
+                                            .userContacts.length,
+                                        scrollDirection: Axis.vertical,
+                                      ),
+                                    )
+                                  : const Column(
+                                      children: [
+                                        Text(
+                                          "🥲",
+                                          style: TextStyle(
+                                            fontSize: 40,
+                                          ),
+                                        ),
+                                        Text(
+                                          "NO FAMILIES YET",
+                                          style: TextStyle(
+                                            color: CustomColors.textColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            )
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                      bottom: 8.0,
-                      left: 0,
-                      right: 4.0,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.44,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: CustomColors.iconColorTwo,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "Families",
-                              style: TextStyle(
-                                color: CustomColors.textColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 0,
-                                mainAxisSpacing: 5,
-                              ),
-                              itemBuilder: (context, idx) {
-                                return const ContactTile(
-                                  label: "RM",
-                                  idx: 8,
-                                  sizes: 20,
-                                  redirectionPage: G9FamilyViewPage(),
-                                );
-                              },
-                              itemCount: 5,
-                              scrollDirection: Axis.vertical,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          const UpcomingActivity(),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: const RecentNotificationsPage(
-              isG9: true,
-              canEdit: true,
-            ),
-          )
-        ],
+            const UpcomingActivity(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.34,
+              child: const RecentNotificationsPage(
+                isG9: true,
+                canEdit: true,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

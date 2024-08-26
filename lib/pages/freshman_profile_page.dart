@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
@@ -48,20 +49,20 @@ class FreshmanProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Image.asset(
-              'assets/images/profile.png',
+            child: Image.asset( user.gender == "Male" ?
+              'assets/images/profile.png' : 'assets/images/female_student.png',
               height: MediaQuery.of(context).size.height * 0.2,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(
+          Padding(
+            padding: const EdgeInsets.only(
               top: 16.0,
               bottom: 8.0,
             ),
             child: Center(
               child: Text(
-                'Name',
-                style: TextStyle(
+                '${user.firstName} ${user.lastName}',
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
@@ -69,15 +70,15 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Center(
+          Center(
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 1.0,
                 bottom: 16.0,
               ),
               child: Text(
-                'Admission Number',
-                style: TextStyle(
+                user.admNo,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w300,
                   fontSize: 14,
@@ -99,15 +100,15 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 12.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
             child: CustomTextIcon(
-              leadingIcon: Icon(
+              leadingIcon: const Icon(
                 CustomIcons.graduationcap,
               ),
               label: Text(
-                "Course Details",
-                style: TextStyle(
+                user.course,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -115,13 +116,13 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 12.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
             child: CustomTextIcon(
-              leadingIcon: Icon(Icons.phone),
+              leadingIcon: const Icon(Icons.phone),
               label: Text(
-                "+2547 12 345 678",
-                style: TextStyle(
+                user.phoneNo,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w300,
                   fontSize: 14,
@@ -129,15 +130,15 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 12.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
             child: CustomTextIcon(
-              leadingIcon: Icon(
+              leadingIcon: const Icon(
                 Icons.email_outlined,
               ),
               label: Text(
-                'user@daystar.ac.ke',
-                style: TextStyle(
+                user.email,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w300,
                   fontSize: 14,
@@ -145,106 +146,132 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 8.0,
-            ),
-            child: Text(
-              'Orientation Details',
-              style: TextStyle(
-                color: CustomColors.textColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              bottom: 12.0,
-              left: 20.0,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  'Parent Name: ',
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  'Parent Name',
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              bottom: 12.0,
-              left: 20.0,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  'Parent phone: ',
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-                CustomTextIcon(
-                  trailingIcon: Icon(Icons.phone),
-                  label: Text(
-                    "+2547 12 345 678",
-                    style: TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
+          user.parent != null
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text(
+                        'Orientation Details',
+                        style: TextStyle(
+                          color: CustomColors.textColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              bottom: 12.0,
-              left: 20.0,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  'Parent email: ',
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-                CustomTextIcon(
-                  trailingIcon: Icon(
-                    Icons.email_outlined,
-                  ),
-                  label: Text(
-                    'user@daystar.ac.ke',
-                    style: TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 12.0,
+                        left: 20.0,
+                      ),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Parent Name: ',
+                            style: TextStyle(
+                              color: CustomColors.textColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            '${user.parent!.firstName} ${user.parent!.lastName}',
+                            style: const TextStyle(
+                              color: CustomColors.textColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 12.0,
+                        left: 20.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Parent phone: ',
+                            style: TextStyle(
+                              color: CustomColors.textColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                            ),
+                          ),
+                          // TODO parents phone number
+                          CustomTextIcon(
+                            trailingIcon: Icon(Icons.phone),
+                            label: Text(
+                              "+2547 12 345 678",
+                              style: TextStyle(
+                                color: CustomColors.textColor,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 12.0,
+                        left: 20.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Parent email: ',
+                            style: TextStyle(
+                              color: CustomColors.textColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                            ),
+                          ),
+                          // TODO parents email
+                          CustomTextIcon(
+                            trailingIcon: Icon(
+                              Icons.email_outlined,
+                            ),
+                            label: Text(
+                              'user@daystar.ac.ke',
+                              style: TextStyle(
+                                color: CustomColors.textColor,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        child: Lottie.asset("assets/lotties/error.json")),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "No Parent yet",
+                        style: TextStyle(
+                          color: CustomColors.secondaryTextColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
-          ),
         ],
       ),
     );
