@@ -6,11 +6,13 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.firstName,
+    required this.gender,
     this.isG9 = false,
     this.canEdit = false,
   });
 
   final String firstName;
+  final String gender;
   final bool isG9;
   final bool canEdit;
 
@@ -22,7 +24,9 @@ class CustomAppBar extends StatelessWidget {
       ),
       child: ListTile(
           leading: Image.asset(
-            "assets/images/female_student.png",
+            gender == "Male"
+                ? 'assets/images/profile.png'
+                : 'assets/images/female_student.png',
             height: 60,
           ),
           title: Text(

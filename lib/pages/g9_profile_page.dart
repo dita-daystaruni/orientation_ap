@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
@@ -16,6 +18,10 @@ class G9ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // contacts controller
+    UserContactController userContactController =
+        Get.find<UserContactController>();
+
     return Scaffold(
       appBar: AppBar(
         shadowColor: CustomColors.backgroundColor,
@@ -53,15 +59,17 @@ class G9ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/profile.png',
+              user.gender == "Male"
+                  ? 'assets/images/profile.png'
+                  : 'assets/images/female_student.png',
               height: MediaQuery.of(context).size.height * 0.2,
             ),
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              'Name',
-              style: TextStyle(
+            Text(
+              "${user.firstName} ${user.lastName}",
+              style: const TextStyle(
                 color: CustomColors.textColor,
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
@@ -81,27 +89,52 @@ class G9ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                  ),
-                  itemBuilder: (context, idx) {
-                    return ContactTile(
-                      label: "RM",
-                      idx: idx,
-                      sizes: 30,
-                      redirectionPage: const G9FamilyViewPage(),
-                    );
-                  },
-                  itemCount: 10,
-                  scrollDirection: Axis.vertical,
-                ),
-              ),
+            Obx(
+              () => userContactController.userContacts.isNotEmpty
+                  ? Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                          ),
+                          itemBuilder: (context, idx) {
+                            return ContactTile(
+                              label:
+                                  '${userContactController.userContacts[idx].firstName[0]}${userContactController.userContacts[idx].lastName[0]}',
+                              idx: idx,
+                              sizes: 30,
+                              redirectionPage: G9FamilyViewPage(
+                                  parent:
+                                      userContactController.userContacts[idx]),
+                            );
+                          },
+                          itemCount: userContactController.userContacts.length,
+                          scrollDirection: Axis.vertical,
+                        ),
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        Lottie.asset(
+                          "assets/lotties/error.json",
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "No Families Yet",
+                            style: TextStyle(
+                              color: CustomColors.secondaryTextColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
             )
           ],
         ),

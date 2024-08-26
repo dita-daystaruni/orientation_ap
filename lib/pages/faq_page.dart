@@ -15,7 +15,7 @@ class FaqPage extends StatelessWidget {
 
   static const List<Tab> myTabs = <Tab>[
     Tab(text: "FAQ"),
-    Tab(text: 'Documnets'),
+    Tab(text: 'Documents'),
   ];
 
   @override

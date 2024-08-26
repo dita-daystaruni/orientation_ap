@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/pages/preparation_page.dart';
 import 'package:orientation_app/services/authentication.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
@@ -247,7 +248,7 @@ class _FirsttimeUserState extends State<FirsttimeUser> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (builder) => BottomNav(
+                builder: (builder) => PreparationPage(
                   user: user,
                 ),
               ),

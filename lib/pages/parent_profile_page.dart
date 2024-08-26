@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/contacts_controller.dart';
+import 'package:orientation_app/models/user_contact.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
@@ -51,17 +53,18 @@ class ParentProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // TODO male and female
             Image.asset(
-              'assets/images/profile.png',
+              user.gender == "Male"
+                  ? 'assets/images/profile.png'
+                  : 'assets/images/female_student.png',
               height: MediaQuery.of(context).size.height * 0.2,
             ),
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              'Name',
-              style: TextStyle(
+            Text(
+              '${user.firstName} ${user.lastName}',
+              style: const TextStyle(
                 color: CustomColors.textColor,
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
