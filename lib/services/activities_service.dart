@@ -20,7 +20,7 @@ Future getActivities(String token) async {
   return [response.statusCode, jsonDecode(response.body)];
 }
 
-Future getEvents(String token) async {
+Future getSessions(String token) async {
   // adding token to header
   headers.addAll(
     {

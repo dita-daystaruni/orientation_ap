@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
+import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
@@ -26,7 +27,7 @@ class PreparationPage extends StatefulWidget {
 class _PreparationPageState extends State<PreparationPage> {
   bool finishedGettingContacts = false;
   bool finishedGettingActivities = false;
-  bool finishedGettingEvents = false;
+  bool finishedGettingSessions = false;
   bool finishedGettingFaqs = false;
   bool isDone = false;
 
@@ -42,8 +43,8 @@ class _PreparationPageState extends State<PreparationPage> {
         ? "Contact"
         : !finishedGettingActivities
             ? "Activities"
-            : !finishedGettingEvents
-                ? "Events"
+            : !finishedGettingSessions
+                ? "Sessions"
                 : "FAQS";
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
@@ -126,32 +127,67 @@ class _PreparationPageState extends State<PreparationPage> {
   }
 
   Future<void> setFaqs() async {
-    // var response = await getFaqs(widget.user.token);
+    var response = await getFaqs(widget.user.token);
+    debugPrint("Finished Getting FAQs");
+
+    // will hold encoded FAQs from server
+    List<String> encodedFaqs = [];
+    FaqController faqController = Get.find<FaqController>();
+
+    if (response[0] == 200) {
+      // encode all contacts details
+      for (var faq in response[1]) {
+        encodedFaqs.add(jsonEncode(faq));
+      }
+    } else {
+      throw Exception("Error Fetching Contacts");
+    }
+
+    await faqController.addFaqToSP(encodedFaqs);
+    await faqController.getFaqsFromSP();
+
     // set finishedgetting contact
     setState(() {
       finishedGettingFaqs = true;
+    });
+  }
+
+  Future<void> setActivities() async {
+    // var response = await getActivities(widget.user.token);
+    debugPrint("Finished Getting Activities");
+    // set finishedgetting contact
+    setState(() {
+      finishedGettingActivities = true;
     });
 
     // TODO set FAQS here
     // print(response[1]);
   }
 
-  Future<void> setActivities() async {
-    // var response = await getActivities(widget.user.token);
+  Future<void> setSessions() async {
+    var response = await getSessions(widget.user.token);
+
+    // will hold encoded sessions(events) from server
+    List<String> encodedSesions = [];
+    ActivitySessionController activitySessionController =
+        Get.find<ActivitySessionController>();
+
+    if (response[0] == 200) {
+      print(response[1]);
+      // encode all contacts details
+      for (var event in response[1]) {
+        encodedSesions.add(jsonEncode(event));
+      }
+    } else {
+      throw Exception("Error Fetching Events");
+    }
+
+    await activitySessionController.addSessionsToSP(encodedSesions);
+    await activitySessionController.getSessionsFromSP();
+
     // set finishedgetting contact
     setState(() {
-      finishedGettingActivities = true;
-    });
-
-    // // TODO set FAQS here
-    // print(response[1]);
-  }
-
-  Future<void> setEvents() async {
-    // var response = await getEvents(widget.user.token);
-    // set finishedgetting contact
-    setState(() {
-      finishedGettingEvents = true;
+      finishedGettingSessions = true;
     });
 
     // // TODO set FAQS here
@@ -163,7 +199,7 @@ class _PreparationPageState extends State<PreparationPage> {
     // TODO do error checks here
     await setContacts();
     await setActivities();
-    await setEvents();
+    await setSessions();
     await setFaqs();
     // waits for 3 seconds before moving to respective dashboard
     setState(() {
