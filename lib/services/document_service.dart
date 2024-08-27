@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -36,47 +35,29 @@ Future uploadDocument(
     var responseBody = await response.stream.bytesToString();
     return jsonDecode(responseBody);
   } else {
-    return (response.statusCode);
-    // throw Exception(
-    //     'Failed to upload document. Status code: ${response.statusCode}');
+    throw Exception(
+        'Failed to upload document. Status code: ${response.statusCode}');
   }
 }
 
 Future<List> getDocuments(String token) async {
-  // adding token to header
-  headers.addAll(
-    {
-      "Authorization": "Token $token",
-    },
-  );
-  var response = await http.get(
-    Uri.parse('$baseUrl/account/documents/'),
-    headers: headers,
-  );
-  return jsonDecode(response.body);
-}
-
-Future<dynamic> getDocumentById(String documentId, String token) async {
   try {
-
+    // adding token to header
     headers.addAll(
       {
         "Authorization": "Token $token",
       },
     );
-
-    final response = await http.get(
-      Uri.parse('$baseUrl/account/documents/$documentId'),
+    var response = await http.get(
+      Uri.parse('$baseUrl/account/documents/'),
       headers: headers,
     );
-
     if (response.statusCode == 200) {
-      return jsonDecode(response
-          .body);
+      return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load document');
     }
   } catch (e) {
-    throw Exception('Failed to load document: $e');
+    throw Exception('Failed to load documents: $e');
   }
 }
