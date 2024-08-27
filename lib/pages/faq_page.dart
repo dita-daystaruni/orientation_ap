@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
+import 'package:orientation_app/controllers/document_controller.dart';
 import 'package:orientation_app/widgets/documents_tile.dart';
 import 'package:orientation_app/widgets/faqtile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
@@ -9,9 +12,11 @@ class FaqPage extends StatelessWidget {
   const FaqPage({
     super.key,
     this.isParent = false,
+    required this.userToken,
   });
 
   final bool isParent;
+  final String userToken;
 
   static const List<Tab> myTabs = <Tab>[
     Tab(text: "FAQ"),
@@ -20,6 +25,9 @@ class FaqPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DocumentController documentController =
+        Get.put(DocumentController(userToken));
+
     // putting routines and sessions controllers
     return DefaultTabController(
       length: myTabs.length,
@@ -82,8 +90,8 @@ class FaqPage extends StatelessWidget {
                       ),
                       child: CustomTextIcon(
                         leadingIcon: IconButton(
-                          onPressed: () =>
-                              uploadImportantDocumentDialog(context),
+                          onPressed: () => uploadImportantDocumentDialog(
+                              context, documentController),
                           icon: const Icon(
                             CustomIcons.docAdd,
                             color: CustomColors.buttonColor,
@@ -102,15 +110,28 @@ class FaqPage extends StatelessWidget {
                   : const SizedBox(),
               // list of documents
               Expanded(
-                  child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: DocumentsTile(),
-                  );
-                },
-                itemCount: 10,
-              ))
+                child: Obx(() {
+                  if (documentController.documents.isEmpty) {
+                    return const Center(child: CircularProgressIndicator(
+                      color: CustomColors.buttonColor,
+                    ));
+                  } else {
+                    return ListView.builder(
+                      itemCount: documentController.documents.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DocumentsTile(
+                            documentName: documentController.documents[index]
+                                ['title'],
+                            documentUrl: documentController.documents[index]['file'],
+                          ),
+                        );
+                      },
+                    );
+                  }
+                }),
+              ),
             ],
           ),
         ]),
@@ -118,12 +139,44 @@ class FaqPage extends StatelessWidget {
     );
   }
 
-  // function for showing dialog box
-  Future<dynamic> uploadImportantDocumentDialog(BuildContext context) {
+  // Function for showing the dialog box
+  Future<dynamic> uploadImportantDocumentDialog(
+      BuildContext context, DocumentController documentController) {
+    final ImagePicker picker = ImagePicker();
+    TextEditingController docTitleController = TextEditingController();
+
+    // Function to handle image picking and uploading
+    Future<void> pickAndUploadImage() async {
+      String documentTitle = docTitleController.text;
+
+      if (documentTitle.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please enter a document name.')),
+        );
+        return;
+      }
+
+      // Pick an image from the gallery
+      XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (imageFile == null) {
+        Get.snackbar('No image selected.', 'Try again');
+        return;
+      }
+
+      try {
+        await documentController.addDocument(documentTitle, imageFile);
+      } catch (e) {
+        Get.snackbar(
+          'Something Went Wrong!🥲',
+          'Retry Or Contact dita@daystar.ac.ke To Report Incidence If Issue Persists',
+        );
+      }
+    }
+
     return showDialog(
         context: context,
         builder: (context) {
-          TextEditingController docTitleController = TextEditingController();
           return AlertDialog(
             backgroundColor: CustomColors.backgroundColor,
             title: const Text(
@@ -180,7 +233,7 @@ class FaqPage extends StatelessWidget {
                   ),
                   CustomTextIcon(
                       trailingIcon: IconButton(
-                        onPressed: () => debugPrint("Coming Soon"),
+                        onPressed: () => pickAndUploadImage(),
                         icon: const Icon(
                           CustomIcons.docAdd,
                           color: CustomColors.buttonColor,
