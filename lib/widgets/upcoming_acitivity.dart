@@ -6,6 +6,7 @@ class UpcomingActivity extends StatelessWidget {
   const UpcomingActivity({
     super.key,
   });
+  // TODO passing activity location
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class UpcomingActivity extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           Divider(),
+          // TODO passing activity details
           EventsTile(
             eventLocation: 'Location',
             eventtitle: 'Activity name',

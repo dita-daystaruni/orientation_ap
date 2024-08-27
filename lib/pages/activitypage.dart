@@ -36,55 +36,57 @@ class ActivityPage extends StatelessWidget {
         child: Column(
           children: [
             IntrinsicWidth(
-              child: Row(
-                children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.watch_later_outlined,
-                        color: CustomColors.secondaryTextColor,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 4.0,
-                          right: 16.0,
+              child: Center(
+                child: Row(
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.watch_later_outlined,
+                          color: CustomColors.secondaryTextColor,
                         ),
-                        child: Text(
-                          '8.00 AM',
-                          style: TextStyle(
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 4.0,
+                            right: 16.0,
+                          ),
+                          child: Text(
+                            '8.00 AM',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15,
+                              color: CustomColors.secondaryTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            left: 16.0,
+                            right: 4.0,
+                          ),
+                          child: Icon(
+                            Icons.place_outlined,
+                            color: CustomColors.secondaryTextColor,
+                          ),
+                        ),
+                        Text(
+                          location,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
                             color: CustomColors.secondaryTextColor,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          left: 16.0,
-                          right: 4.0,
-                        ),
-                        child: Icon(
-                          Icons.place_outlined,
-                          color: CustomColors.secondaryTextColor,
-                        ),
-                      ),
-                      Text(
-                        location,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 15,
-                          color: CustomColors.secondaryTextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             const Padding(
