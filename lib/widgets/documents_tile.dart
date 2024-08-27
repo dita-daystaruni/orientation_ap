@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/services/document_service.dart';
 
 import 'document_viewer.dart';
 
@@ -46,7 +45,9 @@ class DocumentsTile extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => DocumentViewer(
-            documentUrl: documentUrl),
+          url: documentUrl,
+          title: documentName,
+        ),
       ),
     );
   }
