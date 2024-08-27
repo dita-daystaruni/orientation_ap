@@ -25,10 +25,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int selectedIndex = 0;
-  final pages = [
-    const Routines(),
-    const FaqPage(),
-  ];
+  final pages = [];
 
   @override
   void initState() {
@@ -55,14 +52,23 @@ class _BottomNavState extends State<BottomNav> {
                 ),
     );
 
+    //setting routines page
+    pages.insert(
+      1,
+      const Routines(),
+    );
+
     // setting the faq page
     pages.insert(
       2,
       user.userType == "parent"
-          ? const FaqPage(
+          ? FaqPage(
               isParent: true,
+              userToken: user.token,
             )
-          : const FaqPage(),
+          : FaqPage(
+              userToken: user.token,
+            ),
     );
 
     // setting the profile page
