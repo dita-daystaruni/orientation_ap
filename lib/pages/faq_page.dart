@@ -112,7 +112,9 @@ class FaqPage extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   if (documentController.documents.isEmpty) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator(
+                      color: CustomColors.buttonColor,
+                    ));
                   } else {
                     return ListView.builder(
                       itemCount: documentController.documents.length,
@@ -144,7 +146,7 @@ class FaqPage extends StatelessWidget {
     TextEditingController docTitleController = TextEditingController();
 
     // Function to handle image picking and uploading
-    Future<void> _pickAndUploadImage() async {
+    Future<void> pickAndUploadImage() async {
       String documentTitle = docTitleController.text;
 
       if (documentTitle.isEmpty) {
@@ -231,7 +233,7 @@ class FaqPage extends StatelessWidget {
                   ),
                   CustomTextIcon(
                       trailingIcon: IconButton(
-                        onPressed: () => _pickAndUploadImage(),
+                        onPressed: () => pickAndUploadImage(),
                         icon: const Icon(
                           CustomIcons.docAdd,
                           color: CustomColors.buttonColor,
