@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/pages/activitypage.dart';
 
 // widget holding activty summary details
 class EventsTile extends StatelessWidget {
   const EventsTile({
     super.key,
-    required this.eventdesc,
+    required this.eventLocation,
     required this.eventtitle,
+    this.eventDesc,
     this.isSession = false,
     this.timePeriod,
   });
 
   final String eventtitle;
-  final String eventdesc;
+  final String eventLocation;
+  final String? eventDesc;
   final bool isSession;
   final String? timePeriod;
 
@@ -27,7 +30,7 @@ class EventsTile extends StatelessWidget {
         ),
         Container(
           height: 15,
-          width: 15,
+          width: 14,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isSession
@@ -51,7 +54,10 @@ class EventsTile extends StatelessWidget {
                   horizontal: 8.0,
                 ),
                 child: Text(
-                  eventtitle,
+                  eventtitle.length > 30
+                      ? "${eventtitle.substring(0, 29)}..."
+                      : eventtitle,
+                  softWrap: true,
                   style: const TextStyle(
                     color: CustomColors.textColor,
                     fontSize: 16,
@@ -67,7 +73,7 @@ class EventsTile extends StatelessWidget {
                       Icons.place_outlined,
                     ),
                     Text(
-                      eventdesc,
+                      eventLocation,
                       style: const TextStyle(
                         color: CustomColors.secondaryTextColor,
                         fontWeight: FontWeight.w300,
@@ -112,7 +118,12 @@ class EventsTile extends StatelessWidget {
             size: 40,
           ),
           onPressed: () {
-            Get.toNamed('/activity_page');
+            Get.to(ActivityPage(
+              name: eventtitle,
+              description: eventDesc ?? "",
+              location: eventLocation,
+              timePeriod: timePeriod ?? "",
+            ));
           },
         ),
       ],

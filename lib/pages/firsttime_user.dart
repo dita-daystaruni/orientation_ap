@@ -5,7 +5,6 @@ import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/preparation_page.dart';
 import 'package:orientation_app/services/authentication.dart';
-import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
 class FirsttimeUser extends StatefulWidget {
   const FirsttimeUser({
@@ -301,7 +300,6 @@ class _FirsttimeUserState extends State<FirsttimeUser> {
       setState(() {
         isWaiting = !isWaiting;
       });
-      rethrow;
       debugPrint(
         "Exception in First Time User  ${e.toString()}",
       );

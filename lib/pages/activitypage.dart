@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 
 class ActivityPage extends StatelessWidget {
-  const ActivityPage({super.key});
+  const ActivityPage({
+    super.key,
+    required this.name,
+    required this.location,
+    required this.description,
+    required this.timePeriod,
+  });
+
+  final String name;
+  // TODO set time period
+  final String timePeriod;
+  final String location;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -10,72 +22,74 @@ class ActivityPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: CustomColors.backgroundColor,
-        title: const Text(
-          "Activity Name",
-          style: TextStyle(
+        title: Text(
+          name,
+          style: const TextStyle(
               color: CustomColors.textColor,
               fontWeight: FontWeight.w500,
               fontSize: 24),
         ),
       ),
       backgroundColor: CustomColors.backgroundColor,
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             IntrinsicWidth(
-              child: Row(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.watch_later_outlined,
-                        color: CustomColors.secondaryTextColor,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 4.0,
-                          right: 16.0,
+              child: Center(
+                child: Row(
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.watch_later_outlined,
+                          color: CustomColors.secondaryTextColor,
                         ),
-                        child: Text(
-                          '8.00 AM',
-                          style: TextStyle(
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 4.0,
+                            right: 16.0,
+                          ),
+                          child: Text(
+                            '8.00 AM',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15,
+                              color: CustomColors.secondaryTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            left: 16.0,
+                            right: 4.0,
+                          ),
+                          child: Icon(
+                            Icons.place_outlined,
+                            color: CustomColors.secondaryTextColor,
+                          ),
+                        ),
+                        Text(
+                          location,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
                             color: CustomColors.secondaryTextColor,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 16.0,
-                          right: 4.0,
-                        ),
-                        child: Icon(
-                          Icons.place_outlined,
-                          color: CustomColors.secondaryTextColor,
-                        ),
-                      ),
-                      Text(
-                        "Location",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 15,
-                          color: CustomColors.secondaryTextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(
                 top: 45.0,
                 bottom: 16.0,
@@ -90,8 +104,8 @@ class ActivityPage extends StatelessWidget {
               ),
             ),
             Text(
-              "You're just one step away from diving into this incredible journey. At Daystar University, we believe in your potential.",
-              style: TextStyle(
+              description,
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 15,
                 color: CustomColors.textColor,
