@@ -17,7 +17,7 @@ class ActivitySessionModel {
         startTime = json['start_time'],
         endTime = json['end_time'],
         // TODO confirm from clive decided name
-        location = json['venue'];
+        location = json['location'];
 
   Map<String, dynamic> toJson() => {
         "id": id,

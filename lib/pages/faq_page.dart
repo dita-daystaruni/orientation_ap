@@ -50,10 +50,9 @@ class _FaqPageState extends State<FaqPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     final DocumentController documentController =
-        Get.put(DocumentController(userToken));
-    
+        Get.put(DocumentController(widget.userToken));
+
     // putting routines and sessions controllers
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
@@ -162,7 +161,8 @@ class _FaqPageState extends State<FaqPage> with SingleTickerProviderStateMixin {
               Expanded(
                 child: Obx(() {
                   if (documentController.documents.isEmpty) {
-                    return const Center(child: CircularProgressIndicator(
+                    return const Center(
+                        child: CircularProgressIndicator(
                       color: CustomColors.buttonColor,
                     ));
                   } else {
@@ -174,7 +174,8 @@ class _FaqPageState extends State<FaqPage> with SingleTickerProviderStateMixin {
                           child: DocumentsTile(
                             documentName: documentController.documents[index]
                                 ['title'],
-                            documentUrl: documentController.documents[index]['file'],
+                            documentUrl: documentController.documents[index]
+                                ['file'],
                           ),
                         );
                       },
