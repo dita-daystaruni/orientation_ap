@@ -7,10 +7,12 @@ class CustomNotificationIcon extends StatelessWidget {
     super.key,
     this.isG9 = false,
     this.canEdit = false,
+    required this.userToken,
   });
 
   final bool isG9;
   final bool canEdit;
+  final String userToken;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class CustomNotificationIcon extends StatelessWidget {
               NotificationsPage(
                 isG9: isG9,
                 canEdit: canEdit,
+                userToken: userToken,
               ),
             ),
         icon: const Icon(Icons.notifications_outlined));
