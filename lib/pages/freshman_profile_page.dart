@@ -25,7 +25,9 @@ class FreshmanProfilePage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Get.to(
-              const NotificationsPage(),
+              NotificationsPage(
+                userToken: user.token,
+              ),
             );
           },
           icon: const Icon(

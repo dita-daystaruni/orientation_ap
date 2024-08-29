@@ -31,6 +31,7 @@ class G9DashboardPage extends StatelessWidget {
               gender: user.gender,
               isG9: true,
               canEdit: true,
+              token: user.token,
             ),
             // statistics page
             Padding(
@@ -177,9 +178,10 @@ class G9DashboardPage extends StatelessWidget {
             const UpcomingActivity(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.34,
-              child: const RecentNotificationsPage(
+              child: RecentNotificationsPage(
                 isG9: true,
                 canEdit: true,
+                userToken: user.token,
               ),
             )
           ],

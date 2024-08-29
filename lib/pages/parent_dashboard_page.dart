@@ -28,6 +28,7 @@ class ParentDashboardPage extends StatelessWidget {
               gender: user.gender,
               isG9: false,
               canEdit: true,
+              token: user.token
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -64,7 +65,7 @@ class ParentDashboardPage extends StatelessWidget {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.31,
-              child: const RecentNotificationsPage(),
+              child: RecentNotificationsPage(userToken: user.token,),
             ),
           ],
         ),
