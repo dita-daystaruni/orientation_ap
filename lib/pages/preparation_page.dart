@@ -8,9 +8,9 @@ import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
+import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/services/course_services.dart';
 import 'package:orientation_app/services/faqs_service.dart';
@@ -36,6 +36,7 @@ class _PreparationPageState extends State<PreparationPage> {
   bool finishedGettingFaqs = false;
   bool finishedGettingCourses = false;
   bool finishedGettingStatistics = false;
+  bool finishedSettingUser = false;
   bool isDone = false;
 
   @override
@@ -52,9 +53,11 @@ class _PreparationPageState extends State<PreparationPage> {
             ? "Activities"
             : !finishedGettingFaqs
                 ? "FAQS"
-                : finishedGettingCourses
+                : !finishedGettingCourses
                     ? "Courses"
-                    : "Statistics";
+                    : !finishedSettingUser
+                        ? "Account"
+                        : "Statistics";
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       body: Column(
@@ -248,6 +251,24 @@ class _PreparationPageState extends State<PreparationPage> {
     }
   }
 
+  Future<void> setUser() async {
+    // encode user object
+    String userString = jsonEncode(widget.user);
+
+    UserController userController = Get.find<UserController>();
+
+    await userController.addUserToSP(userString);
+    await userController.getUserFromSP();
+
+    // set logged in to true
+    await userController.setLoginToSp(true);
+    userController.isLoggedIn.value = await userController.getLoggedInFromSP();
+
+    setState(() {
+      finishedSettingUser = true;
+    });
+  }
+
   // sets everything
   Future<void> setEverything() async {
     // TODO do error checks here
@@ -256,12 +277,13 @@ class _PreparationPageState extends State<PreparationPage> {
     await setActivities();
     await setFaqs();
     await setCourses();
+    await setUser();
     // TODO load only when its an admin
     if (widget.user.userType == "admin") {
       await setStatistics();
     }
 
-    // waits for 3 seconds before moving to respective dashboard
+    // waits for 2 seconds before moving to respective dashboard
     setState(() {
       isDone = true;
     });
