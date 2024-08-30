@@ -19,17 +19,3 @@ Future getActivities(String token) async {
   );
   return [response.statusCode, jsonDecode(response.body)];
 }
-
-Future getSessions(String token) async {
-  // adding token to header
-  headers.addAll(
-    {
-      "Authorization": "Token $token",
-    },
-  );
-  var response = await http.get(
-    Uri.parse('$baseUrl/events/events/'),
-    headers: headers,
-  );
-  return [response.statusCode, jsonDecode(response.body)];
-}
