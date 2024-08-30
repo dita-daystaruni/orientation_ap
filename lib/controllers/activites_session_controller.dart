@@ -16,6 +16,15 @@ class ActivitySessionController extends GetxController {
   // CustomDate Parser
   CustomDateParser dateParser = CustomDateParser();
 
+  @override
+  void onInit() async {
+    // set the activites
+    await getActivitiesFromSP();
+    setAvailableDaysAndDate();
+    updateOngoingUpcomingActivities();
+    super.onInit();
+  }
+
   // set previous activity and ongoing
   void updateOngoingUpcomingActivities() {
     List<ActivitySessionModel?> actvities =

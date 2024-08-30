@@ -6,6 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserContactController extends GetxController {
   RxList<UserContact> userContacts = <UserContact>[].obs;
 
+  @override
+  void onInit() async {
+    // set contacts
+    await getUsersContactsFromSP();
+    super.onInit();
+  }
+
   // caches users contacts
   Future<void> addUsersContactsToSP(List<String> userContacts) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

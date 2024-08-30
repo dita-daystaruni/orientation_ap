@@ -7,6 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StatisticsController extends GetxController {
   Rx<StatisticsModel?> statistics = Rxn<StatisticsModel>();
 
+  @override
+  void onInit() async {
+    // set statistics
+    await getStatisticsFromSP();
+    super.onInit();
+  }
+
   // caches faqs
   Future<void> addStatisticToSP(String statistics) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
