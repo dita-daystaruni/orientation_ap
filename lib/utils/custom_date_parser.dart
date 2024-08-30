@@ -74,7 +74,7 @@ class CustomDateParser {
     activities.forEach(
       (key, value) => daysAndDates.add(
         {
-          "day": key.substring(0, 3),
+          "day": key,
           "date": DateTime.parse(value[0].date).day.toString(),
         },
       ),
@@ -123,7 +123,7 @@ class CustomDateParser {
   }
 }
 
-// testing purposes
+// // testing purposes
 // void main() {
 //   List<ActivitySessionModel> convertedExamples = [];
 //   // iterate through the list and convert all the objects into activity instances
@@ -188,7 +188,8 @@ var exampleEvents = [
     "date": "2024-08-26",
     "start_time": "08:00:00",
     "end_time": "10:00:00",
-    "location": "Cafeteria"
+    "location": "Cafeteria",
+    "is_session": false
   },
   {
     "id": 2,
@@ -197,7 +198,8 @@ var exampleEvents = [
     "date": "2024-08-26",
     "start_time": "11:30:00",
     "end_time": "13:30:00",
-    "location": "Main Gate"
+    "location": "Main Gate",
+    "is_session": false
   },
   {
     "id": 3,
@@ -206,7 +208,8 @@ var exampleEvents = [
     "date": "2024-08-26",
     "start_time": "15:00:00",
     "end_time": "17:00:00",
-    "location": "Student Lounge"
+    "location": "Student Lounge",
+    "is_session": false
   },
   {
     "id": 4,
@@ -216,7 +219,8 @@ var exampleEvents = [
     "date": "2024-08-26",
     "start_time": "18:30:00",
     "end_time": "20:30:00",
-    "location": "Amphitheatre"
+    "location": "Amphitheatre",
+    "is_session": false
   },
   {
     "id": 5,
@@ -226,7 +230,8 @@ var exampleEvents = [
     "date": "2024-08-27",
     "start_time": "09:00:00",
     "end_time": "11:00:00",
-    "location": "Lecture Hall A"
+    "location": "Lecture Hall A",
+    "is_session": false
   },
   {
     "id": 6,
@@ -236,7 +241,8 @@ var exampleEvents = [
     "date": "2024-08-27",
     "start_time": "12:00:00",
     "end_time": "14:00:00",
-    "location": "Quad"
+    "location": "Quad",
+    "is_session": false
   },
   {
     "id": 7,
@@ -245,7 +251,8 @@ var exampleEvents = [
     "date": "2024-08-27",
     "start_time": "14:30:00",
     "end_time": "16:30:00",
-    "location": "Library Hall"
+    "location": "Library Hall",
+    "is_session": false
   },
   {
     "id": 8,
@@ -254,7 +261,8 @@ var exampleEvents = [
     "date": "2024-08-27",
     "start_time": "18:00:00",
     "end_time": "20:00:00",
-    "location": "Student Centre"
+    "location": "Student Centre",
+    "is_session": false
   },
   {
     "id": 9,
@@ -264,7 +272,8 @@ var exampleEvents = [
     "date": "2024-08-28",
     "start_time": "07:30:00",
     "end_time": "09:30:00",
-    "location": "Gym"
+    "location": "Gym",
+    "is_session": false
   },
   {
     "id": 10,
@@ -273,7 +282,8 @@ var exampleEvents = [
     "date": "2024-08-28",
     "start_time": "10:00:00",
     "end_time": "12:00:00",
-    "location": "IT Lab"
+    "location": "IT Lab",
+    "is_session": false
   },
   {
     "id": 11,
@@ -283,7 +293,8 @@ var exampleEvents = [
     "date": "2024-08-28",
     "start_time": "13:00:00",
     "end_time": "15:00:00",
-    "location": "Auditorium"
+    "location": "Auditorium",
+    "is_session": false
   },
   {
     "id": 12,
@@ -292,7 +303,8 @@ var exampleEvents = [
     "date": "2024-08-28",
     "start_time": "18:30:00",
     "end_time": "20:30:00",
-    "location": "Outdoor Cinema"
+    "location": "Outdoor Cinema",
+    "is_session": false
   },
   {
     "id": 13,
@@ -301,7 +313,8 @@ var exampleEvents = [
     "date": "2024-08-29",
     "start_time": "08:30:00",
     "end_time": "10:30:00",
-    "location": "Career Office"
+    "location": "Career Office",
+    "is_session": false
   },
   {
     "id": 14,
@@ -310,7 +323,8 @@ var exampleEvents = [
     "date": "2024-08-29",
     "start_time": "11:00:00",
     "end_time": "13:00:00",
-    "location": "Study Hall"
+    "location": "Study Hall",
+    "is_session": false
   },
   {
     "id": 15,
@@ -319,7 +333,8 @@ var exampleEvents = [
     "date": "2024-08-29",
     "start_time": "14:00:00",
     "end_time": "16:00:00",
-    "location": "Community Centre"
+    "location": "Community Centre",
+    "is_session": false
   },
   {
     "id": 16,
@@ -328,7 +343,8 @@ var exampleEvents = [
     "date": "2024-08-29",
     "start_time": "19:00:00",
     "end_time": "21:00:00",
-    "location": "Student Lounge"
+    "location": "Student Lounge",
+    "is_session": false
   },
   {
     "id": 17,
@@ -337,7 +353,8 @@ var exampleEvents = [
     "date": "2024-08-30",
     "start_time": "08:00:00",
     "end_time": "10:00:00",
-    "location": "Health Centre"
+    "location": "Health Centre",
+    "is_session": false
   },
   {
     "id": 18,
@@ -346,7 +363,8 @@ var exampleEvents = [
     "date": "2024-08-30",
     "start_time": "11:00:00",
     "end_time": "13:00:00",
-    "location": "Conference Room"
+    "location": "Conference Room",
+    "is_session": false
   },
   {
     "id": 19,
@@ -355,7 +373,8 @@ var exampleEvents = [
     "date": "2024-08-30",
     "start_time": "15:00:00",
     "end_time": "17:00:00",
-    "location": "Sports Field"
+    "location": "Sports Field",
+    "is_session": false
   },
   {
     "id": 20,
@@ -364,6 +383,7 @@ var exampleEvents = [
     "date": "2024-08-30",
     "start_time": "19:00:00",
     "end_time": "21:00:00",
-    "location": "Amphitheatre"
+    "location": "Amphitheatre",
+    "is_session": false
   }
 ];

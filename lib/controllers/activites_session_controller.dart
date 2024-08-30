@@ -1,61 +1,61 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
+import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ActivitySessionController extends GetxController {
   // holds activities
-  RxList<ActivitySessionModel> activities = <ActivitySessionModel>[].obs;
-  RxList<ActivitySessionModel> sessions = <ActivitySessionModel>[].obs;
+  RxMap<String, List<ActivitySessionModel>> activities =
+      <String, List<ActivitySessionModel>>{}.obs;
+  Rx<ActivitySessionModel?> ongoingActivity = Rxn<ActivitySessionModel>();
+  Rx<ActivitySessionModel?> upcomingActivity = Rxn<ActivitySessionModel>();
+  RxList<Map<String, String>> availableDaysAndDate =
+      <Map<String, String>>[].obs;
 
-  // caches activites
-  Future<void> addActivitiesToSP(List<String> activities) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("activities", activities);
+  // CustomDate Parser
+  CustomDateParser dateParser = CustomDateParser();
+
+  // set previous activity and ongoing
+  void updateOngoingUpcomingActivities() {
+    List<ActivitySessionModel?> actvities =
+        dateParser.getUpcomingActivity(activities);
+    ongoingActivity.value = actvities[0];
+    upcomingActivity.value = actvities[1];
   }
 
-  // caches sessions
-  Future<void> addSessionsToSP(List<String> sessions) async {
+  // set availableDaysanddate
+  void setAvailableDaysAndDate() {
+    availableDaysAndDate.value = dateParser.getDaysAndDate(activities);
+  }
+
+  // caches activites
+  Future<void> addActivitiesToSP(String groupedActivities) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("sessions", sessions);
+    prefs.setString("activities", groupedActivities);
   }
 
   // gets users contacts from SP
   Future getActivitiesFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String>? activitiesString = prefs.getStringList("activities");
+    final String? activitiesString = prefs.getString("activities");
     if (activitiesString != null) {
+      Map<String, dynamic> decodedActivities = jsonDecode(activitiesString);
       // clear activities before adding new ones
       activities.clear();
       // adding new activities
-      for (var element in activitiesString) {
-        activities.add(
-          ActivitySessionModel.fromJson(
-            jsonDecode(element),
-          ),
-        );
-      }
+      decodedActivities.forEach(
+        (key, value) {
+          List<ActivitySessionModel> decodedDayActivities = [];
+          for (var day in value) {
+            decodedDayActivities.add(
+              ActivitySessionModel.fromJson(day),
+            );
+          }
+          activities[key] = decodedDayActivities;
+        },
+      );
       return activities;
-    }
-    return null;
-  }
-
-  // gets users contacts from SP
-  Future getSessionsFromSP() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String>? sessionsString = prefs.getStringList("sessions");
-    if (sessionsString != null) {
-      // clear sessions before adding new ones
-      sessions.clear();
-      // adding sessions contacts
-      for (var element in sessionsString) {
-        sessions.add(
-          ActivitySessionModel.fromJson(
-            jsonDecode(element),
-          ),
-        );
-      }
-      return sessions;
     }
     return null;
   }

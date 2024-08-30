@@ -82,15 +82,15 @@ class Routines extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return RoutinesEventsTiles(
                               eventTitle: activitySessionController
-                                  .activities[index].title,
+                                  .activities["Monday"]![index].title,
                               eventLocation: activitySessionController
-                                  .activities[index].location,
+                                  .activities["Monday"]![index].location,
                               eventDesc: activitySessionController
-                                  .activities[index].description,
+                                  .activities["Monday"]![index].description,
                             );
                           },
-                          itemCount:
-                              activitySessionController.activities.length,
+                          itemCount: activitySessionController
+                              .activities["Monday"]?.length,
                         ),
                       )
                     : Column(
@@ -129,22 +129,23 @@ class Routines extends StatelessWidget {
               ),
               // list of sessions
               Obx(
-                () => activitySessionController.sessions.isNotEmpty
+                () => activitySessionController.activities.isNotEmpty
                     ? Expanded(
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             return RoutinesEventsTiles(
                               eventTitle: activitySessionController
-                                  .sessions[index].title,
+                                  .activities["Monday"]![index].title,
                               eventLocation: activitySessionController
-                                  .sessions[index].location,
+                                  .activities["Monday"]![index].location,
                               eventDesc: activitySessionController
-                                  .sessions[index].description,
+                                  .activities["Monday"]![index].description,
                               isSesion: true,
                             );
                           },
-                          itemCount: activitySessionController.sessions.length,
+                          itemCount: activitySessionController
+                              .activities["Monday"]?.length,
                         ),
                       )
                     : Column(
