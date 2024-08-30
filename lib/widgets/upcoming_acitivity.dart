@@ -5,17 +5,25 @@ import 'package:orientation_app/widgets/events_tile.dart';
 class UpcomingActivity extends StatelessWidget {
   const UpcomingActivity({
     super.key,
+    required this.activityName,
+    required this.location,
+    required this.eventDescription,
+    required this.isSession,
   });
-  // TODO passing activity location
+
+  final String location;
+  final String activityName;
+  final String eventDescription;
+  final bool isSession;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Upcoming activity",
             style: TextStyle(
               color: CustomColors.textColor,
@@ -24,11 +32,15 @@ class UpcomingActivity extends StatelessWidget {
             ),
             textAlign: TextAlign.start,
           ),
-          Divider(),
-          // TODO passing activity details
+          const Divider(),
+          // TODO passing event time
           EventsTile(
-            eventLocation: 'Location',
-            eventtitle: 'Activity name',
+            eventLocation: location,
+            eventtitle: activityName,
+            eventDesc: eventDescription,
+            isSession: isSession,
+            timePeriod: "8:00AM-10:00AM",
+            showTimePeriod: false,
           ),
         ],
       ),

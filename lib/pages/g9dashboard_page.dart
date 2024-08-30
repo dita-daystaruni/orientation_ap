@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
@@ -24,6 +26,8 @@ class G9DashboardPage extends StatelessWidget {
     UserContactController contactController = Get.find<UserContactController>();
     StatisticsController statisticsController =
         Get.find<StatisticsController>();
+    ActivitySessionController activitySessionController =
+        Get.find<ActivitySessionController>();
 
     return SafeArea(
       child: Scaffold(
@@ -187,9 +191,43 @@ class G9DashboardPage extends StatelessWidget {
                 ),
               ),
             ),
-            const UpcomingActivity(),
+            Obx(
+              () => activitySessionController.upcomingActivity.value != null
+                  ? UpcomingActivity(
+                      activityName: activitySessionController
+                          .upcomingActivity.value!.title,
+                      eventDescription: activitySessionController
+                          .upcomingActivity.value!.description,
+                      isSession: activitySessionController
+                          .upcomingActivity.value!.isSession,
+                      location: activitySessionController
+                          .upcomingActivity.value!.location,
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.10,
+                            child: Lottie.asset(
+                              "assets/lotties/error.json",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const Text(
+                            "No Upcoming Activity",
+                            style: TextStyle(
+                              color: CustomColors.secondaryTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.34,
+              height: MediaQuery.of(context).size.height * 0.37,
               child: const RecentNotificationsPage(
                 isG9: true,
                 canEdit: true,

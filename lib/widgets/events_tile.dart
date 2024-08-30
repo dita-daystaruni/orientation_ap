@@ -9,16 +9,18 @@ class EventsTile extends StatelessWidget {
     super.key,
     required this.eventLocation,
     required this.eventtitle,
+    required this.timePeriod,
     this.eventDesc,
     this.isSession = false,
-    this.timePeriod,
+    this.showTimePeriod = true,
   });
 
   final String eventtitle;
   final String eventLocation;
   final String? eventDesc;
   final bool isSession;
-  final String? timePeriod;
+  final bool showTimePeriod;
+  final String timePeriod;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class EventsTile extends StatelessWidget {
                   ],
                 ),
               ),
-              timePeriod != null
+              showTimePeriod
                   ? Padding(
                       padding: const EdgeInsets.only(
                         top: 6.0,
@@ -97,7 +99,7 @@ class EventsTile extends StatelessWidget {
                             Icons.watch_later_outlined,
                           ),
                           Text(
-                            timePeriod!,
+                            timePeriod,
                             style: const TextStyle(
                               color: CustomColors.secondaryTextColor,
                               fontWeight: FontWeight.w300,
@@ -122,7 +124,7 @@ class EventsTile extends StatelessWidget {
               name: eventtitle,
               description: eventDesc ?? "",
               location: eventLocation,
-              timePeriod: timePeriod ?? "",
+              timePeriod: timePeriod,
             ));
           },
         ),

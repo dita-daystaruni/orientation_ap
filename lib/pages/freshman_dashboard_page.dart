@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/contactdetails.dart';
@@ -22,6 +24,8 @@ class FreshmanDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // getting contacts controller
     UserContactController contactController = Get.find<UserContactController>();
+    ActivitySessionController activitySessionController =
+        Get.find<ActivitySessionController>();
 
     return SafeArea(
       child: Scaffold(
@@ -34,7 +38,41 @@ class FreshmanDashboardPage extends StatelessWidget {
                 gender: user.gender,
               ),
               const OngoingActivity(),
-              const UpcomingActivity(),
+              Obx(
+                () => activitySessionController.upcomingActivity.value != null
+                    ? UpcomingActivity(
+                        activityName: activitySessionController
+                            .upcomingActivity.value!.title,
+                        eventDescription: activitySessionController
+                            .upcomingActivity.value!.description,
+                        isSession: activitySessionController
+                            .upcomingActivity.value!.isSession,
+                        location: activitySessionController
+                            .upcomingActivity.value!.location,
+                      )
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.10,
+                              child: Lottie.asset(
+                                "assets/lotties/error.json",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            const Text(
+                              "No Upcoming Activity",
+                              style: TextStyle(
+                                color: CustomColors.secondaryTextColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
               const Padding(
                 padding: EdgeInsets.only(
                   left: 8.0,
