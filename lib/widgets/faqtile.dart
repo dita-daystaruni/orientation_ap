@@ -4,7 +4,12 @@ import 'package:orientation_app/constants/custom_colors.dart';
 class FaqTile extends StatefulWidget {
   const FaqTile({
     super.key,
+    required this.question,
+    required this.answer,
   });
+
+  final String question;
+  final String answer;
 
   @override
   State<FaqTile> createState() => _FaqTileState();
@@ -31,8 +36,8 @@ class _FaqTileState extends State<FaqTile> {
               'assets/images/questionmark.png',
               height: 67,
             ),
-            title: const Text(
-              'Question:Lorem ipsum dolor sit amet, ',
+            title: Text(
+              widget.question,
             ),
             trailing: IconButton(
               icon: Icon(
@@ -49,13 +54,13 @@ class _FaqTileState extends State<FaqTile> {
           ),
         ),
         isExpanded
-            ? const Card(
+            ? Card(
                 elevation: 4,
                 color: CustomColors.backgroundColor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Answer",
                       style: TextStyle(
                         color: CustomColors.textColor,
@@ -64,11 +69,11 @@ class _FaqTileState extends State<FaqTile> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                        widget.answer,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: CustomColors.textColor,
                           fontWeight: FontWeight.w300,
                           fontSize: 16,

@@ -1,5 +1,4 @@
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:orientation_app/pages/activitypage.dart';
 import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/sign_in.dart';
 import 'package:orientation_app/pages/sign_up.dart';
@@ -10,7 +9,6 @@ class AppRoutes {
     GetPage(name: "/splash_screen", page: () => const SplashScreen()),
     GetPage(name: "/sign_in", page: () => const SignIn()),
     GetPage(name: "/sign_up", page: () => const SignUp()),
-    GetPage(name: '/activity_page', page: () => const ActivityPage()),
     GetPage(name: '/routines', page: () => const Routines()),
   ];
 }

@@ -6,6 +6,7 @@ class UpcomingActivity extends StatelessWidget {
   const UpcomingActivity({
     super.key,
   });
+  // TODO passing activity location
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,9 @@ class UpcomingActivity extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           Divider(),
+          // TODO passing activity details
           EventsTile(
-            eventdesc: 'Location',
+            eventLocation: 'Location',
             eventtitle: 'Activity name',
           ),
         ],
@@ -35,45 +37,42 @@ class UpcomingActivity extends StatelessWidget {
 }
 
 class RoutinesEventsTiles extends StatelessWidget {
-  const RoutinesEventsTiles({super.key});
+  const RoutinesEventsTiles({
+    super.key,
+    required this.eventLocation,
+    required this.eventDesc,
+    required this.eventTitle,
+    this.isSesion = false,
+  });
+
+  final String eventLocation;
+  final String eventTitle;
+  final String eventDesc;
+  final bool isSesion;
+  // TODO time of events format
+  // final String timePeriod;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         horizontal: 8.0,
         vertical: 0.0,
       ),
       child: Column(
         children: [
-          Divider(
+          const Divider(
             color: CustomColors.indicatorColor,
           ),
           EventsTile(
-            eventdesc: 'Location',
-            eventtitle: 'Activity name',
+            eventLocation: eventLocation,
+            eventDesc: eventDesc,
+            eventtitle: eventTitle,
             timePeriod: "8:00AM-10:00AM",
+            isSession: isSesion,
           ),
         ],
       ),
     );
   }
 }
-
-var upcomings = const [
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-  RoutinesEventsTiles(),
-];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
+import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
 import 'package:orientation_app/pages/statistics_page.dart';
@@ -21,6 +22,9 @@ class G9DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserContactController contactController = Get.find<UserContactController>();
+    StatisticsController statisticsController =
+        Get.find<StatisticsController>();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
@@ -64,11 +68,11 @@ class G9DashboardPage extends StatelessWidget {
                               Radius.circular(30),
                             ),
                           ),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Statistics",
                                 style: TextStyle(
                                   color: CustomColors.textColor,
@@ -76,15 +80,24 @@ class G9DashboardPage extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              Text(
-                                "327",
-                                style: TextStyle(
-                                  color: CustomColors.textColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 64,
+                              Obx(
+                                () => Text(
+                                  '${statisticsController.statistics.value?.totalStudents}',
+                                  style: const TextStyle(
+                                    color: CustomColors.textColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 64,
+                                  ),
                                 ),
                               ),
-                              Text("New Students"),
+                              const Text(
+                                "New Students",
+                                style: TextStyle(
+                                  color: CustomColors.secondaryTextColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ],
                           ),
                         ),

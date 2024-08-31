@@ -6,7 +6,7 @@ Map<String, String> headers = {
   'Content-type': 'application/json; charset=UTF-8',
 };
 
-Future getActivities(String token) async {
+Future getAllStatistics(String token) async {
   // adding token to header
   headers.addAll(
     {
@@ -14,13 +14,13 @@ Future getActivities(String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/activities/activities/'),
+    Uri.parse('$baseUrl/account/statistics'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
 }
 
-Future getSessions(String token) async {
+Future getCourseStatistic(String token, String courseName) async {
   // adding token to header
   headers.addAll(
     {
@@ -28,7 +28,7 @@ Future getSessions(String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/events/events/'),
+    Uri.parse('$baseUrl?course=$courseName'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
