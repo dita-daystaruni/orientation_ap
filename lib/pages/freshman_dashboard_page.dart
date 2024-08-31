@@ -49,24 +49,29 @@ class FreshmanDashboardPage extends StatelessWidget {
                         time: "",
                       )
                     // TODO check on this
-                    : Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.10,
-                            child: Lottie.asset(
-                              "assets/lotties/error.json",
-                              fit: BoxFit.fill,
+                    : Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.27,
+                              child: Lottie.asset(
+                                "assets/lotties/error.json",
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            "No Ongoing Activity",
-                            style: TextStyle(
-                              color: CustomColors.secondaryTextColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                            const Padding(
+                              padding: EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                "No Ongoing Activity",
+                                style: TextStyle(
+                                  color: CustomColors.secondaryTextColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
               ),
               Obx(
@@ -81,26 +86,36 @@ class FreshmanDashboardPage extends StatelessWidget {
                         location: activitySessionController
                             .upcomingActivity.value!.location,
                       )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.10,
-                              child: Lottie.asset(
-                                "assets/lotties/error.json",
-                                fit: BoxFit.fill,
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 0.0,
+                        ),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                child: Lottie.asset(
+                                  "assets/lotties/error.json",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            const Text(
-                              "No Upcoming Activity",
-                              style: TextStyle(
-                                color: CustomColors.secondaryTextColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8.0),
+                                child: Text(
+                                  "No Upcoming Activity",
+                                  style: TextStyle(
+                                    color: CustomColors.secondaryTextColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
               ),
