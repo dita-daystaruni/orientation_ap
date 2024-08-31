@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
@@ -17,6 +20,10 @@ class ParentDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Getting controllers
+    ActivitySessionController activitySessionController =
+        Get.find<ActivitySessionController>();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
@@ -29,9 +36,40 @@ class ParentDashboardPage extends StatelessWidget {
               isG9: false,
               canEdit: true,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: OngoingActivity(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(
+                () => activitySessionController.ongoingActivity.value != null
+                    ?
+                    // TODO handle time issues
+                    OngoingActivity(
+                        activityName: activitySessionController
+                            .ongoingActivity.value!.title,
+                        location: activitySessionController
+                            .ongoingActivity.value!.location,
+                        time: "",
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: Lottie.asset(
+                              "assets/lotties/error.json",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const Text(
+                            "No Ongoing Activity",
+                            style: TextStyle(
+                              color: CustomColors.secondaryTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),

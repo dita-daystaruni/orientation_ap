@@ -37,7 +37,38 @@ class FreshmanDashboardPage extends StatelessWidget {
                 firstName: user.firstName,
                 gender: user.gender,
               ),
-              const OngoingActivity(),
+              Obx(
+                () => activitySessionController.ongoingActivity.value != null
+                    ?
+                    // TODO handle time issues
+                    OngoingActivity(
+                        activityName: activitySessionController
+                            .ongoingActivity.value!.title,
+                        location: activitySessionController
+                            .ongoingActivity.value!.location,
+                        time: "",
+                      )
+                    // TODO check on this
+                    : Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.10,
+                            child: Lottie.asset(
+                              "assets/lotties/error.json",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const Text(
+                            "No Ongoing Activity",
+                            style: TextStyle(
+                              color: CustomColors.secondaryTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
               Obx(
                 () => activitySessionController.upcomingActivity.value != null
                     ? UpcomingActivity(
