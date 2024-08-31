@@ -36,7 +36,9 @@ class UpcomingActivity extends StatelessWidget {
           // TODO passing event time
           EventsTile(
             eventLocation: location,
-            eventtitle: activityName,
+            eventtitle: activityName.length > 25
+                ? activityName.substring(0, 25)
+                : activityName,
             eventDesc: eventDescription,
             isSession: isSession,
             timePeriod: "8:00AM-10:00AM",

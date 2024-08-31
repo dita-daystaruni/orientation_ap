@@ -47,6 +47,7 @@ class ActivitySessionController extends GetxController {
   // gets users contacts from SP
   Future getActivitiesFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final String? activitiesString = prefs.getString("activities");
     if (activitiesString != null) {
       Map<String, dynamic> decodedActivities = jsonDecode(activitiesString);

@@ -385,5 +385,35 @@ var exampleEvents = [
     "end_time": "21:00:00",
     "location": "Amphitheatre",
     "is_session": false
+  },
+  {
+    "id": 21,
+    "title": "Mentorship Program",
+    "description": "Launch of the student mentorship program.",
+    "date": "2024-08-31",
+    "start_time": "23:10:00",
+    "end_time": "23:50:00",
+    "location": "Conference Room",
+    "is_session": false
+  },
+  {
+    "id": 22,
+    "title": "Outdoor Team Building",
+    "description": "Outdoor team-building activities for freshmen.",
+    "date": "2024-09-01",
+    "start_time": "15:00:00",
+    "end_time": "17:00:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 23,
+    "title": "Closing Ceremony",
+    "description": "Final event to close the freshmen welcome week.",
+    "date": "2024-09-01",
+    "start_time": "19:00:00",
+    "end_time": "21:00:00",
+    "location": "Amphitheatre",
+    "is_session": false
   }
 ];
