@@ -26,8 +26,9 @@ class ParentProfilePage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Get.to(
-              const NotificationsPage(
+              NotificationsPage(
                 canEdit: true,
+                userToken: user.token,
               ),
             );
           },
