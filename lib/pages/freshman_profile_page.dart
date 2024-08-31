@@ -5,6 +5,8 @@ import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
+import 'package:orientation_app/pages/splash_screen.dart';
+import 'package:orientation_app/utils/logout.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class FreshmanProfilePage extends StatelessWidget {
@@ -35,8 +37,12 @@ class FreshmanProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              debugPrint("Coming Soon");
+            onPressed: () async {
+              // TODO ask user if they are sure
+              // clears shared prefs
+              await logOutUser();
+              // get user back to the beginning
+              Get.offAll(const SplashScreen());
             },
             icon: const Icon(
               Icons.logout,
@@ -49,8 +55,10 @@ class FreshmanProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Image.asset( user.gender == "Male" ?
-              'assets/images/profile.png' : 'assets/images/female_student.png',
+            child: Image.asset(
+              user.gender == "Male"
+                  ? 'assets/images/profile.png'
+                  : 'assets/images/female_student.png',
               height: MediaQuery.of(context).size.height * 0.2,
             ),
           ),
