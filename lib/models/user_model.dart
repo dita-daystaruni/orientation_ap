@@ -48,7 +48,7 @@ class User {
         'course': course,
         'phone_number': phoneNo,
         'token': token,
-        'parent': parent,
+        'parent': parent?.toJson(),
         'gender': gender,
         'accomodation': accomodation,
       };
