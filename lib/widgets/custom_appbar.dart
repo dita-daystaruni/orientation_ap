@@ -7,12 +7,14 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.firstName,
     required this.gender,
+    required this.token,
     this.isG9 = false,
     this.canEdit = false,
   });
 
   final String firstName;
   final String gender;
+  final String token;
   final bool isG9;
   final bool canEdit;
 
@@ -40,6 +42,7 @@ class CustomAppBar extends StatelessWidget {
           trailing: CustomNotificationIcon(
             isG9: isG9,
             canEdit: canEdit,
+            userToken: token,
           )),
     );
   }

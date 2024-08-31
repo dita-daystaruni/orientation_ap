@@ -32,6 +32,7 @@ class FreshmanDashboardPage extends StatelessWidget {
               CustomAppBar(
                 firstName: user.firstName,
                 gender: user.gender,
+                token: user.token,
               ),
               const OngoingActivity(),
               const UpcomingActivity(),
@@ -99,7 +100,7 @@ class FreshmanDashboardPage extends StatelessWidget {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.21,
-                child: const RecentNotificationsPage(),
+                child: RecentNotificationsPage(userToken: user.token,),
               ),
             ],
           )),

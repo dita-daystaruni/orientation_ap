@@ -30,9 +30,10 @@ class G9ProfilePage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Get.to(
-              const NotificationsPage(
+              NotificationsPage(
                 isG9: true,
                 canEdit: true,
+                userToken: user.token,
               ),
             );
           },
