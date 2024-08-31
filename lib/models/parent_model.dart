@@ -12,9 +12,9 @@ class FreshManParent {
         admNo = json['admission_number'],
         campus = json['campus'];
 
-  Map<String, String> toJson() {
+  Map<String, dynamic> toJson() {
     return {
-      'id': parentId as String,
+      'id': parentId,
       'first_name': firstName,
       'last_name': lastName,
       'admission_number': admNo,

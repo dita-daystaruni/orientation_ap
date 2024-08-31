@@ -46,9 +46,9 @@ class User {
         'user_type': userType,
         'admission_number': admNo,
         'course': course,
-        'phone_no': phoneNo,
+        'phone_number': phoneNo,
         'token': token,
-        'parent': parent,
+        'parent': parent?.toJson(),
         'gender': gender,
         'accomodation': accomodation,
       };

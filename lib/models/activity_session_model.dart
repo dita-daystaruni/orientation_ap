@@ -8,6 +8,7 @@ class ActivitySessionModel {
   final String startTime;
   final String endTime;
   final String location;
+  final bool isSession;
 
   ActivitySessionModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -17,7 +18,8 @@ class ActivitySessionModel {
         startTime = json['start_time'],
         endTime = json['end_time'],
         // TODO confirm from clive decided name
-        location = json['location'];
+        location = json['location'],
+        isSession = json['is_session'];
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -27,5 +29,6 @@ class ActivitySessionModel {
         "start_time": startTime,
         "end_time": endTime,
         "location": location,
+        "is_session": isSession,
       };
 }

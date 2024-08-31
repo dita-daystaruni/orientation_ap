@@ -227,14 +227,14 @@ class _FirsttimeUserState extends State<FirsttimeUser> {
       print(password);
       var response = await changeFirstTimePassword(
         admNo,
-        password + "d",
+        password,
       );
       switch (response[0]) {
         case 200:
           // successful changed password
           response = await signIn(
             admNo,
-            password + "d",
+            password,
           );
           if (response[0] == 200) {
             // get user object and navigate to preparation pageobject
