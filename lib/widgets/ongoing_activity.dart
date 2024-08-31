@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 
 class OngoingActivity extends StatelessWidget {
-  const OngoingActivity({super.key});
+  const OngoingActivity({
+    super.key,
+    required this.activityName,
+    required this.location,
+    required this.time,
+  });
+
+  final String activityName;
+  final String location;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -34,32 +43,32 @@ class OngoingActivity extends StatelessWidget {
                     height: 170,
                   ),
                 ),
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Activity name",
-                      style: TextStyle(
+                      activityName,
+                      style: const TextStyle(
                         color: CustomColors.textColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.place_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "Location",
-                          style: TextStyle(
+                          location,
+                          style: const TextStyle(
                             color: CustomColors.secondaryTextColor,
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
@@ -67,10 +76,11 @@ class OngoingActivity extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Row(
+                    // TODO handle time
+                    const Row(
                       children: [
                         Icon(
                           Icons.watch_later_outlined,

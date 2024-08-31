@@ -4,6 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CourseController extends GetxController {
   RxList<String> courses = <String>[].obs;
 
+  @override
+  void onInit() async {
+    // set courses
+    await getCoursesFromSP();
+    super.onInit();
+  }
+
   // caches faqs
   Future<void> addCoursesToSP(List<String> faqs) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

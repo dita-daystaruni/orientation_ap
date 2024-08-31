@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -8,7 +7,6 @@ import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/firsttime_user.dart';
 import 'package:orientation_app/pages/preparation_page.dart';
 import 'package:orientation_app/services/authentication.dart';
-import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});

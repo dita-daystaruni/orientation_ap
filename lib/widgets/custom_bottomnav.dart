@@ -92,39 +92,39 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BottomNavigationBar(
-          backgroundColor: CustomColors.backgroundColor,
-          currentIndex: selectedIndex,
-          elevation: 0,
-          selectedItemColor: CustomColors.buttonColor,
-          unselectedItemColor: Colors.grey,
-          onTap: (int value) {
-            setState(() {
-              selectedIndex = value;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              backgroundColor: CustomColors.backgroundColor,
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: 'Routines',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.question_answer),
-              label: 'FAQs',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'Profile',
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: CustomColors.backgroundColor,
+        currentIndex: selectedIndex,
+        elevation: 0,
+        selectedItemColor: CustomColors.buttonColor,
+        unselectedItemColor: CustomColors.thirdTextColor,
+        onTap: (int value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            backgroundColor: CustomColors.backgroundColor,
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: CustomColors.backgroundColor,
+            icon: Icon(Icons.calendar_month),
+            label: 'Routines',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: CustomColors.backgroundColor,
+            icon: Icon(Icons.question_answer),
+            label: 'FAQs',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: CustomColors.backgroundColor,
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
+        ],
       ),
       body: pages[selectedIndex],
     );

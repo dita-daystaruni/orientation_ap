@@ -6,6 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FaqController extends GetxController {
   RxList<FaqModel> faqs = <FaqModel>[].obs;
 
+  @override
+  void onInit() async {
+    // set faqs
+    await getFaqsFromSP();
+    super.onInit();
+  }
+
   // caches faqs
   Future<void> addFaqToSP(List<String> faqs) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

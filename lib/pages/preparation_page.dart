@@ -8,12 +8,14 @@ import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
+import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/services/course_services.dart';
 import 'package:orientation_app/services/faqs_service.dart';
 import 'package:orientation_app/services/statistics_service.dart';
+import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
 class PreparationPage extends StatefulWidget {
@@ -31,10 +33,10 @@ class PreparationPage extends StatefulWidget {
 class _PreparationPageState extends State<PreparationPage> {
   bool finishedGettingContacts = false;
   bool finishedGettingActivities = false;
-  bool finishedGettingSessions = false;
   bool finishedGettingFaqs = false;
   bool finishedGettingCourses = false;
   bool finishedGettingStatistics = false;
+  bool finishedSettingUser = false;
   bool isDone = false;
 
   @override
@@ -49,12 +51,12 @@ class _PreparationPageState extends State<PreparationPage> {
         ? "Contacts"
         : !finishedGettingActivities
             ? "Activities"
-            : !finishedGettingSessions
-                ? "Sessions"
-                : !finishedGettingFaqs
-                    ? "FAQS"
-                    : finishedGettingCourses
-                        ? "Courses"
+            : !finishedGettingFaqs
+                ? "FAQS"
+                : !finishedGettingCourses
+                    ? "Courses"
+                    : !finishedSettingUser
+                        ? "Account"
                         : "Statistics";
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
@@ -161,38 +163,49 @@ class _PreparationPageState extends State<PreparationPage> {
     });
   }
 
+  // TODO use an isolate for this operation
   Future<void> setActivities() async {
     // var response = await getActivities(widget.user.token);
-    debugPrint("Finished Getting Activities");
-    // set finishedgetting contact
-    setState(() {
-      finishedGettingActivities = true;
-    });
-  }
+    int response = 200;
 
-  Future<void> setSessions() async {
-    var response = await getSessions(widget.user.token);
-
-    // will hold encoded sessions(events) from server
-    List<String> encodedSesions = [];
+    // will hold a dictionary of activities and events
+    // grouped as days of the week
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
 
-    if (response[0] == 200) {
-      // encode all contacts details
-      for (var event in response[1]) {
-        encodedSesions.add(jsonEncode(event));
-      }
-    } else {
-      throw Exception("Error Fetching Events");
-    }
+    if (response == 200) {
+      CustomDateParser dateParser = CustomDateParser();
+      List<ActivitySessionModel> convertedActvities = [];
 
-    await activitySessionController.addSessionsToSP(encodedSesions);
-    await activitySessionController.getSessionsFromSP();
+      // iterate through the list and convert all the objects into activity instances
+      for (var example in exampleEvents) {
+        convertedActvities.add(
+          ActivitySessionModel.fromJson(example),
+        );
+      }
+
+      // group into days first
+      Map<String, List<ActivitySessionModel>> groupedActivities =
+          dateParser.groupActivitiesWithDay(convertedActvities);
+
+      // sort each activities accordingly
+      groupedActivities.forEach(
+        (key, value) {
+          groupedActivities[key] = dateParser.sortWithStartTime(value);
+        },
+      );
+
+      // encode the map produce for caching
+      await activitySessionController
+          .addActivitiesToSP(jsonEncode(groupedActivities));
+      await activitySessionController.getActivitiesFromSP();
+    } else {
+      throw Exception("Error Fetching Events and Sessions");
+    }
 
     // set finishedgetting contact
     setState(() {
-      finishedGettingSessions = true;
+      finishedGettingActivities = true;
     });
   }
 
@@ -238,21 +251,39 @@ class _PreparationPageState extends State<PreparationPage> {
     }
   }
 
+  Future<void> setUser() async {
+    // encode user object
+    String userString = jsonEncode(widget.user);
+
+    UserController userController = Get.find<UserController>();
+
+    await userController.addUserToSP(userString);
+    await userController.getUserFromSP();
+
+    // set logged in to true
+    await userController.setLoginToSp(true);
+    userController.isLoggedIn.value = await userController.getLoggedInFromSP();
+
+    setState(() {
+      finishedSettingUser = true;
+    });
+  }
+
   // sets everything
   Future<void> setEverything() async {
     // TODO do error checks here
     // TODO parents contacts are loaded differently
     await setContacts();
     await setActivities();
-    await setSessions();
     await setFaqs();
     await setCourses();
+    await setUser();
     // TODO load only when its an admin
     if (widget.user.userType == "admin") {
       await setStatistics();
     }
 
-    // waits for 3 seconds before moving to respective dashboard
+    // waits for 2 seconds before moving to respective dashboard
     setState(() {
       isDone = true;
     });
