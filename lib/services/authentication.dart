@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
+
+import 'firebase_notifications.dart';
 
 String baseUrl = 'http://62.169.16.219:81';
 const Map<String, String> headers = {
@@ -19,6 +22,29 @@ Future signIn(
       "password": password,
     }),
   );
+
+  try {
+    // Parse the response
+    var responseBody = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      // Login successful
+      // get the FCM token
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      String? registrationId = await messaging.getToken();
+      String token = responseBody['token'];
+
+      if (registrationId != null) {
+        print("The FCM token is $registrationId");
+        // Send the token
+        await sendToken(token: token, registrationId: registrationId);
+      } else {
+        print("Failed to get FCM token.");
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
   return [response.statusCode, jsonDecode(response.body)];
 }
 

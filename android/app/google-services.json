@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "350869063975",
+    "project_id": "orientation-app-5c7ef",
+    "storage_bucket": "orientation-app-5c7ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350869063975:android:5a803b114ee5e4f31fc102",
+        "android_client_info": {
+          "package_name": "com.example.orientation_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMtCD93nHjSSp7vFd3V6MKGgDzOzvEtFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

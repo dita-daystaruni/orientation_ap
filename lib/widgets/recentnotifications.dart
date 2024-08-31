@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
-import 'package:orientation_app/widgets/eventnotification.dart';
 
 class RecentNotificationsPage extends StatelessWidget {
   const RecentNotificationsPage({
     super.key,
     this.isG9 = false,
     this.canEdit = false,
+    required this.userToken,
   });
 
   final bool isG9;
   final bool canEdit;
+  final String userToken;
 
   @override
   Widget build(BuildContext context) {
+    final NotificationController notificationController =
+        Get.put(NotificationController(userToken));
+    
     return Column(
       children: [
         Row(
@@ -47,51 +52,40 @@ class RecentNotificationsPage extends StatelessWidget {
                   NotificationsPage(
                     isG9: isG9,
                     canEdit: canEdit,
+                    userToken:
+                        userToken,
                   ),
                 ),
               ),
             ),
           ],
         ),
-        const Expanded(
-          child: SingleChildScrollView(
-            child: Homepagenotifications(),
-          ),
+        Expanded(
+          child: Obx(() {
+            if (notificationController.recentNotifications.isEmpty) {
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: CustomColors.buttonColor,
+              ));
+            } else {
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return NotificationCard(
+                    title: notificationController.recentNotifications[index]["title"],
+                    content: notificationController.recentNotifications[index]
+                        ["description"],
+                  );
+                },
+                itemCount: notificationController.recentNotifications.length,
+              );
+            }
+          }),
         ),
       ],
     );
   }
 }
-
-class Homepagenotifications extends StatelessWidget {
-  const Homepagenotifications({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        NotificationCard(
-          title: 'Notification Title',
-          content:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
-        ),
-        EventsNotification(
-          event: 'Event name',
-          content:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
-        ),
-        NotificationCard(
-          title: 'Notification Title',
-          content:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit pulor por',
-        )
-      ],
-    );
-  }
-}
-
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     super.key,
