@@ -60,7 +60,9 @@ class G9DashboardPage extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () => Get.to(
-                          const StatisticsPage(),
+                          StatisticsPage(
+                            userToken: user.token,
+                          ),
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.44,

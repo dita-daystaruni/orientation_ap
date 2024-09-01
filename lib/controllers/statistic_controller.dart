@@ -33,4 +33,10 @@ class StatisticsController extends GetxController {
     }
     return null;
   }
+
+  Future updateStats(String statisticsString) async{
+    statistics.value = StatisticsModel.fromJson(
+      jsonDecode(statisticsString),
+    );
+  }
 }

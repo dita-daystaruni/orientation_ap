@@ -1,19 +1,57 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
+import 'package:orientation_app/services/statistics_service.dart';
+import 'package:orientation_app/widgets/pdf_preview.dart';
 import 'package:orientation_app/widgets/statistic_item.dart';
 
 class StatisticsPage extends StatelessWidget {
-  const StatisticsPage({super.key});
+  StatisticsPage({
+    super.key,
+    required this.userToken,
+  });
+
+  final String userToken;
+  StatisticsController statisticsController = Get.find<StatisticsController>();
+  List<dynamic> _statisticsData = [];
+
+  Future<void> _fetchStatisticsData({String? selectedCourse}) async {
+    try {
+      final response =
+          await fetchStatisticsData(token: userToken, course: selectedCourse);
+      if (response.statusCode == 200) {
+        _statisticsData = jsonDecode(response.body);
+      } else {
+        Get.snackbar("Error", "Failed to load data from the server.");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to load data from the server.");
+    }
+  }
+
+  Future<void> _fetchCourseStats({required String selectedCourse}) async {
+    try {
+      var response = await getCourseStatistic(userToken, selectedCourse);
+      if (response[0] == 200) {
+        await statisticsController.updateStats(
+          jsonEncode(response[1]),
+        );
+      } else {
+        Get.snackbar('Error', 'Failed to load course statistics');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to load course statistics');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     CourseController courseController = Get.find<CourseController>();
-    StatisticsController statisticsController =
-        Get.find<StatisticsController>();
 
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
@@ -29,7 +67,22 @@ class StatisticsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (_statisticsData.isEmpty) {
+                await _fetchStatisticsData();
+              }
+              if (_statisticsData.isNotEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        PreviewPage(statisticsData: _statisticsData),
+                  ),
+                );
+              } else {
+                Get.snackbar("Error", "No data to generate PDF.");
+              }
+            },
             icon: const Icon(
               CustomIcons.printer,
             ),
@@ -98,7 +151,13 @@ class StatisticsPage extends StatelessWidget {
                               ),
                             )
                             .toList(),
-                        // onChanged: (value) {},
+                        onSelected: (value) async {
+                          // _selectedCourse = newValue;
+                          await _fetchStatisticsData(selectedCourse: value);
+                          if (value != null) {
+                            await _fetchCourseStats(selectedCourse: value);
+                          }
+                        },
                       ),
                     ),
                   )
