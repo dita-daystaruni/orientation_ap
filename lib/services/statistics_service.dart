@@ -28,8 +28,24 @@ Future getCourseStatistic(String token, String courseName) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl?course=$courseName'),
+    Uri.parse('$baseUrl/account/statistics/?course=$courseName'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
+}
+
+Future fetchStatisticsData(
+    {required String token, String? course}) async {
+  headers.addAll(
+    {
+      "Authorization": "Token $token",
+    },
+  );
+  final url = course != null && course.isNotEmpty
+      ? "$baseUrl/account/statistics/data/?course=$course"
+      : "$baseUrl/account/statistics/data/";
+  
+  var response = await http.get(Uri.parse(url), headers: headers);
+  return (response);
+    
 }
