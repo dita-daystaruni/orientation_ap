@@ -6,6 +6,7 @@ import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/reload_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
+import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/utils/logout.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
@@ -196,14 +197,14 @@ class FreshmanProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         bottom: 12.0,
                         left: 20.0,
                       ),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'Parent phone: ',
                             style: TextStyle(
                               color: CustomColors.textColor,
@@ -211,12 +212,16 @@ class FreshmanProfilePage extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          // TODO parents phone number
                           CustomTextIcon(
-                            trailingIcon: Icon(Icons.phone),
+                            trailingIcon: IconButton(
+                              onPressed: () async {
+                                await makePhoneCall(user.parent!.phoneNo);
+                              },
+                              icon: const Icon(Icons.phone),
+                            ),
                             label: Text(
-                              "+2547 12 345 678",
-                              style: TextStyle(
+                              user.parent!.phoneNo,
+                              style: const TextStyle(
                                 color: CustomColors.textColor,
                                 fontWeight: FontWeight.w300,
                                 fontSize: 14,
@@ -226,14 +231,14 @@ class FreshmanProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         bottom: 12.0,
                         left: 20.0,
                       ),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'Parent email: ',
                             style: TextStyle(
                               color: CustomColors.textColor,
@@ -241,14 +246,18 @@ class FreshmanProfilePage extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          // TODO parents email
                           CustomTextIcon(
-                            trailingIcon: Icon(
-                              Icons.email_outlined,
+                            trailingIcon: IconButton(
+                              onPressed: () async {
+                                await sendEmail(user.parent!.email);
+                              },
+                              icon: const Icon(
+                                Icons.email_outlined,
+                              ),
                             ),
                             label: Text(
-                              'user@daystar.ac.ke',
-                              style: TextStyle(
+                              user.parent!.email,
+                              style: const TextStyle(
                                 color: CustomColors.textColor,
                                 fontWeight: FontWeight.w300,
                                 fontSize: 14,
