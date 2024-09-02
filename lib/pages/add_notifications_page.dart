@@ -15,10 +15,10 @@ class AddNotificationsPage extends StatefulWidget {
   final String userToken;
 
   @override
-  _AddNotificationsPageState createState() => _AddNotificationsPageState();
+  AddNotificationsPageState createState() => AddNotificationsPageState();
 }
 
-class _AddNotificationsPageState extends State<AddNotificationsPage> {
+class AddNotificationsPageState extends State<AddNotificationsPage> {
   final TextEditingController notifTitleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   late NotificationController notificationController;
@@ -44,9 +44,7 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
       
     } catch (e) {
       // Handle network or other errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      Get.snackbar("Error", "Failed to send notification");
     }
   }
 

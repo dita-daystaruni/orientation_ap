@@ -19,7 +19,7 @@ class RecentNotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationController notificationController =
-        Get.put(NotificationController(userToken));
+        Get.put(NotificationController(userToken: userToken));
     
     return Column(
       children: [
