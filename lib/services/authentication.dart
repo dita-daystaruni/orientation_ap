@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import 'firebase_notifications.dart';
@@ -35,15 +36,13 @@ Future signIn(
       String token = responseBody['token'];
 
       if (registrationId != null) {
-        print("The FCM token is $registrationId");
-        // Send the token
         await sendToken(token: token, registrationId: registrationId);
       } else {
-        print("Failed to get FCM token.");
+        Get.snackbar("Error", "Failed to get firebase token");
       }
     }
   } catch (e) {
-    print(e);
+    Get.snackbar("Error", "Failed to get firebase token");
   }
   return [response.statusCode, jsonDecode(response.body)];
 }
