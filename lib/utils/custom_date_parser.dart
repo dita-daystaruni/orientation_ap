@@ -121,6 +121,20 @@ class CustomDateParser {
     }
     return [previousActivity, upcomingActivity];
   }
+
+  // get the time difference between two activities
+  Map<String, int> getTimeDiference(ActivitySessionModel upcomingActivity) {
+    DateTime currentTime = DateTime.now();
+    DateTime upcomingActivityDate = DateTime.parse(
+        "${upcomingActivity.date}T${upcomingActivity.startTime}");
+    Duration difference = upcomingActivityDate.difference(currentTime);
+    return {
+      "days": difference.inDays,
+      "hours": difference.inHours,
+      "minutes": difference.inMinutes,
+      "seconds": difference.inSeconds,
+    };
+  }
 }
 
 // // testing purposes
@@ -381,6 +395,156 @@ var exampleEvents = [
     "title": "Closing Ceremony",
     "description": "Final event to close the freshmen welcome week.",
     "date": "2024-08-30",
+    "start_time": "19:00:00",
+    "end_time": "21:00:00",
+    "location": "Amphitheatre",
+    "is_session": false
+  },
+  {
+    "id": 21,
+    "title": "Mentorship Program",
+    "description": "Launch of the student mentorship program.",
+    "date": "2024-08-31",
+    "start_time": "23:10:00",
+    "end_time": "23:50:00",
+    "location": "Conference Room",
+    "is_session": false
+  },
+  {
+    "id": 22,
+    "title": "Late Night Coding",
+    "description": "Code!Code!Code!",
+    "date": "2024-09-01",
+    "start_time": "02:00:00",
+    "end_time": "02:35:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 23,
+    "title": "What time will I sleep",
+    "description": "When!!",
+    "date": "2024-09-01",
+    "start_time": "02:40:00",
+    "end_time": "02:42:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 24,
+    "title": "Almost Heading to bed",
+    "description": "When!!",
+    "date": "2024-09-01",
+    "start_time": "02:44:00",
+    "end_time": "02:46:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 25,
+    "title": "Almost There",
+    "description": "When!!",
+    "date": "2024-09-01",
+    "start_time": "02:48:00",
+    "end_time": "02:49:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 26,
+    "title": "Orientation Session",
+    "description": "Introduction to university life and campus resources.",
+    "date": "2024-09-01",
+    "start_time": "03:03:00",
+    "end_time": "03:04:00",
+    "location": "Main Auditorium",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Library Tour",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-01",
+    "start_time": "03:05:00",
+    "end_time": "03:06:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Li",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:07:00",
+    "end_time": "03:08:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Lib",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:09:00",
+    "end_time": "03:10:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Lib Tour",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:11:00",
+    "end_time": "03:12:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "L",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:18:00",
+    "end_time": "03:20:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Lib Tour",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:21:00",
+    "end_time": "03:23:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 27,
+    "title": "Lib Tour",
+    "description": "Guided tour of the university library and its facilities.",
+    "date": "2024-09-02",
+    "start_time": "03:25:00",
+    "end_time": "03:27:00",
+    "location": "Library",
+    "is_session": false
+  },
+  {
+    "id": 36,
+    "title": "Outdoor Team Building",
+    "description": "Outdoor team-building activities for freshmen.",
+    "date": "2024-09-02",
+    "start_time": "15:00:00",
+    "end_time": "17:00:00",
+    "location": "Sports Field",
+    "is_session": false
+  },
+  {
+    "id": 37,
+    "title": "Closing Ceremony",
+    "description": "Final event to close the freshmen welcome week.",
+    "date": "2024-09-01",
     "start_time": "19:00:00",
     "end_time": "21:00:00",
     "location": "Amphitheatre",

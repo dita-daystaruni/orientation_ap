@@ -24,6 +24,7 @@ class UserController extends GetxController {
   // getCurrent Login Value
   Future getLoggedInFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final bool? isLogged = prefs.getBool("isLoggedIn");
     if (isLogged != null) {
       isLoggedIn.value = isLogged;
@@ -40,6 +41,7 @@ class UserController extends GetxController {
   // gets users info from SP
   Future getUserFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final String? usersString = prefs.getString("user");
     if (usersString != null) {
       user.value = User.fromJson(

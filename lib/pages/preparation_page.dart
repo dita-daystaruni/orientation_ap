@@ -199,6 +199,7 @@ class _PreparationPageState extends State<PreparationPage> {
       await activitySessionController
           .addActivitiesToSP(jsonEncode(groupedActivities));
       await activitySessionController.getActivitiesFromSP();
+      activitySessionController.updateOngoingUpcomingActivities();
     } else {
       throw Exception("Error Fetching Events and Sessions");
     }

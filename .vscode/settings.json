@@ -1,6 +1,0 @@
-{
-    "files.autoSave": "afterDelay",
-    "editor.defaultFormatter": "Dart-Code.dart-code",
-    "css.format.enable": false,
-    "editor.formatOnSave": true
-}
