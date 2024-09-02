@@ -8,7 +8,7 @@ class NotificationController extends GetxController {
 
   final String userToken;
 
-  NotificationController(this.userToken);
+  NotificationController({required this.userToken});
 
   @override
   void onInit() {

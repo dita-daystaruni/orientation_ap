@@ -20,7 +20,7 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationController notificationController =
-        Get.put(NotificationController(userToken));
+        Get.find<NotificationController>();
 
     return Scaffold(
         backgroundColor: CustomColors.backgroundColor,
