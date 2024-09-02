@@ -30,7 +30,7 @@ void main() async {
   Get.put(CourseController());
   Get.put(StatisticsController());
 
-  // // Initialize Firebase Messaging
+  // Initialize Firebase Messaging
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

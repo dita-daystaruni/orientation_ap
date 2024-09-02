@@ -199,6 +199,7 @@ class _ReloadPageState extends State<ReloadPage> {
       await activitySessionController
           .addActivitiesToSP(jsonEncode(groupedActivities));
       await activitySessionController.getActivitiesFromSP();
+      activitySessionController.setAvailableDaysAndDate();
       activitySessionController.updateOngoingUpcomingActivities();
     } else {
       throw Exception("Error Fetching Events and Sessions");
