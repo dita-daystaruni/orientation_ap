@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/models/parent_contact.dart';
 import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class StudentDetailsPage extends StatelessWidget {
-  const StudentDetailsPage({super.key});
+  const StudentDetailsPage({super.key, required this.student});
 
+  final ParentContact student;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +25,14 @@ class StudentDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: CircleAvatar(
                 maxRadius: 75,
                 backgroundColor: CustomColors.iconColorTwo,
                 child: Text(
-                  'KO',
-                  style: TextStyle(
+                  '${student.firstName[0]}${student.lastName[0]}',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.w500,
@@ -37,16 +40,16 @@ class StudentDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 24.0,
                   bottom: 8.0,
                 ),
                 child: Text(
-                  "Name",
-                  style: TextStyle(
+                  "${student.firstName} ${student.lastName}",
+                  style: const TextStyle(
                     color: CustomColors.textColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -54,16 +57,16 @@ class StudentDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 8.0,
                   bottom: 32.0,
                 ),
                 child: Text(
-                  "Admission Number",
-                  style: TextStyle(
+                  student.admNo,
+                  style: const TextStyle(
                     color: CustomColors.thirdTextColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
@@ -84,26 +87,26 @@ class StudentDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 bottom: 16.0,
               ),
               child: Text(
-                "Course",
-                style: TextStyle(
+                student.course,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 bottom: 16.0,
               ),
               child: Text(
-                "Nairobi Campus",
-                style: TextStyle(
+                student.campus,
+                style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
@@ -129,9 +132,9 @@ class StudentDetailsPage extends StatelessWidget {
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
-                  label: const Text(
-                    '+ 254 712 345 678',
-                    style: TextStyle(
+                  label: Text(
+                    student.phoneNo,
+                    style: const TextStyle(
                       color: CustomColors.textColor,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -139,7 +142,7 @@ class StudentDetailsPage extends StatelessWidget {
                   ),
                   trailingIcon: IconButton(
                     onPressed: () async {
-                      await makePhoneCall('+ 254 712 345 678');
+                      await makePhoneCall(student.phoneNo);
                     },
                     icon: const Icon(
                       Icons.phone_callback,
@@ -147,21 +150,21 @@ class StudentDetailsPage extends StatelessWidget {
                     ),
                   )),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
                 label: Text(
-                  'ko@daystar.ac.ke',
-                  style: TextStyle(
+                  student.email,
+                  style: const TextStyle(
                     color: CustomColors.textColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
                 ),
-                trailingIcon: Icon(
+                trailingIcon: const Icon(
                   Icons.email,
                   color: CustomColors.buttonColor,
                 ),

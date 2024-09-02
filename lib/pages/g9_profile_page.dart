@@ -115,8 +115,9 @@ class G9ProfilePage extends StatelessWidget {
                               idx: idx,
                               sizes: 30,
                               redirectionPage: G9FamilyViewPage(
-                                  parent:
-                                      userContactController.userContacts[idx]),
+                                parent: userContactController.userContacts[idx],
+                                token: user.token,
+                              ),
                             );
                           },
                           itemCount: userContactController.userContacts.length,

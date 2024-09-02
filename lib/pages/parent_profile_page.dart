@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
@@ -18,6 +19,9 @@ class ParentProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Getting controllers
+    ParentContactController parentContactController =
+        Get.find<ParentContactController>();
     return Scaffold(
       appBar: AppBar(
         shadowColor: CustomColors.backgroundColor,
@@ -100,13 +104,16 @@ class ParentProfilePage extends StatelessWidget {
                   ),
                   itemBuilder: (context, idx) {
                     return ContactTile(
-                      label: "RM",
+                      label:
+                          '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
                       idx: idx,
-                      sizes: 35,
-                      redirectionPage: const StudentDetailsPage(),
+                      sizes: 25,
+                      redirectionPage: StudentDetailsPage(
+                        student: parentContactController.parentContacts[idx],
+                      ),
                     );
                   },
-                  itemCount: 10,
+                  itemCount: parentContactController.parentContacts.length,
                   scrollDirection: Axis.vertical,
                 ),
               ),

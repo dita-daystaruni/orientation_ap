@@ -159,6 +159,7 @@ class G9DashboardPage extends StatelessWidget {
                                             redirectionPage: G9FamilyViewPage(
                                               parent: contactController
                                                   .userContacts[idx],
+                                              token: user.token,
                                             ),
                                           );
                                         },
