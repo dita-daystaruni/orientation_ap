@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/constants/custom_icons/custom_icons.dart';
 import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
+import 'package:orientation_app/pages/reload_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/utils/logout.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
@@ -26,14 +26,10 @@ class FreshmanProfilePage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            Get.to(
-              NotificationsPage(
-                userToken: user.token,
-              ),
-            );
+            Get.to(ReloadPage(user: user));
           },
           icon: const Icon(
-            Icons.notifications_outlined,
+            Icons.replay_outlined,
             color: CustomColors.textColor,
           ),
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
+import 'package:orientation_app/pages/reload_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
 import 'package:orientation_app/utils/logout.dart';
@@ -25,15 +25,10 @@ class ParentProfilePage extends StatelessWidget {
         backgroundColor: CustomColors.backgroundColor,
         leading: IconButton(
           onPressed: () {
-            Get.to(
-              NotificationsPage(
-                canEdit: true,
-                userToken: user.token,
-              ),
-            );
+            Get.to(ReloadPage(user: user));
           },
           icon: const Icon(
-            Icons.notifications_outlined,
+            Icons.replay_outlined,
             color: CustomColors.textColor,
           ),
         ),
