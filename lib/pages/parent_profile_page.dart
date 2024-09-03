@@ -44,11 +44,15 @@ class ParentProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              // TODO ask user if they are sure
-              // clears shared prefs
-              await logOutUser();
-              // get user back to the beginning
-              Get.offAll(const SplashScreen());
+              // Call the dialog function and wait for user response
+              bool shouldLogout = await showLogoutConfirmationDialog(context);
+
+              if (shouldLogout) {
+                // Clears shared prefs and log out
+                await logOutUser();
+                // Navigate user back to the beginning
+                Get.offAll(const SplashScreen());
+              }
             },
             icon: const Icon(
               Icons.logout,
@@ -122,5 +126,37 @@ class ParentProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+  // Function to show a logout confirmation dialog
+  Future<bool> showLogoutConfirmationDialog(BuildContext context) async {
+    return await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: CustomColors.backgroundColor,
+              title: const Text('Confirm Logout'),
+              content: const Text('Are you sure you want to log out?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: CustomColors.buttonColor),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: CustomColors.buttonColor),
+                  child: const Text('Logout'),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
   }
 }
