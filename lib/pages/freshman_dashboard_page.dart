@@ -150,6 +150,8 @@ class FreshmanDashboardPage extends StatelessWidget {
                               return ContactTile(
                                 label:
                                     "${contactController.userContacts[idx].firstName[0]}${contactController.userContacts[idx].lastName[0]}",
+                                name: contactController
+                                    .userContacts[idx].firstName,
                                 idx: idx,
                                 sizes: 25,
                                 redirectionPage: ContactDetails(

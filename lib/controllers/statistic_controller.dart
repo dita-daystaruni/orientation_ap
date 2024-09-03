@@ -6,11 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StatisticsController extends GetxController {
   Rx<StatisticsModel?> statistics = Rxn<StatisticsModel>();
+  Rx<int> totalStudents = 0.obs;
 
   @override
   void onInit() async {
     // set statistics
     await getStatisticsFromSP();
+    totalStudents.value = statistics.value?.totalStudents ?? 0;
     super.onInit();
   }
 
@@ -19,6 +21,9 @@ class StatisticsController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("statistics", statistics);
   }
+
+  // updates course statistics
+  Future updateCourseStatistic() async {}
 
   // gets users contacts from SP
   Future getStatisticsFromSP() async {
@@ -35,7 +40,8 @@ class StatisticsController extends GetxController {
     return null;
   }
 
-  Future updateStats(String statisticsString) async{
+  // updates statistics
+  Future updateStats(String statisticsString) async {
     statistics.value = StatisticsModel.fromJson(
       jsonDecode(statisticsString),
     );

@@ -5,7 +5,7 @@ import 'package:orientation_app/services/notiications_service.dart';
 class NotificationController extends GetxController {
   var notifications = <dynamic>[].obs;
   var recentNotifications = <dynamic>[].obs;
-  bool isFetching = true;
+  var isFetching = true.obs;
 
   final String userToken;
 
@@ -26,7 +26,7 @@ class NotificationController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch notifications');
     } finally {
-      isFetching = false;
+      isFetching.value = false;
     }
   }
 
@@ -37,7 +37,7 @@ class NotificationController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch notifications');
     } finally {
-      isFetching = false;
+      isFetching.value = false;
     }
   }
 

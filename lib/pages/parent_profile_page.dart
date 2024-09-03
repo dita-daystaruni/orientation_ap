@@ -105,6 +105,8 @@ class ParentProfilePage extends StatelessWidget {
                     return ContactTile(
                       label:
                           '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
+                      name:
+                          parentContactController.parentContacts[idx].firstName,
                       idx: idx,
                       sizes: 25,
                       redirectionPage: StudentDetailsPage(
@@ -122,6 +124,7 @@ class ParentProfilePage extends StatelessWidget {
       ),
     );
   }
+
   // Function to show a logout confirmation dialog
   Future<bool> showLogoutConfirmationDialog(BuildContext context) async {
     return await showDialog(
@@ -137,7 +140,7 @@ class ParentProfilePage extends StatelessWidget {
                     Navigator.of(context).pop(false);
                   },
                   style: TextButton.styleFrom(
-                      foregroundColor: CustomColors.buttonColor),
+                      foregroundColor: CustomColors.eventsColor),
                   child: const Text('Cancel'),
                 ),
                 TextButton(

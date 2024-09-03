@@ -11,15 +11,13 @@ import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class G9FamilyViewPage extends StatelessWidget {
-  const G9FamilyViewPage({super.key, required this.parent, required this.token});
+  const G9FamilyViewPage(
+      {super.key, required this.parent, required this.token});
 
   final UserContact parent;
   final String token;
 
-  
-
   Future<List> setContacts() async {
-
     List<String> encodedContacts = [];
     List<dynamic> decodedContacts = [];
 
@@ -150,7 +148,10 @@ class G9FamilyViewPage extends StatelessWidget {
                 future: setContacts(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator(color: CustomColors.buttonColor,));
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: CustomColors.buttonColor,
+                    ));
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
@@ -185,25 +186,25 @@ class G9FamilyViewPage extends StatelessWidget {
                     );
                   } else {
                     return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            child: Lottie.asset(
-                              "assets/lotties/error.json",
-                              fit: BoxFit.fill,
-                            ),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: Lottie.asset(
+                            "assets/lotties/error.json",
+                            fit: BoxFit.fill,
                           ),
-                          const Text(
-                            "No Famili found",
-                            style: TextStyle(
-                              color: CustomColors.secondaryTextColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        ),
+                        const Text(
+                          "No Family found",
+                          style: TextStyle(
+                            color: CustomColors.secondaryTextColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
-                      );
+                        ),
+                      ],
+                    );
                   }
                 })
           ],
