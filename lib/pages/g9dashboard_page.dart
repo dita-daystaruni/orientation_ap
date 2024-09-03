@@ -88,7 +88,7 @@ class G9DashboardPage extends StatelessWidget {
                               ),
                               Obx(
                                 () => Text(
-                                  '${statisticsController.statistics.value?.totalStudents}',
+                                  '${statisticsController.totalStudents}',
                                   style: const TextStyle(
                                     color: CustomColors.textColor,
                                     fontWeight: FontWeight.w500,
@@ -154,6 +154,8 @@ class G9DashboardPage extends StatelessWidget {
                                           return ContactTile(
                                             label:
                                                 '${contactController.userContacts[idx].firstName[0]}${contactController.userContacts[idx].lastName[0]}',
+                                            name: contactController
+                                                .userContacts[idx].firstName,
                                             idx: idx,
                                             sizes: 23,
                                             redirectionPage: G9FamilyViewPage(

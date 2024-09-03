@@ -5,10 +5,13 @@ import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class StudentDetailsPage extends StatelessWidget {
-  const StudentDetailsPage({super.key, required this.student});
+  const StudentDetailsPage({
+    super.key,
+    required this.student,
+  });
 
   final ParentContact student;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,31 +90,68 @@ class StudentDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 16.0,
-              ),
-              child: Text(
-                student.course,
-                style: const TextStyle(
-                  color: CustomColors.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 16.0,
+                  ),
+                  child: Text(
+                    "Course: ",
+                    style: TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16.0,
+                  ),
+                  child: Text(
+                    softWrap: true,
+                    student.course,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 16.0,
-              ),
-              child: Text(
-                student.campus,
-                style: const TextStyle(
-                  color: CustomColors.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 16.0,
+                  ),
+                  child: Text(
+                    "Campus",
+                    style: TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16.0,
+                  ),
+                  child: Text(
+                    student.campus,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -136,7 +176,7 @@ class StudentDetailsPage extends StatelessWidget {
                     student.phoneNo,
                     style: const TextStyle(
                       color: CustomColors.textColor,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w300,
                       fontSize: 16,
                     ),
                   ),
@@ -160,13 +200,18 @@ class StudentDetailsPage extends StatelessWidget {
                   student.email,
                   style: const TextStyle(
                     color: CustomColors.textColor,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w300,
                     fontSize: 16,
                   ),
                 ),
-                trailingIcon: const Icon(
-                  Icons.email,
-                  color: CustomColors.buttonColor,
+                trailingIcon: IconButton(
+                  onPressed: () async {
+                    await sendEmail(student.email);
+                  },
+                  icon: const Icon(
+                    Icons.email,
+                    color: CustomColors.buttonColor,
+                  ),
                 ),
               ),
             ),

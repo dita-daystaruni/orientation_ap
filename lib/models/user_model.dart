@@ -1,7 +1,6 @@
-// user model
-
 import 'package:orientation_app/models/parent_model.dart';
 
+// user model
 class User {
   final int userId;
   final String firstName;

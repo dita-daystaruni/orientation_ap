@@ -311,7 +311,7 @@ class FreshmanProfilePage extends StatelessWidget {
                     Navigator.of(context).pop(false);
                   },
                   style: TextButton.styleFrom(
-                      foregroundColor: CustomColors.buttonColor),
+                      foregroundColor: CustomColors.eventsColor),
                   child: const Text('Cancel'),
                 ),
                 TextButton(

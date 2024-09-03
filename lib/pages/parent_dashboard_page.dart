@@ -93,7 +93,10 @@ class ParentDashboardPage extends StatelessWidget {
                 child: ListView.builder(
                   itemBuilder: (context, idx) {
                     return ContactTile(
-                      label: '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
+                      label:
+                          '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
+                      name:
+                          parentContactController.parentContacts[idx].firstName,
                       idx: idx,
                       sizes: 25,
                       redirectionPage: StudentDetailsPage(

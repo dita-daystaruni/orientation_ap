@@ -47,15 +47,15 @@ class ContactTile extends StatelessWidget {
             name != null
                 ? Text(
                     name!,
-                    style: TextStyle(
-                      color: CustomColors.textColor,
-                      fontSize: sizes,
-                      fontWeight: FontWeight.w500,
+                    style: const TextStyle(
+                      color: CustomColors.thirdTextColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
                     ),
                   )
-                : const Text(
-                    "Title",
-                    style: TextStyle(
+                : Text(
+                    title ?? "Title",
+                    style: const TextStyle(
                       color: CustomColors.thirdTextColor,
                       fontWeight: FontWeight.w400,
                       fontSize: 11,

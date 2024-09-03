@@ -41,9 +41,10 @@ class RecentNotificationsPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 12.0),
               child: IconButton(
                 onPressed: () async {
+                  notificationController.isFetching.value = true;
                   await notificationController.fetchNotifications();
                   await notificationController.fetchRecentNotifications();
-                  Get.snackbar("Success", "Notifications reloaded");
+                  notificationController.isFetching.value = false;
                 },
                 icon: const Icon(
                   Icons.replay_outlined,
@@ -55,7 +56,7 @@ class RecentNotificationsPage extends StatelessWidget {
         ),
         Expanded(
           child: Obx(() {
-            if (notificationController.isFetching) {
+            if (notificationController.isFetching.value) {
               return const Center(
                   child: CircularProgressIndicator(
                 color: CustomColors.buttonColor,
@@ -75,25 +76,16 @@ class RecentNotificationsPage extends StatelessWidget {
                   itemCount: notificationController.recentNotifications.length,
                 );
               } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: Lottie.asset(
-                        "assets/lotties/error.json",
-                        fit: BoxFit.fill,
-                      ),
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 22.0),
+                  child: Text(
+                    "No Notifications found",
+                    style: TextStyle(
+                      color: CustomColors.secondaryTextColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
-                    const Text(
-                      "No Notifications found",
-                      style: TextStyle(
-                        color: CustomColors.secondaryTextColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+                  ),
                 );
               }
             }

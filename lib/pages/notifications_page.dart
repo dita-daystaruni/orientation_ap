@@ -56,13 +56,12 @@ class NotificationsPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(() {
-            if (notificationController.isFetching) {
+            if (notificationController.isFetching.value) {
               return const Center(
                   child: CircularProgressIndicator(
                 color: CustomColors.buttonColor,
               ));
             } else {
-
               if (notificationController.notifications.isNotEmpty) {
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -73,7 +72,7 @@ class NotificationsPage extends StatelessWidget {
                       contents: notificationController.notifications[index]
                           ["description"],
                       time: notificationController.notifications[index]
-                        ["created_at"],
+                          ["created_at"],
                     );
                   },
                   itemCount: notificationController.notifications.length,

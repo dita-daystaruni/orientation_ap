@@ -110,6 +110,8 @@ class G9ProfilePage extends StatelessWidget {
                             return ContactTile(
                               label:
                                   '${userContactController.userContacts[idx].firstName[0]}${userContactController.userContacts[idx].lastName[0]}',
+                              name: userContactController
+                                  .userContacts[idx].firstName,
                               idx: idx,
                               sizes: 30,
                               redirectionPage: G9FamilyViewPage(
@@ -147,6 +149,7 @@ class G9ProfilePage extends StatelessWidget {
       ),
     );
   }
+
   // Function to show a logout confirmation dialog
   Future<bool> showLogoutConfirmationDialog(BuildContext context) async {
     return await showDialog(
@@ -162,7 +165,7 @@ class G9ProfilePage extends StatelessWidget {
                     Navigator.of(context).pop(false);
                   },
                   style: TextButton.styleFrom(
-                      foregroundColor: CustomColors.buttonColor),
+                      foregroundColor: CustomColors.eventsColor),
                   child: const Text('Cancel'),
                 ),
                 TextButton(
