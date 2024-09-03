@@ -4,7 +4,7 @@ import 'package:orientation_app/services/document_service.dart';
 
 class DocumentController extends GetxController {
   var documents = <dynamic>[].obs;
-
+  var isFetching = false.obs;
   final String userToken;
 
   DocumentController(this.userToken);
@@ -17,11 +17,14 @@ class DocumentController extends GetxController {
 
   // Function to fetch documents from the server
   Future<void> fetchDocuments() async {
+    isFetching.value = true;
     try {
       var response = await getDocuments(userToken);
       documents.assignAll(response);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load documents');
+    } finally {
+      isFetching.value = false;
     }
   }
 

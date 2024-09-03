@@ -39,12 +39,6 @@ class _FaqPageState extends State<FaqPage> with SingleTickerProviderStateMixin {
     faqController = Get.find<FaqController>();
     // tab controller
     tabController = TabController(length: 2, vsync: this);
-    tabController.addListener(
-      () {
-        // TODO invoke silent updates for FAQS and Documnets, a way to restrict to many changes
-        debugPrint("Changing Page");
-      },
-    );
     super.initState();
   }
 
@@ -159,29 +153,45 @@ class _FaqPageState extends State<FaqPage> with SingleTickerProviderStateMixin {
                   : const SizedBox(),
               // list of documents
               Expanded(
-                child: Obx(() {
-                  if (documentController.documents.isEmpty) {
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: CustomColors.buttonColor,
-                    ));
-                  } else {
-                    return ListView.builder(
-                      itemCount: documentController.documents.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DocumentsTile(
-                            documentName: documentController.documents[index]
-                                ['title'],
-                            documentUrl: documentController.documents[index]
-                                ['file'],
+                child: Obx(
+                  () => documentController.isFetching.value
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: CustomColors.buttonColor,
                           ),
-                        );
-                      },
-                    );
-                  }
-                }),
+                        )
+                      : documentController.documents.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: documentController.documents.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DocumentsTile(
+                                    documentName: documentController
+                                        .documents[index]['title'],
+                                    documentUrl: documentController
+                                        .documents[index]['file'],
+                                  ),
+                                );
+                              },
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Lottie.asset(
+                                  "assets/lotties/error.json",
+                                ),
+                                const Text(
+                                  "No Documents Yet",
+                                  style: TextStyle(
+                                    color: CustomColors.secondaryTextColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20,
+                                  ),
+                                )
+                              ],
+                            ),
+                ),
               ),
             ],
           ),
