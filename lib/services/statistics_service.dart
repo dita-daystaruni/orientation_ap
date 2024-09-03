@@ -46,6 +46,6 @@ Future fetchStatisticsData(
       : "$baseUrl/account/statistics/data/";
   
   var response = await http.get(Uri.parse(url), headers: headers);
-  return (response);
+  return [response.statusCode, jsonDecode(response.body)];
     
 }
