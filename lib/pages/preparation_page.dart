@@ -11,6 +11,7 @@ import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/services/course_services.dart';
 import 'package:orientation_app/services/faqs_service.dart';
@@ -164,22 +165,21 @@ class _PreparationPageState extends State<PreparationPage> {
 
   // TODO use an isolate for this operation
   Future<void> setActivities() async {
-    // var response = await getActivities(widget.user.token);
-    int response = 200;
+    var response = await getActivities(widget.user.token);
 
     // will hold a dictionary of activities and events
     // grouped as days of the week
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
 
-    if (response == 200) {
+    if (response[0] == 200) {
       CustomDateParser dateParser = CustomDateParser();
       List<ActivitySessionModel> convertedActvities = [];
 
       // iterate through the list and convert all the objects into activity instances
-      for (var example in exampleEvents) {
+      for (var activity in response[1]) {
         convertedActvities.add(
-          ActivitySessionModel.fromJson(example),
+          ActivitySessionModel.fromJson(activity),
         );
       }
 
@@ -279,7 +279,6 @@ class _PreparationPageState extends State<PreparationPage> {
     await setFaqs();
     await setCourses();
     await setUser();
-    // TODO load only when its an admin
     if (widget.user.userType == "admin") {
       await setStatistics();
     }
@@ -289,7 +288,6 @@ class _PreparationPageState extends State<PreparationPage> {
       isDone = true;
     });
     await Future.delayed(const Duration(seconds: 2));
-    // TODO popping this page from the Navigator
-    Get.to(BottomNav(user: widget.user));
+    Get.offAll(BottomNav(user: widget.user));
   }
 }

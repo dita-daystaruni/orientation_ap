@@ -12,6 +12,7 @@ import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/services/course_services.dart';
 import 'package:orientation_app/services/faqs_service.dart';
@@ -117,7 +118,6 @@ class _ReloadPageState extends State<ReloadPage> {
     );
   }
 
-  // TODO same as the one for preparation, mudularizing this functions
   Future<void> setContacts() async {
     var response = await getUserContacts(
       widget.user.userId,
@@ -172,22 +172,21 @@ class _ReloadPageState extends State<ReloadPage> {
 
   // TODO use an isolate for this operation
   Future<void> setActivities() async {
-    // var response = await getActivities(widget.user.token);
-    int response = 200;
+    var response = await getActivities(widget.user.token);
 
     // will hold a dictionary of activities and events
     // grouped as days of the week
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
 
-    if (response == 200) {
+    if (response[0] == 200) {
       CustomDateParser dateParser = CustomDateParser();
       List<ActivitySessionModel> convertedActvities = [];
 
       // iterate through the list and convert all the objects into activity instances
-      for (var example in exampleEvents) {
+      for (var activity in response[1]) {
         convertedActvities.add(
-          ActivitySessionModel.fromJson(example),
+          ActivitySessionModel.fromJson(activity),
         );
       }
 
@@ -280,7 +279,11 @@ class _ReloadPageState extends State<ReloadPage> {
 
   Future<void> updateDocuments() async {
     // get document controller
-    DocumentController documentController = Get.find<DocumentController>();
+    DocumentController documentController = Get.put(
+      DocumentController(
+        widget.user.token,
+      ),
+    );
     // update documents
     await documentController.fetchDocuments();
   }
@@ -295,7 +298,6 @@ class _ReloadPageState extends State<ReloadPage> {
     await updateDocuments();
     await setCourses();
     await setUser();
-    // TODO load only when its an admin
     if (widget.user.userType == "admin") {
       await setStatistics();
     }
