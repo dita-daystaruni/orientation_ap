@@ -38,7 +38,6 @@ class ActivitySessionController extends GetxController {
     dayActivities.clear();
     daySessions.clear();
     for (var element in availableDaysAndDate) {
-      // print(element["index"] == activeIndex.value);
       if (element["index"] == activeIndex.value) {
         dayTiles.add(
           DaysTile(
@@ -64,6 +63,8 @@ class ActivitySessionController extends GetxController {
         ));
       }
     }
+    // making active index visible to user
+    updateDayTiles();
   }
 
   // updates the index of the currently selected tile
@@ -71,6 +72,19 @@ class ActivitySessionController extends GetxController {
     activeIndex.value = index;
     // update list with new activities
     getDayActivities();
+  }
+
+  // updates the dayTiles in listview builder to match user scope view
+  void updateDayTiles() async {
+    // beyond users view point
+    if (activeIndex > 3) {
+      int newPos = activeIndex.value - 2;
+      var subList = dayTiles.sublist(newPos) + dayTiles.sublist(0, newPos);
+      // does not update it immediately
+      await Future.delayed(const Duration(seconds: 3));
+      dayTiles.clear();
+      dayTiles.addAll(subList);
+    }
   }
 
   // set previous activity and ongoing
