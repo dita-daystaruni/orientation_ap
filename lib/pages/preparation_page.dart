@@ -7,6 +7,7 @@ import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
@@ -119,6 +120,8 @@ class _PreparationPageState extends State<PreparationPage> {
     // will hold encoded contacts from server
     List<String> encodedContacts = [];
     UserContactController contactController = Get.find<UserContactController>();
+    ParentContactController parentContactController =
+        Get.put(ParentContactController());
 
     if (response[0] == 200) {
       // encode all contacts details
@@ -129,8 +132,13 @@ class _PreparationPageState extends State<PreparationPage> {
       throw Exception("Error Fetching Contacts");
     }
 
-    await contactController.addUsersContactsToSP(encodedContacts);
-    await contactController.getUsersContactsFromSP();
+    if (widget.user.userType == "parent") {
+      await parentContactController.addParentsContactsToSP(encodedContacts);
+      await parentContactController.getParentsContactsFromSP();
+    } else {
+      await contactController.addUsersContactsToSP(encodedContacts);
+      await contactController.getUsersContactsFromSP();
+    }
 
     // set finishedgetting contact
     setState(() {

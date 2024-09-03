@@ -82,6 +82,7 @@ class PreviewPage extends StatelessWidget {
       ),
       body: PdfPreview(
         build: (format) => _generatePdf(format),
+        pdfFileName: "Student Orientation data",
         actionBarTheme:
             const PdfActionBarTheme(backgroundColor: CustomColors.buttonColor),
         loadingWidget:

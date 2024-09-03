@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/activites_session_controller.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
@@ -23,6 +24,8 @@ class ParentDashboardPage extends StatelessWidget {
     // Getting controllers
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
+    ParentContactController parentContactController =
+        Get.put(ParentContactController());
 
     return SafeArea(
       child: Scaffold(
@@ -90,13 +93,15 @@ class ParentDashboardPage extends StatelessWidget {
                 child: ListView.builder(
                   itemBuilder: (context, idx) {
                     return ContactTile(
-                      label: "MN",
+                      label: '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
                       idx: idx,
                       sizes: 25,
-                      redirectionPage: const StudentDetailsPage(),
+                      redirectionPage: StudentDetailsPage(
+                        student: parentContactController.parentContacts[idx],
+                      ),
                     );
                   },
-                  itemCount: 7,
+                  itemCount: parentContactController.parentContacts.length,
                   scrollDirection: Axis.horizontal,
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/reload_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
@@ -18,6 +19,9 @@ class ParentProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Getting controllers
+    ParentContactController parentContactController =
+        Get.find<ParentContactController>();
     return Scaffold(
       appBar: AppBar(
         shadowColor: CustomColors.backgroundColor,
@@ -35,11 +39,15 @@ class ParentProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              // TODO ask user if they are sure
-              // clears shared prefs
-              await logOutUser();
-              // get user back to the beginning
-              Get.offAll(const SplashScreen());
+              // Call the dialog function and wait for user response
+              bool shouldLogout = await showLogoutConfirmationDialog(context);
+
+              if (shouldLogout) {
+                // Clears shared prefs and log out
+                await logOutUser();
+                // Navigate user back to the beginning
+                Get.offAll(const SplashScreen());
+              }
             },
             icon: const Icon(
               Icons.logout,
@@ -95,13 +103,16 @@ class ParentProfilePage extends StatelessWidget {
                   ),
                   itemBuilder: (context, idx) {
                     return ContactTile(
-                      label: "RM",
+                      label:
+                          '${parentContactController.parentContacts[idx].firstName[0]}${parentContactController.parentContacts[idx].lastName[0]}',
                       idx: idx,
-                      sizes: 35,
-                      redirectionPage: const StudentDetailsPage(),
+                      sizes: 25,
+                      redirectionPage: StudentDetailsPage(
+                        student: parentContactController.parentContacts[idx],
+                      ),
                     );
                   },
-                  itemCount: 10,
+                  itemCount: parentContactController.parentContacts.length,
                   scrollDirection: Axis.vertical,
                 ),
               ),
@@ -110,5 +121,37 @@ class ParentProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+  // Function to show a logout confirmation dialog
+  Future<bool> showLogoutConfirmationDialog(BuildContext context) async {
+    return await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: CustomColors.backgroundColor,
+              title: const Text('Confirm Logout'),
+              content: const Text('Are you sure you want to log out?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: CustomColors.buttonColor),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: CustomColors.buttonColor),
+                  child: const Text('Logout'),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
   }
 }
