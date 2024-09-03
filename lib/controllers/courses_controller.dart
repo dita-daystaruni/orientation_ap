@@ -20,6 +20,7 @@ class CourseController extends GetxController {
   // gets users contacts from SP
   Future getCoursesFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final List<String>? coursesString = prefs.getStringList("courses");
     if (coursesString != null) {
       // clear contacts before adding new ones

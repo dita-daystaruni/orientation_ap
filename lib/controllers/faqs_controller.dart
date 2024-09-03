@@ -22,6 +22,7 @@ class FaqController extends GetxController {
   // gets users contacts from SP
   Future getFaqsFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final List<String>? faqsString = prefs.getStringList("faqs");
     if (faqsString != null) {
       // clear contacts before adding new ones

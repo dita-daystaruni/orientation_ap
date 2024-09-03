@@ -48,7 +48,9 @@ class OngoingActivity extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      activityName,
+                      activityName.length > 13
+                          ? activityName.substring(0, 14)
+                          : activityName,
                       style: const TextStyle(
                         color: CustomColors.textColor,
                         fontWeight: FontWeight.w500,

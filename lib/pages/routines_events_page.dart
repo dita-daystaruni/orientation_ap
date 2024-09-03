@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/activites_session_controller.dart';
-import 'package:orientation_app/controllers/routes_sessions_controllers.dart';
 import 'package:orientation_app/widgets/upcoming_acitivity.dart';
 
 class Routines extends StatelessWidget {
@@ -17,10 +16,6 @@ class Routines extends StatelessWidget {
   Widget build(BuildContext context) {
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
-    // TODO chech the need for this controller
-    // putting routines and sessions controllers
-    RoutesSessionsControllers routesSessionsControllers =
-        Get.put(RoutesSessionsControllers());
 
     return DefaultTabController(
       length: myTabs.length,
@@ -60,18 +55,20 @@ class Routines extends StatelessWidget {
           Column(
             children: [
               Obx(
-                () =>
+                () => activitySessionController.dayTiles.isNotEmpty
+                    ?
                     // day tiles for showing dates
                     SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.19,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return routesSessionsControllers.dayActivities[index];
-                    },
-                    itemCount: routesSessionsControllers.dayActivities.length,
-                  ),
-                ),
+                        height: MediaQuery.of(context).size.height * 0.19,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return activitySessionController.dayTiles[index];
+                          },
+                          itemCount: activitySessionController.dayTiles.length,
+                        ),
+                      )
+                    : const Text("No Activities"),
               ),
               // list of activities
               Obx(
@@ -82,15 +79,16 @@ class Routines extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return RoutinesEventsTiles(
                               eventTitle: activitySessionController
-                                  .activities["Monday"]![index].title,
+                                  .dayActivities[index].title,
                               eventLocation: activitySessionController
-                                  .activities["Monday"]![index].location,
+                                  .dayActivities[index].location,
                               eventDesc: activitySessionController
-                                  .activities["Monday"]![index].description,
+                                  .dayActivities[index].description,
+                              isSesion: false,
                             );
                           },
-                          itemCount: activitySessionController
-                              .activities["Monday"]?.length,
+                          itemCount:
+                              activitySessionController.dayActivities.length,
                         ),
                       )
                     : Column(
@@ -114,38 +112,40 @@ class Routines extends StatelessWidget {
           Column(
             children: [
               Obx(
-                () =>
-                    // day titles for showing dates
+                () => activitySessionController.dayTiles.isNotEmpty
+                    ?
+                    // day tiles for showing dates
                     SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.19,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return routesSessionsControllers.dayActivities[index];
-                    },
-                    itemCount: routesSessionsControllers.dayActivities.length,
-                  ),
-                ),
+                        height: MediaQuery.of(context).size.height * 0.19,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return activitySessionController.dayTiles[index];
+                          },
+                          itemCount: activitySessionController.dayTiles.length,
+                        ),
+                      )
+                    : const Text("Where are the days?"),
               ),
               // list of sessions
               Obx(
-                () => activitySessionController.activities.isNotEmpty
+                () => activitySessionController.daySessions.isNotEmpty
                     ? Expanded(
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             return RoutinesEventsTiles(
                               eventTitle: activitySessionController
-                                  .activities["Monday"]![index].title,
+                                  .daySessions[index].title,
                               eventLocation: activitySessionController
-                                  .activities["Monday"]![index].location,
+                                  .daySessions[index].location,
                               eventDesc: activitySessionController
-                                  .activities["Monday"]![index].description,
+                                  .daySessions[index].description,
                               isSesion: true,
                             );
                           },
-                          itemCount: activitySessionController
-                              .activities["Monday"]?.length,
+                          itemCount:
+                              activitySessionController.daySessions.length,
                         ),
                       )
                     : Column(

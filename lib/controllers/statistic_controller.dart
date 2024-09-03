@@ -23,6 +23,7 @@ class StatisticsController extends GetxController {
   // gets users contacts from SP
   Future getStatisticsFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
     final String? statisticsString = prefs.getString("statistics");
     if (statisticsString != null) {
       // decode the string to a dict then create the instance

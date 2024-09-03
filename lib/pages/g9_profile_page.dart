@@ -5,7 +5,7 @@ import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
+import 'package:orientation_app/pages/reload_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/utils/logout.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
@@ -31,16 +31,10 @@ class G9ProfilePage extends StatelessWidget {
         backgroundColor: CustomColors.backgroundColor,
         leading: IconButton(
           onPressed: () {
-            Get.to(
-              NotificationsPage(
-                isG9: true,
-                canEdit: true,
-                userToken: user.token,
-              ),
-            );
+            Get.to(ReloadPage(user: user));
           },
           icon: const Icon(
-            Icons.notifications_outlined,
+            Icons.replay_outlined,
             color: CustomColors.textColor,
           ),
         ),

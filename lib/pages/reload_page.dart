@@ -7,7 +7,6 @@ import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
-import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
@@ -19,8 +18,8 @@ import 'package:orientation_app/services/statistics_service.dart';
 import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
 
-class PreparationPage extends StatefulWidget {
-  const PreparationPage({
+class ReloadPage extends StatefulWidget {
+  const ReloadPage({
     super.key,
     required this.user,
   });
@@ -28,10 +27,10 @@ class PreparationPage extends StatefulWidget {
   final User user;
 
   @override
-  State<PreparationPage> createState() => _PreparationPageState();
+  State<ReloadPage> createState() => _ReloadPageState();
 }
 
-class _PreparationPageState extends State<PreparationPage> {
+class _ReloadPageState extends State<ReloadPage> {
   bool finishedGettingContacts = false;
   bool finishedGettingActivities = false;
   bool finishedGettingFaqs = false;
@@ -66,14 +65,14 @@ class _PreparationPageState extends State<PreparationPage> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.6,
             child: Lottie.asset(
-              "assets/lotties/study.json",
+              "assets/lotties/plane.json",
             ),
           ),
           !isDone
               ? Column(
                   children: [
                     Text(
-                      "Setting Up Your $displayText For You Relax",
+                      "Updating Your $displayText For You Relax",
                       style: const TextStyle(
                         color: CustomColors.secondaryTextColor,
                         fontWeight: FontWeight.w500,
@@ -111,6 +110,7 @@ class _PreparationPageState extends State<PreparationPage> {
     );
   }
 
+  // TODO same as the one for preparation, mudularizing this functions
   Future<void> setContacts() async {
     var response = await getUserContacts(
       widget.user.userId,
@@ -119,8 +119,6 @@ class _PreparationPageState extends State<PreparationPage> {
     // will hold encoded contacts from server
     List<String> encodedContacts = [];
     UserContactController contactController = Get.find<UserContactController>();
-    ParentContactController parentContactController =
-        Get.put(ParentContactController());
 
     if (response[0] == 200) {
       // encode all contacts details
@@ -131,13 +129,8 @@ class _PreparationPageState extends State<PreparationPage> {
       throw Exception("Error Fetching Contacts");
     }
 
-    if (widget.user.userType == "parent") {
-      await parentContactController.addParentsContactsToSP(encodedContacts);
-      await parentContactController.getParentsContactsFromSP();
-    } else {
-      await contactController.addUsersContactsToSP(encodedContacts);
-      await contactController.getUsersContactsFromSP();
-    }
+    await contactController.addUsersContactsToSP(encodedContacts);
+    await contactController.getUsersContactsFromSP();
 
     // set finishedgetting contact
     setState(() {
@@ -296,8 +289,13 @@ class _PreparationPageState extends State<PreparationPage> {
     setState(() {
       isDone = true;
     });
-    await Future.delayed(const Duration(seconds: 2));
-    // TODO popping this page from the Navigator
-    Get.to(BottomNav(user: widget.user));
+    await Future.delayed(const Duration(seconds: 1));
+    // get user back to profile page
+    Get.offAll(
+      BottomNav(
+        user: widget.user,
+        onProfile: true,
+      ),
+    );
   }
 }
