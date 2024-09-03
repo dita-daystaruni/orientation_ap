@@ -16,7 +16,7 @@ class DocumentController extends GetxController {
   }
 
   // Function to fetch documents from the server
-  void fetchDocuments() async {
+  Future<void> fetchDocuments() async {
     try {
       var response = await getDocuments(userToken);
       documents.assignAll(response);
@@ -29,7 +29,7 @@ class DocumentController extends GetxController {
   Future<void> addDocument(String documentTitle, XFile imageFile) async {
     try {
       await uploadDocument(userToken, documentTitle, imageFile);
-      fetchDocuments();
+      await fetchDocuments();
       Get.snackbar('Success', 'Document uploaded successfully');
     } catch (e) {
       Get.snackbar('Error', 'Failed to upload document');
