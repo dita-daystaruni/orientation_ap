@@ -6,11 +6,13 @@ import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
+import 'package:orientation_app/controllers/document_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
+import 'package:orientation_app/services/activities_service.dart';
 import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/services/course_services.dart';
 import 'package:orientation_app/services/faqs_service.dart';
@@ -34,6 +36,7 @@ class _ReloadPageState extends State<ReloadPage> {
   bool finishedGettingContacts = false;
   bool finishedGettingActivities = false;
   bool finishedGettingFaqs = false;
+  bool finishedGettingDocs = false;
   bool finishedGettingCourses = false;
   bool finishedGettingStatistics = false;
   bool finishedSettingUser = false;
@@ -53,11 +56,13 @@ class _ReloadPageState extends State<ReloadPage> {
             ? "Activities"
             : !finishedGettingFaqs
                 ? "FAQS"
-                : !finishedGettingCourses
-                    ? "Courses"
-                    : !finishedSettingUser
-                        ? "Account"
-                        : "Statistics";
+                : !finishedGettingDocs
+                    ? "Documents"
+                    : !finishedGettingCourses
+                        ? "Courses"
+                        : !finishedSettingUser
+                            ? "Account"
+                            : "Statistics";
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       body: Column(
@@ -89,12 +94,15 @@ class _ReloadPageState extends State<ReloadPage> {
                 )
               : const Column(
                   children: [
-                    Text(
-                      "Almost There, It Pays To Be Patient",
-                      style: TextStyle(
-                        color: CustomColors.secondaryTextColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Almost There, It Pays To Be Patient",
+                        style: TextStyle(
+                          color: CustomColors.secondaryTextColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                     Text(
@@ -110,7 +118,6 @@ class _ReloadPageState extends State<ReloadPage> {
     );
   }
 
-  // TODO same as the one for preparation, mudularizing this functions
   Future<void> setContacts() async {
     var response = await getUserContacts(
       widget.user.userId,
@@ -165,22 +172,21 @@ class _ReloadPageState extends State<ReloadPage> {
 
   // TODO use an isolate for this operation
   Future<void> setActivities() async {
-    // var response = await getActivities(widget.user.token);
-    int response = 200;
+    var response = await getActivities(widget.user.token);
 
     // will hold a dictionary of activities and events
     // grouped as days of the week
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
 
-    if (response == 200) {
+    if (response[0] == 200) {
       CustomDateParser dateParser = CustomDateParser();
       List<ActivitySessionModel> convertedActvities = [];
 
       // iterate through the list and convert all the objects into activity instances
-      for (var example in exampleEvents) {
+      for (var activity in response[1]) {
         convertedActvities.add(
-          ActivitySessionModel.fromJson(example),
+          ActivitySessionModel.fromJson(activity),
         );
       }
 
@@ -271,6 +277,17 @@ class _ReloadPageState extends State<ReloadPage> {
     });
   }
 
+  Future<void> updateDocuments() async {
+    // get document controller
+    DocumentController documentController = Get.put(
+      DocumentController(
+        widget.user.token,
+      ),
+    );
+    // update documents
+    await documentController.fetchDocuments();
+  }
+
   // sets everything
   Future<void> setEverything() async {
     // TODO do error checks here
@@ -278,9 +295,9 @@ class _ReloadPageState extends State<ReloadPage> {
     await setContacts();
     await setActivities();
     await setFaqs();
+    await updateDocuments();
     await setCourses();
     await setUser();
-    // TODO load only when its an admin
     if (widget.user.userType == "admin") {
       await setStatistics();
     }

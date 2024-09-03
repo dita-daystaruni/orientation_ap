@@ -11,7 +11,6 @@ class ActivityPage extends StatelessWidget {
   });
 
   final String name;
-  // TODO set time period
   final String timePeriod;
   final String location;
   final String description;
@@ -39,21 +38,21 @@ class ActivityPage extends StatelessWidget {
               child: Center(
                 child: Row(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.watch_later_outlined,
                           color: CustomColors.secondaryTextColor,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             left: 4.0,
                             right: 16.0,
                           ),
                           child: Text(
-                            '8.00 AM',
-                            style: TextStyle(
+                            timePeriod,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
                               color: CustomColors.secondaryTextColor,

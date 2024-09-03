@@ -34,24 +34,24 @@ class ParentDashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomAppBar(
-              firstName: user.firstName,
-              gender: user.gender,
-              isG9: false,
-              canEdit: true,
-              token: user.token
-            ),
+                firstName: user.firstName,
+                gender: user.gender,
+                isG9: false,
+                canEdit: true,
+                token: user.token),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
                 () => activitySessionController.ongoingActivity.value != null
-                    ?
-                    // TODO handle time issues
-                    OngoingActivity(
+                    ? OngoingActivity(
                         activityName: activitySessionController
                             .ongoingActivity.value!.title,
                         location: activitySessionController
                             .ongoingActivity.value!.location,
-                        time: "",
+                        startTime: activitySessionController
+                            .ongoingActivity.value!.startTime,
+                        endTime: activitySessionController
+                            .ongoingActivity.value!.endTime,
                       )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,8 +107,11 @@ class ParentDashboardPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.31,
-              child: RecentNotificationsPage(userToken: user.token, canEdit: true,),
+              height: MediaQuery.of(context).size.height * 0.28,
+              child: RecentNotificationsPage(
+                userToken: user.token,
+                canEdit: true,
+              ),
             ),
           ],
         ),

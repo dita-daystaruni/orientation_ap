@@ -206,6 +206,10 @@ class G9DashboardPage extends StatelessWidget {
                           .upcomingActivity.value!.isSession,
                       location: activitySessionController
                           .upcomingActivity.value!.location,
+                      startTime: activitySessionController
+                          .upcomingActivity.value!.startTime,
+                      endTime: activitySessionController
+                          .upcomingActivity.value!.endTime,
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.15,

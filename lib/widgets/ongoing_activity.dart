@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/utils/custom_date_parser.dart';
 
 class OngoingActivity extends StatelessWidget {
   const OngoingActivity({
     super.key,
     required this.activityName,
     required this.location,
-    required this.time,
+    required this.startTime,
+    required this.endTime,
   });
 
   final String activityName;
   final String location;
-  final String time;
+  final String startTime;
+  final String endTime;
 
   @override
   Widget build(BuildContext context) {
@@ -81,18 +84,17 @@ class OngoingActivity extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    // TODO handle time
-                    const Row(
+                    Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.watch_later_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "8:00AM - 10:00AM",
-                          style: TextStyle(
+                          "${CustomDateParser.convertToAmPm(startTime)} - ${CustomDateParser.convertToAmPm(endTime)}",
+                          style: const TextStyle(
                             color: CustomColors.secondaryTextColor,
                             fontWeight: FontWeight.w300,
                             fontSize: 15,

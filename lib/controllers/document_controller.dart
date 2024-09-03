@@ -4,7 +4,7 @@ import 'package:orientation_app/services/document_service.dart';
 
 class DocumentController extends GetxController {
   var documents = <dynamic>[].obs;
-
+  var isFetching = false.obs;
   final String userToken;
 
   DocumentController(this.userToken);
@@ -16,12 +16,15 @@ class DocumentController extends GetxController {
   }
 
   // Function to fetch documents from the server
-  void fetchDocuments() async {
+  Future<void> fetchDocuments() async {
+    isFetching.value = true;
     try {
       var response = await getDocuments(userToken);
       documents.assignAll(response);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load documents');
+    } finally {
+      isFetching.value = false;
     }
   }
 
@@ -29,7 +32,7 @@ class DocumentController extends GetxController {
   Future<void> addDocument(String documentTitle, XFile imageFile) async {
     try {
       await uploadDocument(userToken, documentTitle, imageFile);
-      fetchDocuments();
+      await fetchDocuments();
       Get.snackbar('Success', 'Document uploaded successfully');
     } catch (e) {
       Get.snackbar('Error', 'Failed to upload document');

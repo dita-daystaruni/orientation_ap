@@ -62,6 +62,7 @@ class NotificationsPage extends StatelessWidget {
                 color: CustomColors.buttonColor,
               ));
             } else {
+
               if (notificationController.notifications.isNotEmpty) {
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -71,7 +72,8 @@ class NotificationsPage extends StatelessWidget {
                           ["title"],
                       contents: notificationController.notifications[index]
                           ["description"],
-                      time: "8:00",
+                      time: notificationController.notifications[index]
+                        ["created_at"],
                     );
                   },
                   itemCount: notificationController.notifications.length,

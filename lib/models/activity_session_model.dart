@@ -17,7 +17,6 @@ class ActivitySessionModel {
         date = json['date'],
         startTime = json['start_time'],
         endTime = json['end_time'],
-        // TODO confirm from clive decided name
         location = json['location'],
         isSession = json['is_session'];
 
