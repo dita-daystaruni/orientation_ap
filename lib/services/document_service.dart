@@ -31,7 +31,7 @@ Future uploadDocument(
   // Send the request
   var response = await request.send();
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     var responseBody = await response.stream.bytesToString();
     return jsonDecode(responseBody);
   } else {

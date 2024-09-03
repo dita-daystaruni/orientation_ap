@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/pages/add_notifications_page.dart';
@@ -20,7 +21,7 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationController notificationController =
-        Get.put(NotificationController(userToken));
+        Get.find<NotificationController>();
 
     return Scaffold(
         backgroundColor: CustomColors.backgroundColor,
@@ -55,24 +56,48 @@ class NotificationsPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(() {
-            if (notificationController.notifications.isEmpty) {
+            if (notificationController.isFetching) {
               return const Center(
                   child: CircularProgressIndicator(
                 color: CustomColors.buttonColor,
               ));
             } else {
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return NotificationSlide(
-                    title: notificationController.notifications[index]["title"],
-                    contents: notificationController.notifications[index]
-                        ["description"],
-                    time: "8:00",
-                  );
-                },
-                itemCount: notificationController.notifications.length,
-              );
+              if (notificationController.notifications.isNotEmpty) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return NotificationSlide(
+                      title: notificationController.notifications[index]
+                          ["title"],
+                      contents: notificationController.notifications[index]
+                          ["description"],
+                      time: "8:00",
+                    );
+                  },
+                  itemCount: notificationController.notifications.length,
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Lottie.asset(
+                        "assets/lotties/error.json",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    const Text(
+                      "No Notifications found",
+                      style: TextStyle(
+                        color: CustomColors.secondaryTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                );
+              }
             }
           }),
         ));

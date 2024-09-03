@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
 
 class RecentNotificationsPage extends StatelessWidget {
   const RecentNotificationsPage({
@@ -19,8 +19,8 @@ class RecentNotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationController notificationController =
-        Get.put(NotificationController(userToken));
-    
+        Get.put(NotificationController(userToken: userToken));
+
     return Column(
       children: [
         Row(
@@ -39,22 +39,15 @@ class RecentNotificationsPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
-              child: TextButton(
-                child: const Text(
-                  "See all",
-                  style: TextStyle(
-                    color: CustomColors.highlightedTextColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                onPressed: () => Get.to(
-                  NotificationsPage(
-                    isG9: isG9,
-                    canEdit: canEdit,
-                    userToken:
-                        userToken,
-                  ),
+              child: IconButton(
+                onPressed: () async {
+                  await notificationController.fetchNotifications();
+                  await notificationController.fetchRecentNotifications();
+                  Get.snackbar("Success", "Notifications reloaded");
+                },
+                icon: const Icon(
+                  Icons.replay_outlined,
+                  color: CustomColors.textColor,
                 ),
               ),
             ),
@@ -62,23 +55,47 @@ class RecentNotificationsPage extends StatelessWidget {
         ),
         Expanded(
           child: Obx(() {
-            if (notificationController.recentNotifications.isEmpty) {
+            if (notificationController.isFetching) {
               return const Center(
                   child: CircularProgressIndicator(
                 color: CustomColors.buttonColor,
               ));
             } else {
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return NotificationCard(
-                    title: notificationController.recentNotifications[index]["title"],
-                    content: notificationController.recentNotifications[index]
-                        ["description"],
-                  );
-                },
-                itemCount: notificationController.recentNotifications.length,
-              );
+              if (notificationController.recentNotifications.isNotEmpty) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return NotificationCard(
+                      title: notificationController.recentNotifications[index]
+                          ["title"],
+                      content: notificationController.recentNotifications[index]
+                          ["description"],
+                    );
+                  },
+                  itemCount: notificationController.recentNotifications.length,
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Lottie.asset(
+                        "assets/lotties/error.json",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    const Text(
+                      "No Notifications found",
+                      style: TextStyle(
+                        color: CustomColors.secondaryTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                );
+              }
             }
           }),
         ),
@@ -86,6 +103,7 @@ class RecentNotificationsPage extends StatelessWidget {
     );
   }
 }
+
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     super.key,

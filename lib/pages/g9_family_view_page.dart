@@ -1,15 +1,48 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/models/parent_contact.dart';
 import 'package:orientation_app/models/user_contact.dart';
 import 'package:orientation_app/pages/student_details_page.dart';
+import 'package:orientation_app/services/contacts_service.dart';
 import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 
 class G9FamilyViewPage extends StatelessWidget {
-  const G9FamilyViewPage({super.key, required this.parent});
+  const G9FamilyViewPage({super.key, required this.parent, required this.token});
 
   final UserContact parent;
+  final String token;
+
+  
+
+  Future<List> setContacts() async {
+
+    List<String> encodedContacts = [];
+    List<dynamic> decodedContacts = [];
+
+    var response = await getUserContacts(
+      parent.userId,
+      token,
+    );
+    if (response[0] == 200) {
+      for (var contact in response[1]) {
+        encodedContacts.add(jsonEncode(contact));
+      }
+      for (var element in encodedContacts) {
+        decodedContacts.add(
+          ParentContact.fromJson(
+            jsonDecode(element),
+          ),
+        );
+      }
+      return decodedContacts;
+    } else {
+      throw Exception("Error Fetching Contacts");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +116,7 @@ class G9FamilyViewPage extends StatelessWidget {
                 ),
                 trailingIcon: IconButton(
                   onPressed: () {
-                    print("pressed");
-                    sendEmail("rodney@gmail.com");
+                    sendEmail(parent.email);
                   },
                   icon: const Icon(
                     Icons.email,
@@ -114,30 +146,66 @@ class G9FamilyViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 24,
-                ),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                  ),
-                  itemBuilder: (context, idx) {
-                    return ContactTile(
-                      label: "RM",
-                      idx: idx,
-                      sizes: 30,
-                      redirectionPage: const StudentDetailsPage(),
+            FutureBuilder(
+                future: setContacts(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator(color: CustomColors.buttonColor,));
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final contacts = snapshot.data!;
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          right: 24,
+                        ),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                          ),
+                          itemBuilder: (context, idx) {
+                            return ContactTile(
+                              label:
+                                  '${contacts[idx].firstName[0]}${contacts[idx].lastName[0]}',
+                              idx: idx,
+                              sizes: 30,
+                              redirectionPage: StudentDetailsPage(
+                                student: contacts[idx],
+                              ),
+                            );
+                          },
+                          itemCount: contacts.length,
+                          scrollDirection: Axis.vertical,
+                        ),
+                      ),
                     );
-                  },
-                  itemCount: 9,
-                  scrollDirection: Axis.vertical,
-                ),
-              ),
-            )
+                  } else {
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: Lottie.asset(
+                              "assets/lotties/error.json",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const Text(
+                            "No Famili found",
+                            style: TextStyle(
+                              color: CustomColors.secondaryTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      );
+                  }
+                })
           ],
         ),
       ),

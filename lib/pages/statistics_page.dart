@@ -10,47 +10,49 @@ import 'package:orientation_app/widgets/pdf_preview.dart';
 import 'package:orientation_app/widgets/statistic_item.dart';
 
 class StatisticsPage extends StatelessWidget {
-  StatisticsPage({
+  const StatisticsPage({
     super.key,
     required this.userToken,
   });
 
   final String userToken;
-  StatisticsController statisticsController = Get.find<StatisticsController>();
-  List<dynamic> _statisticsData = [];
-
-  Future<void> _fetchStatisticsData({String? selectedCourse}) async {
-    try {
-      final response =
-          await fetchStatisticsData(token: userToken, course: selectedCourse);
-      if (response.statusCode == 200) {
-        _statisticsData = jsonDecode(response.body);
-      } else {
-        Get.snackbar("Error", "Failed to load data from the server.");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "Failed to load data from the server.");
-    }
-  }
-
-  Future<void> _fetchCourseStats({required String selectedCourse}) async {
-    try {
-      var response = await getCourseStatistic(userToken, selectedCourse);
-      if (response[0] == 200) {
-        await statisticsController.updateStats(
-          jsonEncode(response[1]),
-        );
-      } else {
-        Get.snackbar('Error', 'Failed to load course statistics');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to load course statistics');
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     CourseController courseController = Get.find<CourseController>();
+    StatisticsController statisticsController =
+        Get.find<StatisticsController>();
+    List<dynamic> statisticsData = [];
+
+    Future<void> fetchStatsData({String? selectedCourse}) async {
+      try {
+        final response =
+            await fetchStatisticsData(token: userToken, course: selectedCourse);
+        if (response.statusCode == 200) {
+          statisticsData = jsonDecode(response.body);
+        } else {
+          Get.snackbar("Error", "Failed to load data from the server.");
+        }
+      } catch (e) {
+        Get.snackbar("Error", "Failed to load data from the server.");
+      }
+    }
+
+    Future<void> fetchCourseStats({required String selectedCourse}) async {
+      try {
+        var response = await getCourseStatistic(userToken, selectedCourse);
+        if (response[0] == 200) {
+          await statisticsController.updateStats(
+            jsonEncode(response[1]),
+          );
+        } else {
+          Get.snackbar('Error', 'Failed to load course statistics');
+        }
+      } catch (e) {
+        Get.snackbar('Error', 'Failed to load course statistics');
+      }
+    }
 
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
@@ -67,15 +69,15 @@ class StatisticsPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              if (_statisticsData.isEmpty) {
-                await _fetchStatisticsData();
+              if (statisticsData.isEmpty) {
+                await fetchStatsData();
               }
-              if (_statisticsData.isNotEmpty) {
+              if (statisticsData.isNotEmpty) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        PreviewPage(statisticsData: _statisticsData),
+                        PreviewPage(statisticsData: statisticsData),
                   ),
                 );
               } else {
@@ -124,40 +126,39 @@ class StatisticsPage extends StatelessWidget {
                       ),
                     ),
                     child: Obx(
-                      () => DropdownMenu(
-                        enableSearch: true,
-                        // focusColor: Colors.transparent,
-                        // underline: const SizedBox(),
-                        // isExpanded: true,
-                        // borderRadius: const BorderRadius.all(
-                        //   Radius.circular(6),
-                        // ),
-                        // icon: const Icon(Icons.keyboard_arrow_down),
-                        // dropdownColor: CustomColors.backgroundColor,
-                        dropdownMenuEntries: courseController.courses
-                            .map(
-                              (course) => DropdownMenuEntry(
-                                value: course,
-                                label: course,
-                                labelWidget: Text(
-                                  course,
-                                  style: const TextStyle(
-                                    color: CustomColors.secondaryTextColor,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
+                      () => DropdownButtonFormField<String>(
+                        
+                        isExpanded: true,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10),
+                        ),
+                        dropdownColor: CustomColors
+                            .backgroundColor,
+                        items: courseController.courses.map((String course) {
+                          return DropdownMenuItem<String>(
+                            value: course,
+                            child: Text(
+                              course,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: CustomColors.secondaryTextColor,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 13,
                               ),
-                            )
-                            .toList(),
-                        onSelected: (value) async {
-                          // _selectedCourse = newValue;
-                          await _fetchStatisticsData(selectedCourse: value);
-                          if (value != null) {
-                            await _fetchCourseStats(selectedCourse: value);
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) async {
+                          if (newValue != null) {
+                            await fetchStatsData(
+                                selectedCourse: newValue);
+                            await fetchCourseStats(selectedCourse: newValue);
                           }
                         },
                       ),
+
                     ),
                   )
                 ],
