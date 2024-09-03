@@ -5,34 +5,39 @@ import 'package:orientation_app/services/notiications_service.dart';
 class NotificationController extends GetxController {
   var notifications = <dynamic>[].obs;
   var recentNotifications = <dynamic>[].obs;
+  bool isFetching = true;
 
   final String userToken;
 
   NotificationController({required this.userToken});
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fetchNotifications();
-    fetchRecentNotifications();
+    await fetchNotifications();
+    await fetchRecentNotifications();
   }
 
-  // Function to fetch documents from the server
-  void fetchNotifications() async {
+  // Function to fetch notifications from the server
+  Future<void> fetchNotifications() async {
     try {
       var response = await getNotifications(userToken);
       notifications.assignAll(response[1]);
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch notifications');
+    } finally {
+      isFetching = false;
     }
   }
 
-  void fetchRecentNotifications() async {
+  Future<void> fetchRecentNotifications() async {
     try {
       var response = await getRecentNotifications(userToken);
       recentNotifications.assignAll(response[1]);
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch notifications');
+    } finally {
+      isFetching = false;
     }
   }
 

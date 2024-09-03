@@ -184,7 +184,7 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
                             },
                           ),
                           const Text(
-                            "Everyone",
+                            "Students",
                             style: TextStyle(
                               color: CustomColors.textColor,
                               fontWeight: FontWeight.w500,
