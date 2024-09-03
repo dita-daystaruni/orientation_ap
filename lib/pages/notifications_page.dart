@@ -68,7 +68,8 @@ class NotificationsPage extends StatelessWidget {
                     title: notificationController.notifications[index]["title"],
                     contents: notificationController.notifications[index]
                         ["description"],
-                    time: "8:00",
+                    time: notificationController.notifications[index]
+                        ["created_at"],
                   );
                 },
                 itemCount: notificationController.notifications.length,

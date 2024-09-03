@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:orientation_app/widgets/events_tile.dart';
 
 class UpcomingActivity extends StatelessWidget {
@@ -9,11 +10,15 @@ class UpcomingActivity extends StatelessWidget {
     required this.location,
     required this.eventDescription,
     required this.isSession,
+    required this.startTime,
+    required this.endTime,
   });
 
   final String location;
   final String activityName;
   final String eventDescription;
+  final String startTime;
+  final String endTime;
   final bool isSession;
 
   @override
@@ -33,7 +38,6 @@ class UpcomingActivity extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           const Divider(),
-          // TODO passing event time
           EventsTile(
             eventLocation: location,
             eventtitle: activityName.length > 25
@@ -41,7 +45,7 @@ class UpcomingActivity extends StatelessWidget {
                 : activityName,
             eventDesc: eventDescription,
             isSession: isSession,
-            timePeriod: "8:00AM-10:00AM",
+            timePeriod: "$startTime-$endTime",
             showTimePeriod: false,
           ),
         ],
@@ -56,18 +60,21 @@ class RoutinesEventsTiles extends StatelessWidget {
     required this.eventLocation,
     required this.eventDesc,
     required this.eventTitle,
+    required this.startTime,
+    required this.endTime,
     this.isSesion = false,
   });
 
   final String eventLocation;
   final String eventTitle;
   final String eventDesc;
+  final String startTime;
+  final String endTime;
   final bool isSesion;
-  // TODO time of events format
-  // final String timePeriod;
 
   @override
   Widget build(BuildContext context) {
+    // changing start and end times to AM/PM
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 8.0,
@@ -82,7 +89,8 @@ class RoutinesEventsTiles extends StatelessWidget {
             eventLocation: eventLocation,
             eventDesc: eventDesc,
             eventtitle: eventTitle,
-            timePeriod: "8:00AM-10:00AM",
+            timePeriod:
+                "${CustomDateParser.convertToAmPm(startTime)}-${CustomDateParser.convertToAmPm(endTime)}",
             isSession: isSesion,
           ),
         ],

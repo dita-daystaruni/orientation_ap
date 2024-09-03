@@ -137,6 +137,36 @@ class CustomDateParser {
       "seconds": difference.inSeconds,
     };
   }
+
+  // converts time string to AM or PM format
+  static String convertToAmPm(String timeString) {
+    String convertTime;
+    int hour = int.parse(timeString.substring(0, 2));
+    if (hour > 12) {
+      // return in pm format by subtracting 12
+      hour -= 12;
+      convertTime = "$hour${timeString.substring(2, 5)}PM";
+    } else {
+      // return in am format
+      convertTime = "$hour${timeString.substring(2, 5)}AM";
+    }
+    return convertTime;
+  }
+
+  // converts time string to AM or PM format for otifications
+  static String convertToAmPmNotif(String timeString) {
+    String convertTime;
+    DateTime notifTime = DateTime.parse(timeString);
+    String timeMinutes =
+        notifTime.minute > 10 ? "${notifTime.minute}" : "0${notifTime.minute}";
+    if (notifTime.hour > 12) {
+      // return in pm format
+      convertTime = "${notifTime.hour - 12}:${timeMinutes}PM";
+    } else {
+      convertTime = "${notifTime.hour}:${timeMinutes}AM";
+    }
+    return convertTime;
+  }
 }
 
 // // testing purposes

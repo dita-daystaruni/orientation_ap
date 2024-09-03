@@ -35,7 +35,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Request permission for notifications
+  // // Request permission for notifications
   await FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,

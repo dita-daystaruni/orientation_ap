@@ -68,7 +68,7 @@ class Routines extends StatelessWidget {
                           itemCount: activitySessionController.dayTiles.length,
                         ),
                       )
-                    : const Text("No Activities"),
+                    : const Text("Where are the days"),
               ),
               // list of activities
               Obx(
@@ -84,6 +84,10 @@ class Routines extends StatelessWidget {
                                   .dayActivities[index].location,
                               eventDesc: activitySessionController
                                   .dayActivities[index].description,
+                              startTime: activitySessionController
+                                  .dayActivities[index].startTime,
+                              endTime: activitySessionController
+                                  .dayActivities[index].endTime,
                               isSesion: false,
                             );
                           },
@@ -141,6 +145,10 @@ class Routines extends StatelessWidget {
                                   .daySessions[index].location,
                               eventDesc: activitySessionController
                                   .daySessions[index].description,
+                              startTime: activitySessionController
+                                  .daySessions[index].startTime,
+                              endTime: activitySessionController
+                                  .daySessions[index].endTime,
                               isSesion: true,
                             );
                           },

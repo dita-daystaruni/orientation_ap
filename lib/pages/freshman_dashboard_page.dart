@@ -40,14 +40,15 @@ class FreshmanDashboardPage extends StatelessWidget {
               ),
               Obx(
                 () => activitySessionController.ongoingActivity.value != null
-                    ?
-                    // TODO handle time issues
-                    OngoingActivity(
+                    ? OngoingActivity(
                         activityName: activitySessionController
                             .ongoingActivity.value!.title,
                         location: activitySessionController
                             .ongoingActivity.value!.location,
-                        time: "",
+                        startTime: activitySessionController
+                            .ongoingActivity.value!.startTime,
+                        endTime: activitySessionController
+                            .ongoingActivity.value!.endTime,
                       )
                     // TODO check on this
                     : Center(
@@ -86,6 +87,10 @@ class FreshmanDashboardPage extends StatelessWidget {
                             .upcomingActivity.value!.isSession,
                         location: activitySessionController
                             .upcomingActivity.value!.location,
+                        startTime: activitySessionController
+                            .upcomingActivity.value!.startTime,
+                        endTime: activitySessionController
+                            .upcomingActivity.value!.endTime,
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(
@@ -184,7 +189,9 @@ class FreshmanDashboardPage extends StatelessWidget {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.21,
-                child: RecentNotificationsPage(userToken: user.token,),
+                child: RecentNotificationsPage(
+                  userToken: user.token,
+                ),
               ),
             ],
           )),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_contact.dart';
-import 'package:orientation_app/pages/notifications_page.dart';
 import 'package:orientation_app/utils/custom_url_launchers.dart';
 import 'package:orientation_app/widgets/text_icon.dart';
 

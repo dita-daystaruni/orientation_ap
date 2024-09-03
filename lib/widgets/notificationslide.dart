@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
+import 'package:orientation_app/utils/custom_date_parser.dart';
 
 class NotificationSlide extends StatelessWidget {
   const NotificationSlide({
@@ -83,14 +84,34 @@ class NotificationSlide extends StatelessWidget {
                                   fontSize: 15,
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  time,
-                                  style: const TextStyle(
-                                    color: CustomColors.secondaryTextColor,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 15,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: IntrinsicWidth(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "${time.substring(0, 10)}   ",
+                                          style: const TextStyle(
+                                            color:
+                                                CustomColors.secondaryTextColor,
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        Text(
+                                          CustomDateParser.convertToAmPmNotif(
+                                              time),
+                                          style: const TextStyle(
+                                            color:
+                                                CustomColors.secondaryTextColor,
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
