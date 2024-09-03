@@ -30,7 +30,7 @@ void main() async {
   Get.put(CourseController());
   Get.put(StatisticsController());
 
-  // // Initialize Firebase Messaging
+  // Initialize Firebase Messaging
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -132,7 +132,10 @@ class OrientationApp extends StatelessWidget {
       receivePort.listen(
         (message) {
           if (message is! SendPort) {
-            if (message != null) {
+            if (message == "Close") {
+              // no more upcoming and ongoing activities
+              backgroundIsolate.kill();
+            } else if (message != null) {
               // updates the upcoming and outgoing activity
               activitySessionController.ongoingActivity.value =
                   message["ongoing"];
@@ -165,15 +168,18 @@ class OrientationApp extends StatelessWidget {
 
       isolateData.answerPort.send(answer);
       // if returns null means that activites are empty
-      if (answer != null) {
+      // if answer is Close means that no upcoming activities
+      if (answer != null && answer != "Close") {
         await Future.delayed(answer["duration"]);
+      } else {
+        // if above condition is not met just break the loop
+        break;
       }
-      // wait for a particular time
     }
   }
 
   Future _backgroundTask() async {
-    debugPrint("Started");
+    // debugPrint("Started");
     // get activities from SP helps to update upcoming activities
     Map<String, List<ActivitySessionModel>>? activities =
         await getActivitiesFromSP();
@@ -189,7 +195,7 @@ class OrientationApp extends StatelessWidget {
     // get upcoming and ongoing activities
     List<ActivitySessionModel?> upcomingOngoing =
         customDateParser.getUpcomingActivity(activities);
-    if (upcomingOngoing[1] != null && upcomingOngoing[0] != null) {
+    if (upcomingOngoing[1] != null) {
       Map<String, int> differences =
           customDateParser.getTimeDiference(upcomingOngoing[1]!);
 
@@ -203,6 +209,9 @@ class OrientationApp extends StatelessWidget {
           seconds: differences["seconds"]!,
         ),
       };
+    } else {
+      // no upcoming activity kill isolate
+      return "Close";
     }
     // Send result back to the main UI isolate
   }

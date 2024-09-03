@@ -68,17 +68,19 @@ class CustomDateParser {
   }
 
   // returns the available dates and time
-  List<Map<String, String>> getDaysAndDate(
+  List<Map<String, dynamic>> getDaysAndDate(
       Map<String, List<ActivitySessionModel>> activities) {
-    List<Map<String, String>> daysAndDates = [];
-    activities.forEach(
-      (key, value) => daysAndDates.add(
+    List<Map<String, dynamic>> daysAndDates = [];
+    int index = 0; // will hold index of each tile
+    activities.forEach((key, value) {
+      daysAndDates.add(
         {
+          "index": index++,
           "day": key,
           "date": DateTime.parse(value[0].date).day.toString(),
         },
-      ),
-    );
+      );
+    });
     return daysAndDates;
   }
 
@@ -214,6 +216,16 @@ var exampleEvents = [
     "end_time": "13:30:00",
     "location": "Main Gate",
     "is_session": false
+  },
+  {
+    "id": 50,
+    "title": "First Session",
+    "description": "A guided tour of the campus highlighting key locations.",
+    "date": "2024-08-26",
+    "start_time": "11:30:00",
+    "end_time": "13:30:00",
+    "location": "Main Gate",
+    "is_session": true
   },
   {
     "id": 3,
@@ -522,11 +534,11 @@ var exampleEvents = [
   },
   {
     "id": 27,
-    "title": "Lib Tour",
+    "title": "Test Event",
     "description": "Guided tour of the university library and its facilities.",
     "date": "2024-09-02",
-    "start_time": "03:25:00",
-    "end_time": "03:27:00",
+    "start_time": "15:45:00",
+    "end_time": "15:50:00",
     "location": "Library",
     "is_session": false
   },

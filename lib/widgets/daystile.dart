@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/controllers/routes_sessions_controllers.dart';
+import 'package:orientation_app/controllers/activites_session_controller.dart';
 
 class DaysTile extends StatelessWidget {
   const DaysTile({
@@ -19,11 +19,11 @@ class DaysTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RoutesSessionsControllers routesSessionsControllers =
-        Get.find<RoutesSessionsControllers>();
+    ActivitySessionController activitySessionController =
+        Get.find<ActivitySessionController>();
     return GestureDetector(
       onTap: () {
-        routesSessionsControllers.updateActiveIndex(index);
+        activitySessionController.updateActiveIndex(index);
       },
       child: Padding(
         padding: const EdgeInsets.all(4.0),

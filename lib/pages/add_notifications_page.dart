@@ -29,7 +29,6 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
   bool isRegularViewer = false;
 
   Future<void> send() async {
-
     // Create the notification model
     NotificationModel notification = NotificationModel(
       title: notifTitleController.text,
@@ -41,9 +40,8 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
 
     try {
       await notificationController.addNotifications(notification);
-      
     } catch (e) {
-      // Handle network or other errors
+      // Handle network or other
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
@@ -54,7 +52,7 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
   void initState() {
     // notification controller
     notificationController = Get.find<NotificationController>();
-    
+
     super.initState();
   }
 
@@ -176,7 +174,6 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
                       Row(
                         children: [
                           Checkbox(
-                          
                             value: isRegularViewer,
                             activeColor: CustomColors.buttonColor,
                             onChanged: (value) {
@@ -219,7 +216,6 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
                       Row(
                         children: [
                           Checkbox(
-                            
                             value: isParentViewer,
                             activeColor: CustomColors.buttonColor,
                             onChanged: (value) {
@@ -247,17 +243,16 @@ class _AddNotificationsPageState extends State<AddNotificationsPage> {
               child: Center(
                 child: FilledButton(
                   onPressed: () {
-                    if (notifTitleController.text.isNotEmpty && descController.text.isNotEmpty){
+                    if (notifTitleController.text.isNotEmpty &&
+                        descController.text.isNotEmpty) {
                       send();
-                    }
-                    else {
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Please fill all values.')),
                       );
                       return;
                     }
-
                   },
                   style: const ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(

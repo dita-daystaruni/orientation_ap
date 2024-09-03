@@ -15,21 +15,26 @@ class BottomNav extends StatefulWidget {
   const BottomNav({
     super.key,
     required this.user,
+    this.onProfile = false,
   });
 
   final User user;
+  // clicked reload when on profile page
+  final bool onProfile;
 
   @override
   State<BottomNav> createState() => _BottomNavState();
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int selectedIndex = 0;
+  late int selectedIndex;
   final pages = [];
 
   @override
   void initState() {
     setUser();
+    // set current page for user, 3 meaning they were reloading page
+    selectedIndex = widget.onProfile ? 3 : 0;
     super.initState();
   }
 
