@@ -72,7 +72,7 @@ class Routines extends StatelessWidget {
               ),
               // list of activities
               Obx(
-                () => activitySessionController.activities.isNotEmpty
+                () => activitySessionController.dayActivities.isNotEmpty
                     ? Expanded(
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,

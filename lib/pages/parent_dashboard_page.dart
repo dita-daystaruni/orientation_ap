@@ -102,7 +102,7 @@ class ParentDashboardPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.31,
+              height: MediaQuery.of(context).size.height * 0.28,
               child: RecentNotificationsPage(
                 userToken: user.token,
                 canEdit: true,

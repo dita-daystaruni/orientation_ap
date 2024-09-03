@@ -45,7 +45,8 @@ class UpcomingActivity extends StatelessWidget {
                 : activityName,
             eventDesc: eventDescription,
             isSession: isSession,
-            timePeriod: "$startTime-$endTime",
+            timePeriod:
+                "${CustomDateParser.convertToAmPm(startTime)}-${CustomDateParser.convertToAmPm(endTime)}",
             showTimePeriod: false,
           ),
         ],

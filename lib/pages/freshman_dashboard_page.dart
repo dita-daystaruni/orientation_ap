@@ -188,7 +188,7 @@ class FreshmanDashboardPage extends StatelessWidget {
                       ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.21,
+                height: MediaQuery.of(context).size.height * 0.17,
                 child: RecentNotificationsPage(
                   userToken: user.token,
                 ),
