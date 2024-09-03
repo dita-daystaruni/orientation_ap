@@ -16,7 +16,6 @@ class StatisticsPage extends StatelessWidget {
   });
 
   final String userToken;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -24,32 +23,40 @@ class StatisticsPage extends StatelessWidget {
     StatisticsController statisticsController =
         Get.find<StatisticsController>();
     List<dynamic> statisticsData = [];
+    List<String> coursesData = courseController.courses;
+    bool isSelected = false;
+    coursesData.insert(0, "All Courses");
 
     Future<void> fetchStatsData({String? selectedCourse}) async {
-      try {
-        final response =
+      List<dynamic> response;
+
+      if (selectedCourse != null) {
+        response =
             await fetchStatisticsData(token: userToken, course: selectedCourse);
-        if (response.statusCode == 200) {
-          statisticsData = jsonDecode(response.body);
-        } else {
-          Get.snackbar("Error", "Failed to load data from the server.");
-        }
-      } catch (e) {
+      } else {
+        response = await fetchStatisticsData(token: userToken);
+      }
+      if (response[0] == 200) {
+        statisticsData = response[1];
+      } else {
         Get.snackbar("Error", "Failed to load data from the server.");
       }
     }
 
-    Future<void> fetchCourseStats({required String selectedCourse}) async {
-      try {
-        var response = await getCourseStatistic(userToken, selectedCourse);
-        if (response[0] == 200) {
-          await statisticsController.updateStats(
-            jsonEncode(response[1]),
-          );
-        } else {
-          Get.snackbar('Error', 'Failed to load course statistics');
-        }
-      } catch (e) {
+    Future<void> fetchCourseStats(String selectedCourse) async {
+      List<dynamic> response;
+      statisticsController.isFetching.value = true;
+      if (selectedCourse == coursesData[0]) {
+        response = await getAllStatistics(userToken);
+      } else {
+        response = await getCourseStatistic(userToken, selectedCourse);
+      }
+
+      if (response[0] == 200) {
+        await statisticsController.updateStats(
+          jsonEncode(response[1]),
+        );
+      } else {
         Get.snackbar('Error', 'Failed to load course statistics');
       }
     }
@@ -69,10 +76,9 @@ class StatisticsPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              if (statisticsData.isEmpty) {
+              if (!isSelected & statisticsData.isEmpty) {
                 await fetchStatsData();
-              }
-              if (statisticsData.isNotEmpty) {
+              } else if (statisticsData.isNotEmpty) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -127,16 +133,13 @@ class StatisticsPage extends StatelessWidget {
                     ),
                     child: Obx(
                       () => DropdownButtonFormField<String>(
-                        
                         isExpanded: true,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
                         ),
-                        dropdownColor: CustomColors
-                            .backgroundColor,
-                        items: courseController.courses.map((String course) {
+                        dropdownColor: CustomColors.backgroundColor,
+                        items: coursesData.map((String course) {
                           return DropdownMenuItem<String>(
                             value: course,
                             child: Text(
@@ -152,58 +155,68 @@ class StatisticsPage extends StatelessWidget {
                         }).toList(),
                         onChanged: (String? newValue) async {
                           if (newValue != null) {
-                            await fetchStatsData(
-                                selectedCourse: newValue);
-                            await fetchCourseStats(selectedCourse: newValue);
+                            if (newValue == coursesData[0]) {
+                              await fetchStatsData();
+                              await fetchCourseStats(newValue);
+                            } else {
+                              await fetchStatsData(selectedCourse: newValue);
+                              await fetchCourseStats(newValue);
+                            }
                           }
+
+                          isSelected = true;
                         },
                       ),
-
                     ),
                   )
                 ],
               ),
             ),
             Obx(
-              () => Column(
-                children: [
-                  StatisticItem(
-                    title: "Total Students",
-                    statistic:
-                        "${statisticsController.statistics.value?.totalStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Male",
-                    statistic:
-                        "${statisticsController.statistics.value?.maleStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Female",
-                    statistic:
-                        "${statisticsController.statistics.value?.femaleStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Nairobi Campus",
-                    statistic:
-                        "${statisticsController.statistics.value?.nairobiStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Athi River",
-                    statistic:
-                        "${statisticsController.statistics.value?.athiRiverStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Dayscholars",
-                    statistic:
-                        "${statisticsController.statistics.value?.dayScholarStudents}",
-                  ),
-                  StatisticItem(
-                    title: "Boarders",
-                    statistic:
-                        "${statisticsController.statistics.value?.boarderStudents}",
-                  )
-                ],
-              ),
+              () => statisticsController.isFetching.value
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: CustomColors.buttonColor,
+                    ))
+                  : Column(
+                      children: [
+                        StatisticItem(
+                          title: "Total Students",
+                          statistic:
+                              "${statisticsController.statistics.value?.totalStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Male",
+                          statistic:
+                              "${statisticsController.statistics.value?.maleStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Female",
+                          statistic:
+                              "${statisticsController.statistics.value?.femaleStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Nairobi Campus",
+                          statistic:
+                              "${statisticsController.statistics.value?.nairobiStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Athi River",
+                          statistic:
+                              "${statisticsController.statistics.value?.athiRiverStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Dayscholars",
+                          statistic:
+                              "${statisticsController.statistics.value?.dayScholarStudents}",
+                        ),
+                        StatisticItem(
+                          title: "Boarders",
+                          statistic:
+                              "${statisticsController.statistics.value?.boarderStudents}",
+                        )
+                      ],
+                    ),
             ),
           ],
         ),

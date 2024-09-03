@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StatisticsController extends GetxController {
   Rx<StatisticsModel?> statistics = Rxn<StatisticsModel>();
   Rx<int> totalStudents = 0.obs;
+  Rx<bool> isFetching = false.obs;
 
   @override
   void onInit() async {
@@ -45,5 +46,6 @@ class StatisticsController extends GetxController {
     statistics.value = StatisticsModel.fromJson(
       jsonDecode(statisticsString),
     );
+    isFetching.value = false;
   }
 }
