@@ -8,6 +8,7 @@ class StatisticsController extends GetxController {
   Rx<StatisticsModel?> statistics = Rxn<StatisticsModel>();
   Rx<int> totalStudents = 0.obs;
   Rx<bool> isFetching = false.obs;
+  Rx<bool> fetchingTotal = false.obs;
 
   @override
   void onInit() async {
@@ -22,9 +23,6 @@ class StatisticsController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("statistics", statistics);
   }
-
-  // updates course statistics
-  Future updateCourseStatistic() async {}
 
   // gets users contacts from SP
   Future getStatisticsFromSP() async {

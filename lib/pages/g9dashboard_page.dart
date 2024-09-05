@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -8,6 +9,7 @@ import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/g9_family_view_page.dart';
 import 'package:orientation_app/pages/statistics_page.dart';
+import 'package:orientation_app/services/statistics_service.dart';
 import 'package:orientation_app/widgets/contact_tile.dart';
 import 'package:orientation_app/widgets/custom_appbar.dart';
 import 'package:orientation_app/widgets/recentnotifications.dart';
@@ -64,6 +66,37 @@ class G9DashboardPage extends StatelessWidget {
                             userToken: user.token,
                           ),
                         ),
+                        onDoubleTap: () async {
+                          statisticsController.fetchingTotal.value = true;
+                          try {
+                            var response = await getAllStatistics(user.token);
+                            await statisticsController.addStatisticToSP(
+                              jsonEncode(
+                                response[1],
+                              ),
+                            );
+
+                            if (response[0] == 200) {
+                              await statisticsController.addStatisticToSP(
+                                jsonEncode(
+                                  response[1],
+                                ),
+                              );
+                              await statisticsController.getStatisticsFromSP();
+                              statisticsController.totalStudents.value =
+                                  statisticsController
+                                          .statistics.value?.totalStudents ??
+                                      statisticsController.totalStudents.value;
+                            } else {
+                              throw Exception("Error Fetching Statistics");
+                            }
+                          } catch (e) {
+                            Get.snackbar(
+                                "Error", "Something went wrong! Try Again");
+                          } finally {
+                            statisticsController.fetchingTotal.value = false;
+                          }
+                        },
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.44,
                           decoration: BoxDecoration(
@@ -87,14 +120,28 @@ class G9DashboardPage extends StatelessWidget {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                  '${statisticsController.totalStudents}',
-                                  style: const TextStyle(
-                                    color: CustomColors.textColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 64,
-                                  ),
-                                ),
+                                () => statisticsController.fetchingTotal.value
+                                    ? const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 22.0,
+                                        ),
+                                        child: Text(
+                                          'fetching...',
+                                          style: TextStyle(
+                                            color: CustomColors.textColor,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 22,
+                                          ),
+                                        ),
+                                      )
+                                    : Text(
+                                        '${statisticsController.totalStudents}',
+                                        style: const TextStyle(
+                                          color: CustomColors.textColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 64,
+                                        ),
+                                      ),
                               ),
                               const Text(
                                 "New Students",
