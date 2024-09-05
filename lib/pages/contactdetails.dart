@@ -78,33 +78,36 @@ class ContactDetails extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: CustomTextIcon(
-                    label: Text(
-                      user.phoneNo,
-                      style: const TextStyle(
-                        color: CustomColors.textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
+                  label: Text(
+                    user.phoneNo,
+                    style: const TextStyle(
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
-                    trailingIcon: IconButton(
-                      onPressed: () async {
-                        makePhoneCall(user.phoneNo);
-                      },
-                      icon: const Icon(
-                        Icons.phone,
-                        color: CustomColors.buttonColor,
-                      ),
-                    )),
+                  ),
+                  trailingIcon: IconButton(
+                    onPressed: () async {
+                      makePhoneCall(user.phoneNo);
+                    },
+                    icon: const Icon(
+                      Icons.phone,
+                      color: CustomColors.buttonColor,
+                    ),
+                  ),
+                  isNumber: true,
+                ),
               ),
             ),
             IntrinsicWidth(
               child: CustomTextIcon(
                 label: Text(
                   user.email,
+                  softWrap: true,
                   style: const TextStyle(
                     color: CustomColors.textColor,
                     fontWeight: FontWeight.w500,
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
                 trailingIcon: IconButton(
@@ -116,6 +119,7 @@ class ContactDetails extends StatelessWidget {
                     color: CustomColors.buttonColor,
                   ),
                 ),
+                isCentered: true,
               ),
             ),
           ],

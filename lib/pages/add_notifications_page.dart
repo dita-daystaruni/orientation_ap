@@ -27,6 +27,7 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
   bool isAdminViewer = false;
   bool isParentViewer = false;
   bool isRegularViewer = false;
+  bool isSending = false;
 
   Future<void> send() async {
     // Create the notification model
@@ -40,6 +41,11 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
 
     try {
       await notificationController.addNotifications(notification);
+      notifTitleController.clear();
+      descController.clear();
+      isAdminViewer = false;
+      isParentViewer = false;
+      isSending = false;
     } catch (e) {
       // Handle network or other errors
       Get.snackbar("Error", "Failed to send notification");
@@ -238,38 +244,59 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: FilledButton(
-                  onPressed: () {
-                    if (notifTitleController.text.isNotEmpty &&
-                        descController.text.isNotEmpty) {
-                      send();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Please fill all values.')),
-                      );
-                      return;
-                    }
-                  },
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                      CustomColors.buttonColor,
+              child: isSending
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: CustomColors.buttonColor,
+                      ),
+                    )
+                  : Center(
+                      child: FilledButton(
+                        onPressed: () async {
+                          if (notifTitleController.text.isNotEmpty &&
+                              descController.text.isNotEmpty) {
+                            setState(() {
+                              isSending = true;
+                            });
+                            await send();
+                            setState(() {
+                              isSending = false;
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Please fill all values!',
+                                  style: TextStyle(
+                                    color: CustomColors.textColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                backgroundColor: CustomColors.backgroundColor,
+                              ),
+                            );
+                            return;
+                          }
+                        },
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            CustomColors.buttonColor,
+                          ),
+                          iconColor: WidgetStatePropertyAll(
+                            CustomColors.buttonColor,
+                          ),
+                        ),
+                        child: const Text(
+                          "Send",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
-                    iconColor: WidgetStatePropertyAll(
-                      CustomColors.buttonColor,
-                    ),
-                  ),
-                  child: const Text(
-                    "Send",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
             ),
           ],
         ),

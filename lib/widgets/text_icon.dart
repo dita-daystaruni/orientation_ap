@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CustomTextIcon extends StatelessWidget {
-  final Text label;
-  final dynamic leadingIcon;
-  final dynamic trailingIcon;
-  final double spacing = 8.0;
   const CustomTextIcon({
     super.key,
     required this.label,
     this.leadingIcon,
     this.trailingIcon,
+    this.isNumber = false,
+    this.isCentered = false,
   });
+
+  final Text label;
+  final dynamic leadingIcon;
+  final dynamic trailingIcon;
+  // does not constraing phone numbers set to true not constraining
+  final bool isNumber;
+  // if centered increase constraint on text
+  final bool isCentered;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +29,16 @@ class CustomTextIcon extends StatelessWidget {
                 child: leadingIcon!,
               )
             : const SizedBox(),
-        label,
+        isNumber
+            ? label
+            : SizedBox(
+                width: MediaQuery.of(context).size.width *
+                    (isCentered ? 0.7 : 0.5),
+                child: label,
+              ),
         trailingIcon != null
             ? Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                padding: const EdgeInsets.only(right: 8.0),
                 child: trailingIcon!,
               )
             : const SizedBox(),

@@ -25,7 +25,9 @@ class StatisticsPage extends StatelessWidget {
     List<dynamic> statisticsData = [];
     List<String> coursesData = courseController.courses;
     bool isSelected = false;
-    coursesData.insert(0, "All Courses");
+    if (coursesData[0] != "All Courses") {
+      coursesData.insert(0, "All Courses");
+    }
 
     Future<void> fetchStatsData({String? selectedCourse}) async {
       List<dynamic> response;
@@ -176,7 +178,7 @@ class StatisticsPage extends StatelessWidget {
               () => statisticsController.isFetching.value
                   ? const Center(
                       child: CircularProgressIndicator(
-                      color: CustomColors.buttonColor,
+                      color: CustomColors.textColor,
                     ))
                   : Column(
                       children: [

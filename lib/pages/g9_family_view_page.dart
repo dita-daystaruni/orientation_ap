@@ -80,23 +80,25 @@ class G9FamilyViewPage extends StatelessWidget {
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
-                  label: Text(
-                    parent.phoneNo,
-                    style: const TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                    ),
+                label: Text(
+                  parent.phoneNo,
+                  style: const TextStyle(
+                    color: CustomColors.textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
                   ),
-                  trailingIcon: IconButton(
-                    onPressed: () {
-                      makePhoneCall(parent.phoneNo);
-                    },
-                    icon: const Icon(
-                      Icons.phone,
-                      color: CustomColors.buttonColor,
-                    ),
-                  )),
+                ),
+                trailingIcon: IconButton(
+                  onPressed: () {
+                    makePhoneCall(parent.phoneNo);
+                  },
+                  icon: const Icon(
+                    Icons.phone,
+                    color: CustomColors.buttonColor,
+                  ),
+                ),
+                isNumber: true,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -172,6 +174,7 @@ class G9FamilyViewPage extends StatelessWidget {
                             return ContactTile(
                               label:
                                   '${contacts[idx].firstName[0]}${contacts[idx].lastName[0]}',
+                              name: '${contacts[idx].firstName}',
                               idx: idx,
                               sizes: 30,
                               redirectionPage: StudentDetailsPage(

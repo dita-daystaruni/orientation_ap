@@ -107,47 +107,89 @@ class NotificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: CustomColors.backgroundColor,
-      elevation: 2.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.circle_notifications_rounded,
-              size: 45,
-              color: CustomColors.buttonColor,
+    return GestureDetector(
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: CustomColors.backgroundColor,
+            title: Text(
+              title,
+              style: const TextStyle(
+                color: CustomColors.textColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+              ),
             ),
-            const SizedBox(width: 16.0),
-            Expanded(
+            content: IntrinsicHeight(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
+                  const Text(
+                    "Description",
+                    style: TextStyle(
                       color: CustomColors.textColor,
-                      fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      fontSize: 20,
                     ),
                   ),
                   Text(
                     content,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: CustomColors.secondaryTextColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
+                      color: CustomColors.textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
                     ),
                   ),
                 ],
               ),
             ),
-          ],
+          );
+        },
+      ),
+      child: Card(
+        color: CustomColors.backgroundColor,
+        elevation: 2.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.circle_notifications_rounded,
+                size: 45,
+                color: CustomColors.buttonColor,
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: CustomColors.textColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      content,
+                      style: const TextStyle(
+                        color: CustomColors.secondaryTextColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

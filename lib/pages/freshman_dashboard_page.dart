@@ -150,8 +150,8 @@ class FreshmanDashboardPage extends StatelessWidget {
                               return ContactTile(
                                 label:
                                     "${contactController.userContacts[idx].firstName[0]}${contactController.userContacts[idx].lastName[0]}",
-                                name: contactController
-                                    .userContacts[idx].firstName,
+                                title:
+                                    contactController.userContacts[idx].title,
                                 idx: idx,
                                 sizes: 25,
                                 redirectionPage: ContactDetails(
@@ -189,8 +189,7 @@ class FreshmanDashboardPage extends StatelessWidget {
                         ),
                       ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.17,
+              Expanded(
                 child: RecentNotificationsPage(
                   userToken: user.token,
                 ),

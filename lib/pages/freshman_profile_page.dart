@@ -221,7 +221,10 @@ class FreshmanProfilePage extends StatelessWidget {
                               onPressed: () async {
                                 await makePhoneCall(user.parent!.phoneNo);
                               },
-                              icon: const Icon(Icons.phone),
+                              icon: const Icon(
+                                Icons.phone,
+                                color: CustomColors.buttonColor,
+                              ),
                             ),
                             label: Text(
                               user.parent!.phoneNo,
@@ -231,6 +234,7 @@ class FreshmanProfilePage extends StatelessWidget {
                                 fontSize: 14,
                               ),
                             ),
+                            isNumber: true,
                           ),
                         ],
                       ),
@@ -257,6 +261,7 @@ class FreshmanProfilePage extends StatelessWidget {
                               },
                               icon: const Icon(
                                 Icons.email_outlined,
+                                color: CustomColors.buttonColor,
                               ),
                             ),
                             label: Text(
