@@ -159,7 +159,12 @@ class CustomDateParser {
     DateTime notifTime = DateTime.parse(timeString);
     String timeMinutes =
         notifTime.minute > 10 ? "${notifTime.minute}" : "0${notifTime.minute}";
-    if (notifTime.hour > 12) {
+
+    if (notifTime.hour == 12) {
+      convertTime = "${notifTime.hour}:${timeMinutes}PM";
+    } else if (notifTime.hour == 0) {
+      convertTime = "12:${timeMinutes}AM";
+    } else if (notifTime.hour > 12) {
       // return in pm format
       convertTime = "${notifTime.hour - 12}:${timeMinutes}PM";
     } else {
