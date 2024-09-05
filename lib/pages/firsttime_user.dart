@@ -223,8 +223,6 @@ class _FirsttimeUserState extends State<FirsttimeUser> {
     String password,
   ) async {
     try {
-      print(admNo);
-      print(password);
       var response = await changeFirstTimePassword(
         admNo,
         password,
@@ -253,8 +251,6 @@ class _FirsttimeUserState extends State<FirsttimeUser> {
               ),
             );
           } else {
-            print(response[1]);
-            // debugPrint(response[0] as String);
             setState(() {
               isWaiting = !isWaiting;
             });

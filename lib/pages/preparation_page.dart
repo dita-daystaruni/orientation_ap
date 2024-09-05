@@ -121,7 +121,7 @@ class _PreparationPageState extends State<PreparationPage> {
     List<String> encodedContacts = [];
     UserContactController contactController = Get.find<UserContactController>();
     ParentContactController parentContactController =
-        Get.put(ParentContactController());
+        Get.find<ParentContactController>();
 
     if (response[0] == 200) {
       // encode all contacts details
@@ -281,7 +281,6 @@ class _PreparationPageState extends State<PreparationPage> {
   // sets everything
   Future<void> setEverything() async {
     // TODO do error checks here
-    // TODO parents contacts are loaded differently
     await setContacts();
     await setActivities();
     await setFaqs();

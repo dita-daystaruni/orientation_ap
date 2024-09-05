@@ -8,6 +8,7 @@ import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/document_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
@@ -126,6 +127,8 @@ class _ReloadPageState extends State<ReloadPage> {
     // will hold encoded contacts from server
     List<String> encodedContacts = [];
     UserContactController contactController = Get.find<UserContactController>();
+    ParentContactController parentContactController =
+        Get.find<ParentContactController>();
 
     if (response[0] == 200) {
       // encode all contacts details
@@ -136,8 +139,13 @@ class _ReloadPageState extends State<ReloadPage> {
       throw Exception("Error Fetching Contacts");
     }
 
-    await contactController.addUsersContactsToSP(encodedContacts);
-    await contactController.getUsersContactsFromSP();
+    if (widget.user.userType == "parent") {
+      await parentContactController.addParentsContactsToSP(encodedContacts);
+      await parentContactController.getParentsContactsFromSP();
+    } else {
+      await contactController.addUsersContactsToSP(encodedContacts);
+      await contactController.getUsersContactsFromSP();
+    }
 
     // set finishedgetting contact
     setState(() {
@@ -291,7 +299,6 @@ class _ReloadPageState extends State<ReloadPage> {
   // sets everything
   Future<void> setEverything() async {
     // TODO do error checks here
-    // TODO parents contacts are loaded differently
     await setContacts();
     await setActivities();
     await setFaqs();

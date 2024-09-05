@@ -172,23 +172,25 @@ class StudentDetailsPage extends StatelessWidget {
                 horizontal: 0.0,
               ),
               child: CustomTextIcon(
-                  label: Text(
-                    student.phoneNo,
-                    style: const TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16,
-                    ),
+                label: Text(
+                  student.phoneNo,
+                  style: const TextStyle(
+                    color: CustomColors.textColor,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 16,
                   ),
-                  trailingIcon: IconButton(
-                    onPressed: () async {
-                      await makePhoneCall(student.phoneNo);
-                    },
-                    icon: const Icon(
-                      Icons.phone_callback,
-                      color: CustomColors.buttonColor,
-                    ),
-                  )),
+                ),
+                trailingIcon: IconButton(
+                  onPressed: () async {
+                    await makePhoneCall(student.phoneNo);
+                  },
+                  icon: const Icon(
+                    Icons.phone,
+                    color: CustomColors.buttonColor,
+                  ),
+                ),
+                isNumber: true,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

@@ -56,8 +56,8 @@ class EventsTile extends StatelessWidget {
                   horizontal: 8.0,
                 ),
                 child: Text(
-                  eventtitle.length > 30
-                      ? "${eventtitle.substring(0, 29)}..."
+                  eventtitle.length > 20
+                      ? "${eventtitle.substring(0, 20)}..."
                       : eventtitle,
                   softWrap: true,
                   style: const TextStyle(
@@ -68,18 +68,24 @@ class EventsTile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6.0,
+                ),
                 child: Row(
                   children: [
                     const Icon(
                       Icons.place_outlined,
                     ),
-                    Text(
-                      eventLocation,
-                      style: const TextStyle(
-                        color: CustomColors.secondaryTextColor,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 15,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        eventLocation,
+                        softWrap: true,
+                        style: const TextStyle(
+                          color: CustomColors.secondaryTextColor,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15,
+                        ),
                       ),
                     )
                   ],
@@ -113,7 +119,6 @@ class EventsTile extends StatelessWidget {
             ],
           ),
         ),
-        const Spacer(),
         IconButton(
           icon: const Icon(
             Icons.navigate_next,

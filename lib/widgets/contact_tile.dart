@@ -49,7 +49,7 @@ class ContactTile extends StatelessWidget {
                     name!,
                     style: const TextStyle(
                       color: CustomColors.thirdTextColor,
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
                   )
@@ -58,7 +58,7 @@ class ContactTile extends StatelessWidget {
                     style: const TextStyle(
                       color: CustomColors.thirdTextColor,
                       fontWeight: FontWeight.w400,
-                      fontSize: 11,
+                      fontSize: 14,
                     ),
                   ),
           ],

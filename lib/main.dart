@@ -11,6 +11,7 @@ import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
+import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/firebase_options.dart';
@@ -29,6 +30,7 @@ void main() async {
   Get.put(ActivitySessionController());
   Get.put(CourseController());
   Get.put(StatisticsController());
+  Get.put(ParentContactController());
 
   // Initialize Firebase Messaging
   await Firebase.initializeApp(
