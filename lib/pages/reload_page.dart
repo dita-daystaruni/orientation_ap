@@ -262,6 +262,8 @@ class _ReloadPageState extends State<ReloadPage> {
         jsonEncode(response[1]),
       );
       await statisticsController.getStatisticsFromSP();
+      statisticsController.totalStudents.value =
+          statisticsController.statistics.value?.totalStudents ?? 0;
     } else {
       throw Exception("Error Fetching All Statistics");
     }
