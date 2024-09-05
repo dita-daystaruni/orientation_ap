@@ -25,7 +25,7 @@ class ParentDashboardPage extends StatelessWidget {
     ActivitySessionController activitySessionController =
         Get.find<ActivitySessionController>();
     ParentContactController parentContactController =
-        Get.put(ParentContactController());
+        Get.find<ParentContactController>();
 
     return SafeArea(
       child: Scaffold(
@@ -109,8 +109,7 @@ class ParentDashboardPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.28,
+            Expanded(
               child: RecentNotificationsPage(
                 userToken: user.token,
                 canEdit: true,

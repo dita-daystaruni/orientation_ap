@@ -236,8 +236,7 @@ class G9DashboardPage extends StatelessWidget {
                       ),
                     ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.37,
+            Expanded(
               child: RecentNotificationsPage(
                 isG9: true,
                 canEdit: true,
