@@ -45,6 +45,7 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
       descController.clear();
       isAdminViewer = false;
       isParentViewer = false;
+      isRegularViewer = false;
       isSending = false;
     } catch (e) {
       // Handle network or other errors
@@ -63,6 +64,7 @@ class AddNotificationsPageState extends State<AddNotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: CustomColors.backgroundColor,
