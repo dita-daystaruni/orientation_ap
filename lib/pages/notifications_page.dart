@@ -28,7 +28,7 @@ class NotificationsPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: CustomColors.backgroundColor,
           title: const Text(
-            'Send Notifications',
+            'Notifications',
             style: TextStyle(
               color: CustomColors.textColor,
               fontWeight: FontWeight.w500,

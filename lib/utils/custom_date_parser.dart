@@ -126,9 +126,10 @@ class CustomDateParser {
 
   // get the time difference between two activities
   Map<String, int> getTimeDiference(ActivitySessionModel upcomingActivity) {
-    DateTime currentTime = DateTime.now();
-    DateTime upcomingActivityDate = DateTime.parse(
-        "${upcomingActivity.date}T${upcomingActivity.startTime}");
+    DateTime currentTime = DateTime.now().toLocal();
+    DateTime upcomingActivityDate =
+        DateTime.parse("${upcomingActivity.date}T${upcomingActivity.startTime}")
+            .toLocal();
     Duration difference = upcomingActivityDate.difference(currentTime);
     return {
       "days": difference.inDays,
@@ -156,10 +157,10 @@ class CustomDateParser {
   // converts time string to AM or PM format for otifications
   static String convertToAmPmNotif(String timeString) {
     String convertTime;
-    DateTime notifTime = DateTime.parse(timeString);
+    DateTime notifTime = DateTime.parse(timeString).toLocal();
     String timeMinutes =
         notifTime.minute > 10 ? "${notifTime.minute}" : "0${notifTime.minute}";
-
+    print(notifTime.hour);
     if (notifTime.hour == 12) {
       convertTime = "${notifTime.hour}:${timeMinutes}PM";
     } else if (notifTime.hour == 0) {
