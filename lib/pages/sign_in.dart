@@ -41,9 +41,6 @@ class _SignInState extends State<SignIn> {
                   height: 150,
                   width: 200,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 const Text(
                   "Sign in to your Account",
                   style: TextStyle(
@@ -75,30 +72,40 @@ class _SignInState extends State<SignIn> {
                         controller: admnocontroller,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: CustomColors.buttonColor,
+                            ),
+                          ),
                           hintText: 'Admission Number',
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        cursorColor: CustomColors.buttonColor,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                ispasswordvisible = !ispasswordvisible;
-                              });
-                            },
-                            icon: Icon(ispasswordvisible
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: TextFormField(
+                          cursorColor: CustomColors.buttonColor,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: CustomColors.buttonColor,
+                              ),
+                            ),
+                            hintText: 'Password',
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  ispasswordvisible = !ispasswordvisible;
+                                });
+                              },
+                              icon: Icon(ispasswordvisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                            ),
                           ),
+                          controller: passwordcontroller,
+                          obscureText: ispasswordvisible,
                         ),
-                        controller: passwordcontroller,
-                        obscureText: ispasswordvisible,
                       ),
                     ],
                   ),

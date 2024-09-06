@@ -121,7 +121,7 @@ class FreshmanProfilePage extends StatelessWidget {
                 user.course,
                 style: const TextStyle(
                   color: CustomColors.textColor,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w300,
                   fontSize: 14,
                 ),
               ),
