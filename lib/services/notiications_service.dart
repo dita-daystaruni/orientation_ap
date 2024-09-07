@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:orientation_app/models/notification_model.dart';
 
@@ -50,6 +51,5 @@ Future<List> sendNotification({
     headers: headers,
     body: jsonEncode(notification.toJson()),
   );
-
   return [response.statusCode, jsonDecode(response.body)];
 }

@@ -15,7 +15,7 @@ Future getUserContacts(int userID, String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/account/contacts/$userID'),
+    Uri.parse('$baseUrl/account/contacts/$userID/'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
