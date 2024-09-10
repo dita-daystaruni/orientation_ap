@@ -14,7 +14,7 @@ Future getAllStatistics(String token) async {
     },
   );
   var response = await http.get(
-    Uri.parse('$baseUrl/account/statistics'),
+    Uri.parse('$baseUrl/account/statistics/'),
     headers: headers,
   );
   return [response.statusCode, jsonDecode(response.body)];
@@ -34,8 +34,7 @@ Future getCourseStatistic(String token, String courseName) async {
   return [response.statusCode, jsonDecode(response.body)];
 }
 
-Future fetchStatisticsData(
-    {required String token, String? course}) async {
+Future fetchStatisticsData({required String token, String? course}) async {
   headers.addAll(
     {
       "Authorization": "Token $token",
@@ -44,8 +43,7 @@ Future fetchStatisticsData(
   final url = course != null && course.isNotEmpty
       ? "$baseUrl/account/statistics/data/?course=$course"
       : "$baseUrl/account/statistics/data/";
-  
+
   var response = await http.get(Uri.parse(url), headers: headers);
   return [response.statusCode, jsonDecode(response.body)];
-    
 }
