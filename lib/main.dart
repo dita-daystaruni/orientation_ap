@@ -254,7 +254,7 @@ class OrientationApp extends StatelessWidget {
 
     // Getting user controller
     UserController userController = Get.find<UserController>();
-    return userController.isLoggedIn.value && userController.user.value != null
+    return userController.isLoggedIn.value && userController.user.value == null
         ? BottomNav(user: userController.user.value!)
         : const SplashScreen();
   }
