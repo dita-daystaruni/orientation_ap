@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:orientation_app/constants/custom_colors.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/pages/firsttime_user.dart';
 import 'package:orientation_app/pages/preparation_page.dart';
@@ -27,95 +26,42 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: CustomColors.backgroundColor,
+      appBar: AppBar(
+        title: const Text("Sign in into your account"),
+      ),
       body: SafeArea(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              spacing: 18,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/images/grajweshencap.png",
+                  "assets/icons/icon.png",
                   height: 150,
                   width: 200,
                 ),
-                const Text(
-                  "Sign in to your Account",
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 28,
-                  ),
-                ),
-                const Spacer(),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    "Please enter your details to login to your account and keep track of your orientation progress.",
-                    style: TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
+                    "To continue and track your orientation progress, please enter your admission number below.",
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        cursorColor: CustomColors.buttonColor,
-                        controller: admnocontroller,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: CustomColors.buttonColor,
-                            ),
-                          ),
-                          hintText: 'Admission Number',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: TextFormField(
-                          cursorColor: CustomColors.buttonColor,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: CustomColors.buttonColor,
-                              ),
-                            ),
-                            hintText: 'Password',
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  ispasswordvisible = !ispasswordvisible;
-                                });
-                              },
-                              icon: Icon(ispasswordvisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                          ),
-                          controller: passwordcontroller,
-                          obscureText: ispasswordvisible,
-                        ),
-                      ),
-                    ],
+                TextFormField(
+                  controller: admnocontroller,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    hintText: 'e.g 00-0000',
+                    label: Text("Admission Number"),
                   ),
                 ),
-                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                      activeColor: CustomColors.buttonColor,
                       value: ischecked,
                       onChanged: (value) {
                         setState(() {
@@ -126,8 +72,6 @@ class _SignInState extends State<SignIn> {
                     const Text(
                       "I agree to Terms & Conditions",
                       style: TextStyle(
-                        color: CustomColors.textColor,
-                        fontWeight: FontWeight.w500,
                         fontSize: 16,
                       ),
                     ),
@@ -135,9 +79,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 const Spacer(),
                 iswaiting
-                    ? const CircularProgressIndicator(
-                        color: CustomColors.buttonColor,
-                      )
+                    ? const CircularProgressIndicator()
                     : FilledButton(
                         onPressed: () async {
                           // validating user input
@@ -237,14 +179,8 @@ class _SignInState extends State<SignIn> {
                             }
                           }
                         },
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                            CustomColors.buttonColor,
-                          ),
-                        ),
                         child: const Text(
                           "Log In",
-                          style: TextStyle(fontSize: 16),
                         ),
                       ),
               ],

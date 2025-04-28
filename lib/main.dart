@@ -21,6 +21,9 @@ import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// TODO: change application package name
+// TODO: change application name
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Putting controllers
@@ -89,9 +92,18 @@ void main() async {
 
   runApp(
     GetMaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+        brightness: Brightness.dark,
+      ),
       home: const OrientationApp(),
       getPages: AppRoutes.routes,
-      debugShowCheckedModeBanner: false,
     ),
   );
 }
