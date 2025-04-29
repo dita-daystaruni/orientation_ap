@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
-import 'package:orientation_app/widgets/custom_bottomnav.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class SignIn extends StatefulWidget {

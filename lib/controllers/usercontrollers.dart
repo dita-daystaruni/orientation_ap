@@ -8,6 +8,7 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
+  final _baseUrl = "http://192.168.221.235:8090";
   final Logger _logger = Logger();
   Rx<User?> user = Rxn<User>();
   Rx<bool> isLoggedIn = false.obs;
@@ -16,8 +17,6 @@ class UserController extends GetxController {
   // get user object and loggenedin value
   @override
   void onInit() async {
-    // await getUserFromSP();
-    // await getLoggedInFromSP();
     await _loadPocketBase();
     _logger.i("PocketBase loaded successfully");
     super.onInit();
@@ -28,22 +27,25 @@ class UserController extends GetxController {
     super.onReady();
     final PocketBase pocketBase = GetIt.instance.get<PocketBase>();
     if (pocketBase.authStore.isValid) {
-      _loadUserFromPrefs();
+      user.value = await _getUserFromCache();
     } else {}
-  }
-
-  Future<bool> _loadUserFromPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    user.value = prefs.getString("user") == null
-        ? null
-        : User.fromJson(json.decode(prefs.getString("user")!));
-    _logger.t(user.value?.toJson());
-    return user.value == null ? true : false;
   }
 
   Future<void> _loadPocketBase() async {
     final prefs = await SharedPreferences.getInstance();
 
+    if (prefs.getString("pb_auth") == null) {
+      if (GetIt.instance.isRegistered<PocketBase>()) {
+        GetIt.instance.unregister<PocketBase>();
+      }
+
+      GetIt.instance.registerSingleton<PocketBase>(
+        PocketBase(_baseUrl),
+      );
+      return;
+    }
+
+    // Load the authentication token
     final store = AsyncAuthStore(
       save: (String data) async => prefs.setString("pb_auth", data),
       initial: prefs.getString("pb_auth"),
@@ -54,44 +56,30 @@ class UserController extends GetxController {
     }
 
     GetIt.instance.registerSingleton<PocketBase>(
-      PocketBase('http://192.168.2.114:8090', authStore: store),
+      PocketBase(_baseUrl, authStore: store),
     );
   }
 
-  // set login to true or false
-  Future<void> setLoginToSp(bool isLoggedIn) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isLoggedIn", isLoggedIn);
-  }
-
-  // getCurrent Login Value
-  Future getLoggedInFromSP() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-    final bool? isLogged = prefs.getBool("isLoggedIn");
-    if (isLogged != null) {
-      isLoggedIn.value = isLogged;
-    }
-    return isLoggedIn.value;
-  }
-
   // caches users info
-  Future<void> addUserToSP(String user) async {
+  Future<void> _addUserToCache(User user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("user", user);
+    prefs.setString("user", json.encode(user.toJson()));
+    _logger.i("user information cached successfully");
   }
 
-  // gets users info from SP
-  Future getUserFromSP() async {
+  // gets users info from cache
+  Future<User?> _getUserFromCache() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.reload();
-    final String? usersString = prefs.getString("user");
-    if (usersString != null) {
-      user.value = User.fromJson(
-        jsonDecode(usersString),
+    final String? userString = prefs.getString("user");
+    if (userString != null) {
+      final user = User.fromJson(
+        jsonDecode(userString),
       );
-      return user.value;
+      _logger.i("User info retrieved successfully");
+      return user;
     }
+    _logger.w("No user information was cached yet!");
     return null;
   }
 
@@ -110,7 +98,7 @@ class UserController extends GetxController {
           );
       _logger.i(authStore.record.toJson());
       user.value = User.fromJson(authStore.record.toJson());
-
+      _addUserToCache(user.value!);
       isLoading.value = false;
       return right(true);
     } on ClientException catch (e) {

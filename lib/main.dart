@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:orientation_app/constants/routes.dart';
 import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
@@ -17,10 +16,10 @@ import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/firebase_options.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
+import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:orientation_app/widgets/custom_bottomnav.dart';
-import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: change application package name
@@ -268,9 +267,11 @@ class OrientationApp extends StatelessWidget {
 
     // Getting user controller
     UserController userController = Get.find<UserController>();
-    return userController.isLoggedIn.value && userController.user.value == null
-        ? BottomNav(user: userController.user.value!)
-        : const SplashScreen();
+    return Obx(
+      () => userController.user.value != null
+          ? const HomePage()
+          : const SplashScreen(),
+    );
   }
 }
 

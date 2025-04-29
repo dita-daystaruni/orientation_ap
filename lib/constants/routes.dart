@@ -6,7 +6,7 @@ import 'package:orientation_app/pages/sign_up.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 
 class AppRoutes {
-  static var routes = [
+  static final routes = <GetPage>[
     GetPage(name: "/splash_screen", page: () => const SplashScreen()),
     GetPage(name: "/login", page: () => const SignIn()),
     GetPage(name: "/home", page: () => const HomePage()),

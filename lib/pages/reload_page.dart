@@ -270,24 +270,6 @@ class _ReloadPageState extends State<ReloadPage> {
     }
   }
 
-  Future<void> setUser() async {
-    // encode user object
-    String userString = jsonEncode(widget.user);
-
-    UserController userController = Get.find<UserController>();
-
-    await userController.addUserToSP(userString);
-    await userController.getUserFromSP();
-
-    // set logged in to true
-    await userController.setLoginToSp(true);
-    userController.isLoggedIn.value = await userController.getLoggedInFromSP();
-
-    setState(() {
-      finishedSettingUser = true;
-    });
-  }
-
   Future<void> updateDocuments() async {
     // get document controller
     DocumentController documentController = Get.put(
@@ -307,7 +289,7 @@ class _ReloadPageState extends State<ReloadPage> {
     await setFaqs();
     await updateDocuments();
     await setCourses();
-    await setUser();
+    // await setUser();
     if (widget.user.firstName == "admin") {
       await setStatistics();
     }
