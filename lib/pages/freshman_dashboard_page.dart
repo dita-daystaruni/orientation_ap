@@ -33,11 +33,11 @@ class FreshmanDashboardPage extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(
-                firstName: user.firstName,
-                gender: user.gender,
-                token: user.token,
-              ),
+              // CustomAppBar(
+              //   firstName: user.firstName,
+              //   gender: user.gender,
+              //   token: user.firstName,
+              // ),
               Obx(
                 () => activitySessionController.ongoingActivity.value != null
                     ? OngoingActivity(
@@ -191,7 +191,7 @@ class FreshmanDashboardPage extends StatelessWidget {
               ),
               Expanded(
                 child: RecentNotificationsPage(
-                  userToken: user.token,
+                  userToken: user.firstName,
                 ),
               ),
             ],

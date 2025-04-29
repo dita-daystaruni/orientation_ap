@@ -1,11 +1,9 @@
-import 'dart:math';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/pages/firsttime_user.dart';
-import 'package:orientation_app/pages/preparation_page.dart';
-import 'package:orientation_app/services/authentication.dart';
+import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/widgets/custom_bottomnav.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -15,191 +13,135 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController admnocontroller = TextEditingController();
-
+  final UserController _userController = Get.find<UserController>();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
-  bool ischecked = false;
-  bool ispasswordvisible = true;
-  bool iswaiting = false;
+  bool consent = false;
+  bool _showPassword = true;
+
+  Future<bool?> _promptConsent() => showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Just a minute before you continue"),
+          content: const Text(
+            "By continuing, you consent to Academia processing your data to enhance your experience during your time at Daystar University.",
+          ),
+          actions: [
+            FilledButton(
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+                child: const Text("I Agree")),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: const Text("Decline"))
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text("Sign in into your account"),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              spacing: 18,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            floating: true,
+            pinned: true,
+            expandedHeight: 200,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("Sign in into your account"),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(12),
+            sliver: MultiSliver(
               children: [
-                Image.asset(
-                  "assets/icons/icon.png",
-                  height: 150,
-                  width: 200,
+                CircleAvatar(
+                  radius: 80,
+                  child: Image.asset("assets/icons/icon.png"),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    "To continue and track your orientation progress, please enter your admission number below.",
-                    textAlign: TextAlign.center,
-                  ),
+                const SizedBox(height: 18),
+                const Text(
+                  "Please provide your admission number and password to get onboarded into Daystar University",
                 ),
+                const SizedBox(height: 12),
                 TextFormField(
-                  controller: admnocontroller,
+                  controller: emailController,
                   textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    hintText: 'e.g 00-0000',
-                    label: Text("Admission Number"),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Admission Number",
+                    hintText: "e.g. 00-0000",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      value: ischecked,
-                      onChanged: (value) {
+                const SizedBox(height: 8),
+                TextFormField(
+                  obscureText: _showPassword,
+                  controller: passwordcontroller,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
                         setState(() {
-                          ischecked = !ischecked;
+                          _showPassword = !_showPassword;
                         });
                       },
+                      icon: Icon(_showPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                     ),
-                    const Text(
-                      "I agree to Terms & Conditions",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                    labelText: "Password",
+                    hintText: "Please provide your password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ],
+                  ),
                 ),
-                const Spacer(),
-                iswaiting
-                    ? const CircularProgressIndicator()
-                    : FilledButton(
-                        onPressed: () async {
-                          // validating user input
-                          if (admnocontroller.text.trim().isEmpty ||
-                              passwordcontroller.text.trim().isEmpty) {
-                            Get.snackbar('Empty Field(s)',
-                                'Ensure you have filled all the fiels');
-                          } else if (!ischecked) {
-                            Get.snackbar('Required',
-                                'Please Accept Terms And Conditions');
-                          } else {
-                            setState(() {
-                              iswaiting = !iswaiting;
-                            });
-                            // sending login request
-                            try {
-                              var response = await signIn(
-                                admnocontroller.text.trim(),
-                                passwordcontroller.text.trim(),
-                              );
-                              switch (response[0]) {
-                                case 200:
-                                  // successful login take user to login page
-                                  User user = User.fromJson(response[1]);
-                                  // Get.offAndToNamed("/landing_page");
-                                  if (!context.mounted) return;
-                                  // drop the current page
-                                  Navigator.pop(context);
-                                  // move to the next page
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (builder) => PreparationPage(
-                                          user: user,
-                                        ),
-                                      ));
-                                case 412:
-                                  // first time user take them back to login
-                                  String randompass =
-                                      "${generateRandomLetters()}-${admnocontroller.text.trim()}";
-                                  if (!context.mounted) return;
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (builder) => FirsttimeUser(
-                                        admNo: admnocontroller.text.trim(),
-                                        password: randompass,
-                                      ),
-                                    ),
-                                  );
-                                case < 500:
-                                  // server issues
-                                  setState(() {
-                                    iswaiting = !iswaiting;
-                                  });
-                                  Get.snackbar(
-                                    'Something Went Wrong!!',
-                                    response[1]['message'],
-                                  );
-                                default:
-                                  // server issues
-                                  setState(() {
-                                    iswaiting = !iswaiting;
-                                  });
-                                  Get.snackbar(
-                                    'Something Went Wrong!!',
-                                    'Retry Or Contact dita@daystar.ac.ke To Report Incidence',
-                                  );
-                              }
-                            } on ClientException catch (e) {
-                              // client has no internet or server might be down
+                const SizedBox(height: 22),
+                FilledButton(
+                  onPressed: () async {
+                    final consent = (await _promptConsent() ?? false);
+                    if (!consent) return;
+                    final result = await _userController.login(
+                      emailController.text,
+                      passwordcontroller.text,
+                    );
 
-                              debugPrint(
-                                "Exception in Log in Page ${e.toString()}",
-                              );
-                              setState(() {
-                                iswaiting = !iswaiting;
-                              });
-                              Get.snackbar(
-                                'Kindly Check Your Internet Connection And Retry',
-                                'If Your Connection Is Great, Contact dita@daystar.ac.ke To Report Incidence',
-                              );
-                            } catch (e) {
-                              // exception occured
-                              // rethrow;
-                              debugPrint(
-                                "Exception in Log in Page ${e.toString()}",
-                              );
-                              setState(() {
-                                iswaiting = !iswaiting;
-                              });
-                              Get.snackbar(
-                                'Something Went Wrong!🥲',
-                                'Retry Or Contact dita@daystar.ac.ke To Report Incidence If Issue Persists',
-                              );
-                            }
-                          }
-                        },
-                        child: const Text(
-                          "Log In",
+                    if (result.isLeft() && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          (result as dartz.Left).value,
                         ),
-                      ),
+                      ));
+                    }
+
+                    if (result.isRight() &&
+                        (result as dartz.Right).value == true) {
+                      Get.offAllNamed("/home");
+                    }
+
+                    if (!context.mounted) return;
+                  },
+                  child: Obx(
+                    () => _userController.isLoading.value
+                        ? const CircularProgressIndicator.adaptive(
+                            backgroundColor: Colors.white,
+                          )
+                        : const Text("Sign into Academia"),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
-  }
-
-  String generateRandomLetters() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    Random random = Random();
-
-    String randomLetters = '';
-    for (int i = 0; i < 3; i++) {
-      randomLetters += letters[random.nextInt(letters.length)];
-    }
-
-    return randomLetters;
   }
 }

@@ -63,17 +63,17 @@ class G9ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              user.gender == "Male"
-                  ? 'assets/images/profile.png'
-                  : 'assets/images/female_student.png',
-              height: MediaQuery.of(context).size.height * 0.2,
-            ),
+            // Image.asset(
+            //   user.gender == "Male"
+            //       ? 'assets/images/profile.png'
+            //       : 'assets/images/female_student.png',
+            //   height: MediaQuery.of(context).size.height * 0.2,
+            // ),
             const SizedBox(
               height: 30,
             ),
             Text(
-              "${user.firstName} ${user.lastName}",
+              "${user.firstName} ${user.otherNames}",
               style: const TextStyle(
                 color: CustomColors.textColor,
                 fontWeight: FontWeight.w500,
@@ -116,7 +116,7 @@ class G9ProfilePage extends StatelessWidget {
                               sizes: 30,
                               redirectionPage: G9FamilyViewPage(
                                 parent: userContactController.userContacts[idx],
-                                token: user.token,
+                                token: user.firstName,
                               ),
                             );
                           },

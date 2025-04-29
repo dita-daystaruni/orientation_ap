@@ -40,7 +40,7 @@ class SplashScreen extends StatelessWidget {
                 FilledButton.icon(
                   iconAlignment: IconAlignment.end,
                   icon: const Icon(Icons.arrow_forward),
-                  onPressed: () => Get.toNamed("/sign_in"),
+                  onPressed: () => Get.toNamed("/login"),
                   label: const Text('Get Started'),
                 ),
                 const Spacer(),

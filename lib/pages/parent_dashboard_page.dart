@@ -33,12 +33,12 @@ class ParentDashboardPage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(
-                firstName: user.firstName,
-                gender: user.gender,
-                isG9: false,
-                canEdit: true,
-                token: user.token),
+            // CustomAppBar(
+            //     firstName: user.firstName,
+            //     // gender: user.gender,
+            //     isG9: false,
+            //     canEdit: true,
+            //     token: user.firstName),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
@@ -111,7 +111,7 @@ class ParentDashboardPage extends StatelessWidget {
             ),
             Expanded(
               child: RecentNotificationsPage(
-                userToken: user.token,
+                userToken: user.firstName,
                 canEdit: true,
               ),
             ),

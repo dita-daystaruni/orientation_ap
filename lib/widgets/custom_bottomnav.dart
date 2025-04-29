@@ -42,20 +42,20 @@ class _BottomNavState extends State<BottomNav> {
   void setUser() {
     User user = widget.user;
     // setting the dashboard
-    pages.insert(
-      0,
-      user.userType == "regular"
-          ? FreshmanDashboardPage(
-              user: user,
-            )
-          : user.userType == "parent"
-              ? ParentDashboardPage(
-                  user: user,
-                )
-              : G9DashboardPage(
-                  user: user,
-                ),
-    );
+    // pages.insert(
+    // 0,
+    //   user.role == "regular"
+    //       ? FreshmanDashboardPage(
+    //           user: user,
+    //         )
+    //       : user.role == "parent"
+    //           ? ParentDashboardPage(
+    //               user: user,
+    //             )
+    //           : G9DashboardPage(
+    //               user: user,
+    //             ),
+    // );
 
     //setting routines page
     pages.insert(
@@ -64,33 +64,33 @@ class _BottomNavState extends State<BottomNav> {
     );
 
     // setting the faq page
-    pages.insert(
-      2,
-      user.userType == "parent"
-          ? FaqPage(
-              isParent: true,
-              userToken: user.token,
-            )
-          : FaqPage(
-              userToken: user.token,
-            ),
-    );
-
+    // pages.insert(
+    //   2,
+    //   user.role == "parent"
+    //       ? FaqPage(
+    //           isParent: true,
+    //           userToken: user.firstName,
+    //         )
+    //       : FaqPage(
+    //           userToken: user.firstName,
+    //         ),
+    // );
+    //
     // setting the profile page
-    pages.insert(
-      3,
-      user.userType == "regular"
-          ? FreshmanProfilePage(
-              user: user,
-            )
-          : user.userType == "parent"
-              ? ParentProfilePage(
-                  user: user,
-                )
-              : G9ProfilePage(
-                  user: user,
-                ),
-    );
+    // pages.insert(
+    //   3,
+    //   user.role == "regular"
+    //       ? FreshmanProfilePage(
+    //           user: user,
+    //         )
+    //       : user.role == "parent"
+    //           ? ParentProfilePage(
+    //               user: user,
+    //             )
+    //           : G9ProfilePage(
+    //               user: user,
+    //             ),
+    // );
   }
 
   @override

@@ -121,8 +121,9 @@ class _ReloadPageState extends State<ReloadPage> {
 
   Future<void> setContacts() async {
     var response = await getUserContacts(
-      widget.user.userId,
-      widget.user.token,
+      0,
+      // widget.user.,
+      widget.user.firstName,
     );
     // will hold encoded contacts from server
     List<String> encodedContacts = [];
@@ -139,13 +140,13 @@ class _ReloadPageState extends State<ReloadPage> {
       throw Exception("Error Fetching Contacts");
     }
 
-    if (widget.user.userType == "parent") {
-      await parentContactController.addParentsContactsToSP(encodedContacts);
-      await parentContactController.getParentsContactsFromSP();
-    } else {
-      await contactController.addUsersContactsToSP(encodedContacts);
-      await contactController.getUsersContactsFromSP();
-    }
+    // if (widget.user.role == "parent") {
+    //   await parentContactController.addParentsContactsToSP(encodedContacts);
+    //   await parentContactController.getParentsContactsFromSP();
+    // } else {
+    //   await contactController.addUsersContactsToSP(encodedContacts);
+    //   await contactController.getUsersContactsFromSP();
+    // }
 
     // set finishedgetting contact
     setState(() {
@@ -154,7 +155,7 @@ class _ReloadPageState extends State<ReloadPage> {
   }
 
   Future<void> setFaqs() async {
-    var response = await getFaqs(widget.user.token);
+    var response = await getFaqs(widget.user.firstName);
 
     // will hold encoded FAQs from server
     List<String> encodedFaqs = [];
@@ -180,7 +181,7 @@ class _ReloadPageState extends State<ReloadPage> {
 
   // TODO use an isolate for this operation
   Future<void> setActivities() async {
-    var response = await getActivities(widget.user.token);
+    var response = await getActivities(widget.user.firstName);
 
     // will hold a dictionary of activities and events
     // grouped as days of the week
@@ -226,7 +227,7 @@ class _ReloadPageState extends State<ReloadPage> {
   }
 
   Future<void> setCourses() async {
-    var response = await getCourses(widget.user.token);
+    var response = await getCourses(widget.user.firstName);
 
     // will hold all courses
     List<String> courses = <String>[];
@@ -251,7 +252,7 @@ class _ReloadPageState extends State<ReloadPage> {
   }
 
   Future<void> setStatistics() async {
-    var response = await getAllStatistics(widget.user.token);
+    var response = await getAllStatistics(widget.user.firstName);
 
     StatisticsController statisticsController =
         Get.find<StatisticsController>();
@@ -291,7 +292,7 @@ class _ReloadPageState extends State<ReloadPage> {
     // get document controller
     DocumentController documentController = Get.put(
       DocumentController(
-        widget.user.token,
+        widget.user.firstName,
       ),
     );
     // update documents
@@ -307,7 +308,7 @@ class _ReloadPageState extends State<ReloadPage> {
     await updateDocuments();
     await setCourses();
     await setUser();
-    if (widget.user.userType == "admin") {
+    if (widget.user.firstName == "admin") {
       await setStatistics();
     }
 

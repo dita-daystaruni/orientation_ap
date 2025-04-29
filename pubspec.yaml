@@ -25,6 +25,13 @@ dependencies:
   flutter_native_splash: ^2.4.1
   flutter_launcher_icons: ^0.14.3
   google_fonts: ^6.2.1
+  pocketbase: ^0.22.0
+  get_it: ^8.0.3
+  sliver_tools: ^0.2.12
+  logger: ^2.5.0
+  json_serializable: ^6.9.5
+  build_runner: ^2.4.15
+  dartz: ^0.10.1
   
 
 dev_dependencies:

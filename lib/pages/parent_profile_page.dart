@@ -61,17 +61,17 @@ class ParentProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              user.gender == "Male"
-                  ? 'assets/images/profile.png'
-                  : 'assets/images/female_student.png',
-              height: MediaQuery.of(context).size.height * 0.2,
-            ),
+            // Image.asset(
+            //   user.gender == "Male"
+            //       ? 'assets/images/profile.png'
+            //       : 'assets/images/female_student.png',
+            //   height: MediaQuery.of(context).size.height * 0.2,
+            // ),
             const SizedBox(
               height: 30,
             ),
             Text(
-              '${user.firstName} ${user.lastName}',
+              '${user.firstName} ${user.otherNames}',
               style: const TextStyle(
                 color: CustomColors.textColor,
                 fontWeight: FontWeight.w500,

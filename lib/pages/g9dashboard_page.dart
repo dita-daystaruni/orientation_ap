@@ -36,13 +36,13 @@ class G9DashboardPage extends StatelessWidget {
         backgroundColor: CustomColors.backgroundColor,
         body: Column(
           children: [
-            CustomAppBar(
-              firstName: user.firstName,
-              gender: user.gender,
-              isG9: true,
-              canEdit: true,
-              token: user.token,
-            ),
+            // CustomAppBar(
+            //   firstName: user.firstName,
+            //   gender: user.gender,
+            //   isG9: true,
+            //   canEdit: true,
+            //   token: user.firstName,
+            // ),
             // statistics page
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -63,13 +63,14 @@ class G9DashboardPage extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Get.to(
                           StatisticsPage(
-                            userToken: user.token,
+                            userToken: user.firstName,
                           ),
                         ),
                         onDoubleTap: () async {
                           statisticsController.fetchingTotal.value = true;
                           try {
-                            var response = await getAllStatistics(user.token);
+                            var response =
+                                await getAllStatistics(user.firstName);
                             await statisticsController.addStatisticToSP(
                               jsonEncode(
                                 response[1],
@@ -208,7 +209,7 @@ class G9DashboardPage extends StatelessWidget {
                                             redirectionPage: G9FamilyViewPage(
                                               parent: contactController
                                                   .userContacts[idx],
-                                              token: user.token,
+                                              token: user.firstName,
                                             ),
                                           );
                                         },
@@ -287,7 +288,7 @@ class G9DashboardPage extends StatelessWidget {
               child: RecentNotificationsPage(
                 isG9: true,
                 canEdit: true,
-                userToken: user.token,
+                userToken: user.firstName,
               ),
             )
           ],

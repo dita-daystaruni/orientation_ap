@@ -57,14 +57,14 @@ class FreshmanProfilePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Image.asset(
-              user.gender == "Male"
-                  ? 'assets/images/profile.png'
-                  : 'assets/images/female_student.png',
-              height: MediaQuery.of(context).size.height * 0.2,
-            ),
-          ),
+          // Center(
+          //   child: Image.asset(
+          //     user.gender == "Male"
+          //         ? 'assets/images/profile.png'
+          //         : 'assets/images/female_student.png',
+          //     height: MediaQuery.of(context).size.height * 0.2,
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(
               top: 16.0,
@@ -72,7 +72,7 @@ class FreshmanProfilePage extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                '${user.firstName} ${user.lastName}',
+                '${user.firstName} ${user.otherNames}',
                 style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w500,
@@ -88,7 +88,7 @@ class FreshmanProfilePage extends StatelessWidget {
                 bottom: 16.0,
               ),
               child: Text(
-                user.admNo,
+                user.admissionNumber,
                 style: const TextStyle(
                   color: CustomColors.textColor,
                   fontWeight: FontWeight.w300,
@@ -111,36 +111,36 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: CustomTextIcon(
-              leadingIcon: const Icon(
-                CustomIcons.graduationcap,
-              ),
-              label: Text(
-                user.course,
-                style: const TextStyle(
-                  color: CustomColors.textColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: CustomTextIcon(
-              leadingIcon: const Icon(Icons.phone),
-              label: Text(
-                user.phoneNo,
-                style: const TextStyle(
-                  color: CustomColors.textColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 12.0),
+          //   child: CustomTextIcon(
+          //     leadingIcon: const Icon(
+          //       CustomIcons.graduationcap,
+          //     ),
+          //     label: Text(
+          //       user.course,
+          //       style: const TextStyle(
+          //         color: CustomColors.textColor,
+          //         fontWeight: FontWeight.w300,
+          //         fontSize: 14,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 12.0),
+          //   child: CustomTextIcon(
+          //     leadingIcon: const Icon(Icons.phone),
+          //     label: Text(
+          //       user.phone,
+          //       style: const TextStyle(
+          //         color: CustomColors.textColor,
+          //         fontWeight: FontWeight.w300,
+          //         fontSize: 14,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: CustomTextIcon(
@@ -157,145 +157,145 @@ class FreshmanProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          user.parent != null
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 24.0,
-                        vertical: 8.0,
-                      ),
-                      child: Text(
-                        'Orientation Details',
-                        style: TextStyle(
-                          color: CustomColors.textColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 12.0,
-                        left: 20.0,
-                      ),
-                      child: Row(
-                        children: [
-                          const Text(
-                            'Parent Name: ',
-                            style: TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            '${user.parent!.firstName} ${user.parent!.lastName}',
-                            style: const TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 12.0,
-                        left: 20.0,
-                      ),
-                      child: Row(
-                        children: [
-                          const Text(
-                            'Parent phone: ',
-                            style: TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                            ),
-                          ),
-                          CustomTextIcon(
-                            trailingIcon: IconButton(
-                              onPressed: () async {
-                                await makePhoneCall(user.parent!.phoneNo);
-                              },
-                              icon: const Icon(
-                                Icons.phone,
-                                color: CustomColors.buttonColor,
-                              ),
-                            ),
-                            label: Text(
-                              user.parent!.phoneNo,
-                              style: const TextStyle(
-                                color: CustomColors.textColor,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 14,
-                              ),
-                            ),
-                            isNumber: true,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 12.0,
-                        left: 20.0,
-                      ),
-                      child: Row(
-                        children: [
-                          const Text(
-                            'Parent email: ',
-                            style: TextStyle(
-                              color: CustomColors.textColor,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                            ),
-                          ),
-                          CustomTextIcon(
-                            trailingIcon: IconButton(
-                              onPressed: () async {
-                                await sendEmail(user.parent!.email);
-                              },
-                              icon: const Icon(
-                                Icons.email_outlined,
-                                color: CustomColors.buttonColor,
-                              ),
-                            ),
-                            label: Text(
-                              user.parent!.email,
-                              style: const TextStyle(
-                                color: CustomColors.textColor,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  children: [
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        child: Lottie.asset("assets/lotties/error.json")),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "No Parent yet",
-                        style: TextStyle(
-                          color: CustomColors.secondaryTextColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+          // user.parent != null
+          //     ? Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           const Padding(
+          //             padding: EdgeInsets.symmetric(
+          //               horizontal: 24.0,
+          //               vertical: 8.0,
+          //             ),
+          //             child: Text(
+          //               'Orientation Details',
+          //               style: TextStyle(
+          //                 color: CustomColors.textColor,
+          //                 fontWeight: FontWeight.w500,
+          //                 fontSize: 16,
+          //               ),
+          //             ),
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.only(
+          //               bottom: 12.0,
+          //               left: 20.0,
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 const Text(
+          //                   'Parent Name: ',
+          //                   style: TextStyle(
+          //                     color: CustomColors.textColor,
+          //                     fontWeight: FontWeight.w300,
+          //                     fontSize: 16,
+          //                   ),
+          //                 ),
+          //                 Text(
+          //                   '${user.parent!.firstName} ${user.parent!.otherNames}',
+          //                   style: const TextStyle(
+          //                     color: CustomColors.textColor,
+          //                     fontWeight: FontWeight.w300,
+          //                     fontSize: 16,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.only(
+          //               bottom: 12.0,
+          //               left: 20.0,
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 const Text(
+          //                   'Parent phone: ',
+          //                   style: TextStyle(
+          //                     color: CustomColors.textColor,
+          //                     fontWeight: FontWeight.w300,
+          //                     fontSize: 16,
+          //                   ),
+          //                 ),
+          //                 CustomTextIcon(
+          //                   trailingIcon: IconButton(
+          //                     onPressed: () async {
+          //                       await makePhoneCall(user.parent!.phone);
+          //                     },
+          //                     icon: const Icon(
+          //                       Icons.phone,
+          //                       color: CustomColors.buttonColor,
+          //                     ),
+          //                   ),
+          //                   label: Text(
+          //                     user.parent!.phone,
+          //                     style: const TextStyle(
+          //                       color: CustomColors.textColor,
+          //                       fontWeight: FontWeight.w300,
+          //                       fontSize: 14,
+          //                     ),
+          //                   ),
+          //                   isNumber: true,
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.only(
+          //               bottom: 12.0,
+          //               left: 20.0,
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 const Text(
+          //                   'Parent email: ',
+          //                   style: TextStyle(
+          //                     color: CustomColors.textColor,
+          //                     fontWeight: FontWeight.w300,
+          //                     fontSize: 16,
+          //                   ),
+          //                 ),
+          //                 CustomTextIcon(
+          //                   trailingIcon: IconButton(
+          //                     onPressed: () async {
+          //                       await sendEmail(user.parent!.email);
+          //                     },
+          //                     icon: const Icon(
+          //                       Icons.email_outlined,
+          //                       color: CustomColors.buttonColor,
+          //                     ),
+          //                   ),
+          //                   label: Text(
+          //                     user.parent!.email,
+          //                     style: const TextStyle(
+          //                       color: CustomColors.textColor,
+          //                       fontWeight: FontWeight.w300,
+          //                       fontSize: 14,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     : Column(
+          //         children: [
+          //           SizedBox(
+          //               height: MediaQuery.of(context).size.height * 0.25,
+          //               child: Lottie.asset("assets/lotties/error.json")),
+          //           const Padding(
+          //             padding: EdgeInsets.all(8.0),
+          //             child: Text(
+          //               "No Parent yet",
+          //               style: TextStyle(
+          //                 color: CustomColors.secondaryTextColor,
+          //                 fontWeight: FontWeight.w500,
+          //                 fontSize: 20,
+          //               ),
+          //             ),
+          //           )
+          //         ],
+          //       ),
         ],
       ),
     );
