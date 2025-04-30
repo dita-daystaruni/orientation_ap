@@ -83,6 +83,12 @@ class UserController extends GetxController {
     return null;
   }
 
+  Future<bool> _removeUserFromCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return await prefs.clear();
+  }
+
   // Attempts to perform authentication as a student who's to be onboarded.
   // The username can be passed as the user's admission number.
   Future<Either<String, bool>> login(String username, String password) async {
@@ -97,7 +103,9 @@ class UserController extends GetxController {
             expand: "profile",
           );
       _logger.i(authStore.record.toJson());
-      user.value = User.fromJson(authStore.record.toJson());
+      final userData = authStore.record.toJson();
+      userData["profile"] = userData["expand"]["profile"];
+      user.value = User.fromJson(userData);
       _addUserToCache(user.value!);
       isLoading.value = false;
       return right(true);
@@ -118,6 +126,40 @@ class UserController extends GetxController {
       );
       isLoading.value = false;
       return left("");
+    }
+  }
+
+  Future<Either<String, bool>> logout() async {
+    if (isLoading.value) return right(false);
+    isLoading.value = true;
+
+    try {
+      final pocketBase = GetIt.instance.get<PocketBase>();
+      pocketBase.authStore.clear();
+      _removeUserFromCache();
+      user.value = null;
+      _logger.i("successfully logged out user");
+      isLoading.value = false;
+      return right(true);
+    } on ClientException catch (e) {
+      _logger.e(
+        "Exception occurred while logging out",
+        error: e,
+      );
+      isLoading.value = false;
+      return left(
+        e.response["message"] ??
+            "Please check your internet connection and try again.",
+      );
+    } catch (e) {
+      _logger.e(
+        "Exception occurred while logging out",
+        error: e,
+      );
+      isLoading.value = false;
+      return left(
+        "Please check your internet connection and try again.",
+      );
     }
   }
 }

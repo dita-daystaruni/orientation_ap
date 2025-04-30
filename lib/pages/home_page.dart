@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/pages/dashboard_page.dart';
+import 'package:orientation_app/pages/freshman_profile_page.dart';
 import 'package:orientation_app/pages/help_page.dart';
+import 'package:orientation_app/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,18 +22,16 @@ class _HomePageState extends State<HomePage> {
       // extendBody: true,
       body: IndexedStack(
         index: _selectedPage,
-        children: const [
-          DashboardPage(),
-          Center(
-            child: Text("Activities"),
+        children: [
+          const DashboardPage(),
+          // Center(
+          //   child: Text("Activities"),
+          // ),
+          const HelpPage(),
+          FreshmanProfilePage(
+            user: _userController.user.value!,
           ),
-          HelpPage(),
-          Center(
-            child: Text("Help"),
-          ),
-          Center(
-            child: Text("Profile"),
-          )
+          const ProfilePage(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
