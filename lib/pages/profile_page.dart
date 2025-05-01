@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class ProfilePage extends StatefulWidget {

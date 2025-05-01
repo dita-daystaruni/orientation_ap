@@ -10,7 +10,6 @@ import 'package:orientation_app/controllers/document_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
-import 'package:orientation_app/controllers/usercontrollers.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/models/user_model.dart';
 import 'package:orientation_app/services/activities_service.dart';

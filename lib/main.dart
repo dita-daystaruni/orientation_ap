@@ -13,13 +13,12 @@ import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
-import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/firebase_options.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/utils/custom_date_parser.dart';
-import 'package:orientation_app/widgets/custom_bottomnav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: change application package name

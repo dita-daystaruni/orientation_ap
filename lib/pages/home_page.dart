@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/pages/dashboard_page.dart';
 import 'package:orientation_app/pages/freshman_profile_page.dart';
 import 'package:orientation_app/pages/help_page.dart';

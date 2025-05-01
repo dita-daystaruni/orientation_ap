@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/controllers/usercontrollers.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
