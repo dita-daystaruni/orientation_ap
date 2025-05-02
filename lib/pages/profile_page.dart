@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
@@ -18,47 +17,54 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             floating: true,
             pinned: true,
             snap: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("Your Profile"),
+              title: Text(
+                  "${_userController.user.value!.firstName} ${_userController.user.value!.otherNames}"),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(12),
             sliver: MultiSliver(
               children: [
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage(
-                    "assets/images/male_student.png",
-                  ),
-                ),
-                const SizedBox(height: 22),
-                Text(
-                  "${_userController.user.value!.firstName} ${_userController.user.value!.otherNames}",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
                 const SizedBox(height: 22),
                 Card(
                   elevation: 0,
                   margin: const EdgeInsets.all(1),
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(12),
-                    ),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(12)),
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.badge_outlined),
                     title: Text(_userController.user.value!.admissionNumber),
-                    subtitle: Text(
-                      "Admission Number",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.school),
+                    title: Text(_userController.user.value!.profile!.programme),
+                  ),
+                ),
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.mail_outline),
+                    title:
+                        Text(_userController.user.value!.profile!.schoolEmail),
                   ),
                 ),
                 Card(
@@ -74,10 +80,34 @@ class _ProfilePageState extends State<ProfilePage> {
                           ? "acive"
                           : "inactive",
                     ),
-                    subtitle: Text(
-                      "status",
-                      style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      _userController.user.value!.profile!.gender
+                                  .toLowerCase() ==
+                              "male"
+                          ? Icons.male
+                          : Icons.female,
                     ),
+                    title: Text(_userController.user.value!.profile!.gender),
+                  ),
+                ),
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.home_work_outlined),
+                    title: Text(_userController.user.value!.profile!.campus),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -85,6 +115,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Text("Actions"),
                 ),
                 Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(12),
+                  )),
+                  child: ListTile(
+                    leading: const Icon(Icons.notifications),
+                    title: const Text("Notification Access"),
+                    onTap: () async {},
+                  ),
+                ),
+                Visibility(
+                  visible: !_userController.user.value!.verified,
+                  child: Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    )),
+                    child: ListTile(
+                      leading: const Icon(Icons.verified),
+                      title: const Text("Request Verification"),
+                      onTap: () async {},
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 0,
                   color: Theme.of(context).colorScheme.errorContainer,
                   margin: const EdgeInsets.all(1),
                   shape: const RoundedRectangleBorder(
@@ -98,10 +158,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       await _userController.logout();
                       Get.offAllNamed("/splash_screen");
                     },
-                    subtitle: Text(
-                      "Leave the application for now",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
                   ),
                 ),
               ],
