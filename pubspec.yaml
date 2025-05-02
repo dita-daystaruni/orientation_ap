@@ -32,6 +32,7 @@ dependencies:
   json_serializable: ^6.9.5
   build_runner: ^2.4.15
   dartz: ^0.10.1
+  cached_network_image: ^3.4.1
   
 
 dev_dependencies:

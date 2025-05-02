@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
@@ -32,6 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 CircleAvatar(
                   radius: 80,
+                  backgroundImage: AssetImage(
+                    "assets/images/male_student.png",
+                  ),
                 ),
                 const SizedBox(height: 22),
                 Text(

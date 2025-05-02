@@ -28,24 +28,15 @@ class UserController extends GetxController {
     final PocketBase pocketBase = GetIt.instance.get<PocketBase>();
     if (pocketBase.authStore.isValid) {
       user.value = await _getUserFromCache();
-    } else {}
+      _logger.d("Auth store is valid user was retrieved successfully");
+    } else {
+      _logger.d("Auth store is invalid user not retrieved");
+    }
   }
 
   Future<void> _loadPocketBase() async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (prefs.getString("pb_auth") == null) {
-      if (GetIt.instance.isRegistered<PocketBase>()) {
-        GetIt.instance.unregister<PocketBase>();
-      }
-
-      GetIt.instance.registerSingleton<PocketBase>(
-        PocketBase(_baseUrl),
-      );
-      return;
-    }
-
-    // Load the authentication token
     final store = AsyncAuthStore(
       save: (String data) async => prefs.setString("pb_auth", data),
       initial: prefs.getString("pb_auth"),
