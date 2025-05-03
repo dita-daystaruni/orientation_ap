@@ -12,7 +12,8 @@ class Post {
   final String content;
   final List<String> attachement;
   final List<String> tags;
-  final List<String> likedBy;
+  final List<String> upVotedBy;
+  final List<String> downVotedBy;
   final DateTime created;
   final DateTime updated;
 
@@ -25,7 +26,8 @@ class Post {
     required this.content,
     required this.attachement,
     required this.tags,
-    required this.likedBy,
+    required this.upVotedBy,
+    required this.downVotedBy,
     required this.created,
     required this.updated,
   });

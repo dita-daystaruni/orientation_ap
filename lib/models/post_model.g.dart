@@ -17,8 +17,11 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
           .map((e) => e as String)
           .toList(),
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      likedBy:
-          (json['likedBy'] as List<dynamic>).map((e) => e as String).toList(),
+      upVotedBy:
+          (json['upVotedBy'] as List<dynamic>).map((e) => e as String).toList(),
+      downVotedBy: (json['downVotedBy'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       created: DateTime.parse(json['created'] as String),
       updated: DateTime.parse(json['updated'] as String),
     );
@@ -32,7 +35,8 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'content': instance.content,
       'attachement': instance.attachement,
       'tags': instance.tags,
-      'likedBy': instance.likedBy,
+      'upVotedBy': instance.upVotedBy,
+      'downVotedBy': instance.downVotedBy,
       'created': instance.created.toIso8601String(),
       'updated': instance.updated.toIso8601String(),
     };
