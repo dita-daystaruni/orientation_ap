@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/pages/dashboard_page.dart';
-import 'package:orientation_app/pages/freshman_profile_page.dart';
 import 'package:orientation_app/pages/help_page.dart';
 import 'package:orientation_app/pages/profile_page.dart';
 
@@ -24,13 +23,8 @@ class _HomePageState extends State<HomePage> {
         index: _selectedPage,
         children: [
           const DashboardPage(),
-          // Center(
-          //   child: Text("Activities"),
-          // ),
           const HelpPage(),
-          FreshmanProfilePage(
-            user: _userController.user.value!,
-          ),
+          const Center(child: Text("My Family")),
           const ProfilePage(),
         ],
       ),
@@ -53,9 +47,9 @@ class _HomePageState extends State<HomePage> {
             label: "Activities",
           ),
           NavigationDestination(
-            icon: Icon(Icons.lightbulb_outline),
-            selectedIcon: Icon(Icons.lightbulb),
-            label: "Help",
+            icon: Icon(Icons.diversity_1_outlined),
+            selectedIcon: Icon(Icons.diversity_1),
+            label: "Family",
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outlined),

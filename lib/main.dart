@@ -12,6 +12,7 @@ import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/parent_contact_controller.dart';
+import 'package:orientation_app/controllers/posts_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/firebase_options.dart';
@@ -29,6 +30,8 @@ void main() async {
   // Putting controllers
 
   Get.put(UserController());
+  Get.put(PostsController());
+
   Get.put(UserContactController());
   Get.put(FaqController());
   Get.put(ActivitySessionController());

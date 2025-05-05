@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/controllers/posts_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
+import 'package:orientation_app/widgets/post_card.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -11,6 +13,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final UserController _userController = Get.find<UserController>();
+  final PostsController _postsController = Get.find<PostsController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +30,15 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
+          Obx(
+            () => SliverList.builder(
+              itemBuilder: (context, index) {
+                final post = _postsController.posts[index];
+                return PostCard(post: post);
+              },
+              itemCount: _postsController.posts.value.length,
+            ),
+          )
         ],
       ),
     );
