@@ -23,6 +23,10 @@ final class FamilyController extends GetxController {
             expand: "children,parent,children.profile",
           );
 
+      if (results.isEmpty) {
+        return left("You are not enrolled yet to a family");
+      }
+
       // map the result to a family object
       family.value = Family.fromJson(results.first.toJson());
       _logger.i(family.value!.toJson());
@@ -47,7 +51,10 @@ final class FamilyController extends GetxController {
     }
   }
 
-  Future<Either<String, bool>> addStudentToFamily(String admno, Family fam,) async {
+  Future<Either<String, bool>> addStudentToFamily(
+    String admno,
+    Family fam,
+  ) async {
     try {
       final pocketBase = GetIt.instance.get<PocketBase>();
 

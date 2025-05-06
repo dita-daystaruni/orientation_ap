@@ -1,298 +1,109 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/controllers/activites_session_controller.dart';
-import 'package:orientation_app/controllers/contacts_controller.dart';
-import 'package:orientation_app/controllers/statistic_controller.dart';
-import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/pages/g9_family_view_page.dart';
-import 'package:orientation_app/pages/statistics_page.dart';
-import 'package:orientation_app/services/statistics_service.dart';
-import 'package:orientation_app/widgets/contact_tile.dart';
-import 'package:orientation_app/widgets/custom_appbar.dart';
-import 'package:orientation_app/widgets/recentnotifications.dart';
-import 'package:orientation_app/widgets/upcoming_acitivity.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
-class G9DashboardPage extends StatelessWidget {
-  const G9DashboardPage({
-    super.key,
-    required this.user,
-  });
-
-  final User user;
+class G9DashboardPage extends StatefulWidget {
+  const G9DashboardPage({super.key});
 
   @override
+  State<G9DashboardPage> createState() => _G9DashboardPageState();
+}
+
+class _G9DashboardPageState extends State<G9DashboardPage> {
+  @override
   Widget build(BuildContext context) {
-    UserContactController contactController = Get.find<UserContactController>();
-    StatisticsController statisticsController =
-        Get.find<StatisticsController>();
-    ActivitySessionController activitySessionController =
-        Get.find<ActivitySessionController>();
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        body: Column(
-          children: [
-            // CustomAppBar(
-            //   firstName: user.firstName,
-            //   gender: user.gender,
-            //   isG9: true,
-            //   canEdit: true,
-            //   token: user.firstName,
-            // ),
-            // statistics page
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 0,
-                horizontal: 8.0,
+    return Scaffold(
+      body: RefreshIndicator.adaptive(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 2));
+        },
+        child: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              expandedHeight: 200,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text("Freshman Orientation Dashboard"),
               ),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.30,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0,
-                        left: 4.0,
-                        right: 4.0,
-                      ),
-                      child: GestureDetector(
-                        onTap: () => Get.to(
-                          StatisticsPage(
-                            userToken: user.firstName,
-                          ),
-                        ),
-                        onDoubleTap: () async {
-                          statisticsController.fetchingTotal.value = true;
-                          try {
-                            var response =
-                                await getAllStatistics(user.firstName);
-                            await statisticsController.addStatisticToSP(
-                              jsonEncode(
-                                response[1],
-                              ),
-                            );
-
-                            if (response[0] == 200) {
-                              await statisticsController.addStatisticToSP(
-                                jsonEncode(
-                                  response[1],
-                                ),
-                              );
-                              await statisticsController.getStatisticsFromSP();
-                              statisticsController.totalStudents.value =
-                                  statisticsController
-                                          .statistics.value?.totalStudents ??
-                                      statisticsController.totalStudents.value;
-                            } else {
-                              throw Exception("Error Fetching Statistics");
-                            }
-                          } catch (e) {
-                            Get.snackbar(
-                                "Error", "Something went wrong! Try Again");
-                          } finally {
-                            statisticsController.fetchingTotal.value = false;
-                          }
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.44,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: CustomColors.iconColorOne,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Statistics",
-                                style: TextStyle(
-                                  color: CustomColors.textColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Obx(
-                                () => statisticsController.fetchingTotal.value
-                                    ? const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 22.0,
-                                        ),
-                                        child: Text(
-                                          'fetching...',
-                                          style: TextStyle(
-                                            color: CustomColors.textColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      )
-                                    : Text(
-                                        '${statisticsController.totalStudents}',
-                                        style: const TextStyle(
-                                          color: CustomColors.textColor,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 64,
-                                        ),
-                                      ),
-                              ),
-                              const Text(
-                                "New Students",
-                                style: TextStyle(
-                                  color: CustomColors.secondaryTextColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0,
-                        left: 0,
-                        right: 4.0,
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.44,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: CustomColors.iconColorTwo,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                "Families",
-                                style: TextStyle(
-                                  color: CustomColors.textColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            Obx(
-                              () => contactController.userContacts.isNotEmpty
-                                  ? Expanded(
-                                      child: GridView.builder(
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 0,
-                                          mainAxisSpacing: 5,
-                                        ),
-                                        itemBuilder: (context, idx) {
-                                          return ContactTile(
-                                            label:
-                                                '${contactController.userContacts[idx].firstName[0]}${contactController.userContacts[idx].lastName[0]}',
-                                            name: contactController
-                                                .userContacts[idx].firstName,
-                                            idx: idx,
-                                            sizes: 23,
-                                            redirectionPage: G9FamilyViewPage(
-                                              parent: contactController
-                                                  .userContacts[idx],
-                                              token: user.firstName,
-                                            ),
-                                          );
-                                        },
-                                        itemCount: contactController
-                                            .userContacts.length,
-                                        scrollDirection: Axis.vertical,
-                                      ),
-                                    )
-                                  : const Column(
-                                      children: [
-                                        Text(
-                                          "🥲",
-                                          style: TextStyle(
-                                            fontSize: 40,
-                                          ),
-                                        ),
-                                        Text(
-                                          "NO FAMILIES YET",
-                                          style: TextStyle(
-                                            color: CustomColors.textColor,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.all(12),
+              sliver: MultiSliver(children: [
+                SliverPinnedHeader(
+                  child: Text(
+                    "Quick statistics",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
-              ),
+              ]),
             ),
-            Obx(
-              () => activitySessionController.upcomingActivity.value != null
-                  ? UpcomingActivity(
-                      activityName: activitySessionController
-                          .upcomingActivity.value!.title,
-                      eventDescription: activitySessionController
-                          .upcomingActivity.value!.description,
-                      isSession: activitySessionController
-                          .upcomingActivity.value!.isSession,
-                      location: activitySessionController
-                          .upcomingActivity.value!.location,
-                      startTime: activitySessionController
-                          .upcomingActivity.value!.startTime,
-                      endTime: activitySessionController
-                          .upcomingActivity.value!.endTime,
-                    )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.10,
-                            child: Lottie.asset(
-                              "assets/lotties/error.json",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          const Text(
-                            "No Upcoming Activity",
-                            style: TextStyle(
-                              color: CustomColors.secondaryTextColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
+            SliverPadding(
+              padding: const EdgeInsets.all(12),
+              sliver: MultiSliver(
+                children: [
+                  SliverPinnedHeader(
+                    child: Text(
+                      "Quick actions",
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
-            ),
-            Expanded(
-              child: RecentNotificationsPage(
-                isG9: true,
-                canEdit: true,
-                userToken: user.firstName,
+                  ),
+                  const SizedBox(height: 12),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    )),
+                    child: ListTile(
+                      leading: const Icon(Icons.group_add),
+                      title: const Text("Create a family"),
+                      onTap: () async {},
+                    ),
+                  ),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    child: ListTile(
+                      leading: const Icon(Icons.person_search),
+                      title: const Text("Search for a user"),
+                      onTap: () async {},
+                    ),
+                  ),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    child: ListTile(
+                      leading: const Icon(Icons.hub),
+                      title: const Text("View family details"),
+                      onTap: () async {},
+                    ),
+                  ),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    child: ListTile(
+                      leading: const Icon(Icons.notifications),
+                      title: const Text("Send push notification"),
+                      onTap: () async {
+                        Get.toNamed("/send-push-notification");
+                      },
+                    ),
+                  ),
+                ],
               ),
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.apps),
       ),
     );
   }
