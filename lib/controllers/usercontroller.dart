@@ -36,7 +36,6 @@ class UserController extends GetxController {
 
   Future<void> _loadPocketBase() async {
     final prefs = await SharedPreferences.getInstance();
-
     final store = AsyncAuthStore(
       save: (String data) async => prefs.setString("pb_auth", data),
       initial: prefs.getString("pb_auth"),
@@ -95,7 +94,6 @@ class UserController extends GetxController {
           );
       _logger.i(authStore.record.toJson());
       final userData = authStore.record.toJson();
-      userData["profile"] = userData["expand"]["profile"];
       user.value = User.fromJson(userData);
       _addUserToCache(user.value!);
       isLoading.value = false;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/pages/dashboard_page.dart';
+import 'package:orientation_app/pages/family_page.dart';
 import 'package:orientation_app/pages/help_page.dart';
 import 'package:orientation_app/pages/profile_page.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const DashboardPage(),
           const HelpPage(),
-          const Center(child: Text("My Family")),
+          const FamilyPage(),
           const ProfilePage(),
         ],
       ),

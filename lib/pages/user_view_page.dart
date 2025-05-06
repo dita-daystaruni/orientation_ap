@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:orientation_app/controllers/usercontroller.dart';
+import 'package:orientation_app/models/user_model.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class UserViewPage extends StatefulWidget {
+  const UserViewPage({super.key, required this.user});
+
+  final User user;
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<UserViewPage> createState() => _UserViewPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final UserController _userController = Get.find<UserController>();
+class _UserViewPageState extends State<UserViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
             snap: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                  "${_userController.user.value!.firstName} ${_userController.user.value!.otherNames}"),
+              title: Text("${widget.user.firstName} ${widget.user.otherNames}"),
             ),
           ),
           SliverPadding(
@@ -41,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.badge_outlined),
-                    title: Text(_userController.user.value!.admissionNumber),
+                    title: Text(widget.user.admissionNumber),
                   ),
                 ),
                 Card(
@@ -52,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.school),
-                    title: Text(_userController.user.value!.expandedProfile!.programme),
+                    title: Text(widget.user.expandedProfile!.programme),
                   ),
                 ),
                 Card(
@@ -63,8 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.mail_outline),
-                    title:
-                        Text(_userController.user.value!.expandedProfile!.schoolEmail),
+                    title: Text(widget.user.expandedProfile!.schoolEmail),
                   ),
                 ),
                 Card(
@@ -76,9 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ListTile(
                     leading: const Icon(Icons.workspace_premium_outlined),
                     title: Text(
-                      _userController.user.value!.verified
-                          ? "acive"
-                          : "inactive",
+                      widget.user.verified ? "acive" : "inactive",
                     ),
                   ),
                 ),
@@ -90,13 +86,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: ListTile(
                     leading: Icon(
-                      _userController.user.value!.expandedProfile!.gender
-                                  .toLowerCase() ==
+                      widget.user.expandedProfile!.gender.toLowerCase() ==
                               "male"
                           ? Icons.male
                           : Icons.female,
                     ),
-                    title: Text(_userController.user.value!.expandedProfile!.gender),
+                    title: Text(widget.user.expandedProfile!.gender),
                   ),
                 ),
                 Card(
@@ -107,59 +102,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: ListTile(
                     leading: const Icon(Icons.home_work_outlined),
-                    title: Text(_userController.user.value!.expandedProfile!.campus),
+                    title: Text(widget.user.expandedProfile!.campus),
+                  ),
+                ),
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.all(1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.phone),
+                    title: Text(widget.user.expandedProfile!.phoneNumber),
                   ),
                 ),
                 const SizedBox(height: 12),
-                const SliverPinnedHeader(
-                  child: Text("Actions"),
-                ),
-                Card(
-                  elevation: 0,
-                  margin: const EdgeInsets.all(1),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12),
-                  )),
-                  child: ListTile(
-                    leading: const Icon(Icons.notifications),
-                    title: const Text("Notification Access"),
-                    onTap: () async {},
-                  ),
-                ),
-                Visibility(
-                  visible: !_userController.user.value!.verified,
-                  child: Card(
-                    elevation: 0,
-                    margin: const EdgeInsets.all(1),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(12),
-                    )),
-                    child: ListTile(
-                      leading: const Icon(Icons.verified),
-                      title: const Text("Request Verification"),
-                      onTap: () async {},
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 0,
-                  color: Theme.of(context).colorScheme.errorContainer,
-                  margin: const EdgeInsets.all(1),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(12),
-                  )),
-                  child: ListTile(
-                    leading: const Icon(Icons.logout),
-                    title: const Text("Logout from the App"),
-                    onTap: () async {
-                      await _userController.logout();
-                      Get.offAllNamed("/splash_screen");
-                    },
-                  ),
-                ),
               ],
             ),
           )

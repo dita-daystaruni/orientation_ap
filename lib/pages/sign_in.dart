@@ -84,7 +84,6 @@ class _SignInState extends State<SignIn> {
                   obscureText: _showPassword,
                   controller: passwordcontroller,
                   textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {

@@ -15,9 +15,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       verified: json['verified'] as bool,
       firstName: json['firstName'] as String,
       otherNames: json['otherNames'] as String,
-      profile: json['profile'] == null
-          ? null
-          : Profile.fromJson(json['profile'] as Map<String, dynamic>),
+      profile: json['profile'] as String?,
+      expand: json['expand'] as Map<String, dynamic>?,
       admissionNumber: json['admissionNumber'] as String,
       created: DateTime.parse(json['created'] as String),
       updated: DateTime.parse(json['updated'] as String),
@@ -36,6 +35,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'admissionNumber': instance.admissionNumber,
       'created': instance.created.toIso8601String(),
       'updated': instance.updated.toIso8601String(),
+      'expand': instance.expand,
     };
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(

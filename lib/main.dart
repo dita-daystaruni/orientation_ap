@@ -10,6 +10,7 @@ import 'package:orientation_app/constants/routes.dart';
 import 'package:orientation_app/controllers/activites_session_controller.dart';
 import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
+import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
 import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/posts_controller.dart';
@@ -31,6 +32,7 @@ void main() async {
 
   Get.put(UserController());
   Get.put(PostsController());
+  Get.put(FamilyController());
 
   Get.put(UserContactController());
   Get.put(FaqController());

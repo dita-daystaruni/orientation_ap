@@ -1,4 +1,6 @@
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/pages/family_add_child_page.dart';
+import 'package:orientation_app/pages/family_push_notification_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/sign_in.dart';
@@ -12,5 +14,13 @@ class AppRoutes {
     GetPage(name: "/home", page: () => const HomePage()),
     GetPage(name: "/sign_up", page: () => const SignUp()),
     GetPage(name: '/routines', page: () => const Routines()),
+    GetPage(
+      name: '/send-push-notification',
+      page: () => const FamilyPushNotificationPage(),
+    ),
+    GetPage(
+      name: '/add-child-to-family',
+      page: () => const FamilyAddChildPage(),
+    ),
   ];
 }

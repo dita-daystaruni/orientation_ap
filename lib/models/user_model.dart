@@ -12,10 +12,13 @@ class User {
   final bool verified;
   final String firstName;
   final String otherNames;
-  final Profile? profile;
+  final String? profile;
   final String admissionNumber;
   final DateTime created;
   final DateTime updated;
+
+  /// Expanded fields from PocketBase (optional)
+  final Map<String, dynamic>? expand;
 
   User({
     required this.collectionId,
@@ -27,6 +30,7 @@ class User {
     required this.firstName,
     required this.otherNames,
     this.profile,
+    this.expand,
     required this.admissionNumber,
     required this.created,
     required this.updated,
@@ -35,6 +39,14 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  /// Helper to get expanded profile
+  Profile? get expandedProfile {
+    if (expand != null && expand!.containsKey('profile')) {
+      return Profile.fromJson(expand!['profile']);
+    }
+    return null;
+  }
 }
 
 @JsonSerializable()
