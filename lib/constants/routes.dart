@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/pages/create_family_page.dart';
 import 'package:orientation_app/pages/family_add_child_page.dart';
 import 'package:orientation_app/pages/family_push_notification_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
@@ -26,6 +27,10 @@ class AppRoutes {
     GetPage(
       name: '/g9-dashboard-view',
       page: () => const G9DashboardPage(),
+    ),
+    GetPage(
+      name: '/create-family',
+      page: () => const CreateFamilyPage(),
     ),
   ];
 }

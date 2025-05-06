@@ -57,6 +57,19 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
                     child: ListTile(
                       leading: const Icon(Icons.group_add),
                       title: const Text("Create a family"),
+                      onTap: () async {
+                        Get.toNamed("/create-family");
+                      },
+                    ),
+                  ),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    child: ListTile(
+                      leading: const Icon(Icons.hub),
+                      title: const Text("View family details"),
                       onTap: () async {},
                     ),
                   ),
@@ -68,17 +81,6 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
                     child: ListTile(
                       leading: const Icon(Icons.person_search),
                       title: const Text("Search for a user"),
-                      onTap: () async {},
-                    ),
-                  ),
-                  Card(
-                    elevation: 0,
-                    margin: const EdgeInsets.all(1),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero),
-                    child: ListTile(
-                      leading: const Icon(Icons.hub),
-                      title: const Text("View family details"),
                       onTap: () async {},
                     ),
                   ),
