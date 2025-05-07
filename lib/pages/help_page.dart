@@ -18,11 +18,6 @@ class _HelpPageState extends State<HelpPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        icon: Icon(Icons.lightbulb),
-        label: Text("Ask for help"),
-      ),
     );
   }
 }

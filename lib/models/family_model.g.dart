@@ -10,7 +10,8 @@ Family _$FamilyFromJson(Map<String, dynamic> json) => Family(
       id: json['id'] as String,
       name: json['name'] as String,
       picture: json['picture'] as String,
-      parent: json['parent'] as String,
+      parent:
+          (json['parent'] as List<dynamic>).map((e) => e as String).toList(),
       children:
           (json['children'] as List<dynamic>).map((e) => e as String).toList(),
       collectionId: json['collectionId'] as String,

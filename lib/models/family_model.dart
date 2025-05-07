@@ -8,7 +8,7 @@ class Family {
   final String id;
   final String name;
   final String picture;
-  final String parent;
+  final List<String> parent;
 
   final List<String> children;
 
@@ -37,11 +37,11 @@ class Family {
   Map<String, dynamic> toJson() => _$FamilyToJson(this);
 
   /// Helper to get expanded parent
-  User? get expandedParent {
-    if (expand != null && expand!.containsKey('parent')) {
-      return User.fromJson(expand!['parent']);
+  List<User> get expandedParent {
+    if (expand != null && expand!["parent"] is List) {
+      return (expand!['parent'] as List).map((e) => User.fromJson(e)).toList();
     }
-    return null;
+    return [];
   }
 
   /// Helper to get expanded children
