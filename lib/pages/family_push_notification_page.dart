@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class FamilyPushNotificationPage extends StatefulWidget {
@@ -12,6 +14,19 @@ class FamilyPushNotificationPage extends StatefulWidget {
 class _FamilyPushNotificationPageState
     extends State<FamilyPushNotificationPage> {
   final formKey = GlobalKey<FormState>();
+
+  final titleController = TextEditingController();
+  final bodyController = TextEditingController();
+  final NotificationController notificationController = Get.find<NotificationController>();
+
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    bodyController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +56,10 @@ class _FamilyPushNotificationPageState
                   ),
                   const SizedBox(height: 22),
                   TextFormField(
+                    controller: titleController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (value!.length < 5) {
+                      if (value!.trim().length < 5) {
                         return "Please provide a valid push notification title";
                       }
                       return null;
@@ -59,9 +75,10 @@ class _FamilyPushNotificationPageState
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
+                    controller: bodyController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (value!.length < 5) {
+                      if (value!.trim().length < 5) {
                         return "Please provide a valid push notification body";
                       }
                       return null;
@@ -71,7 +88,7 @@ class _FamilyPushNotificationPageState
                     decoration: InputDecoration(
                       labelText: "Push Notification Body",
                       hintText:
-                          "e.g Please remeber to carry your details tommorrow",
+                          "e.g Please remember to carry your details tomorrow",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -79,7 +96,15 @@ class _FamilyPushNotificationPageState
                   ),
                   const SizedBox(height: 32),
                   FilledButton(
-                    onPressed: () {},
+                    onPressed: () async{
+                      if (formKey.currentState!.validate()) {
+                        final result = await notificationController.sendPushNotification(
+                          titleController.text.trim(),
+                          bodyController.text.trim(),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result)));
+                      }
+                    },
                     child: const Text("Send Push Notification"),
                   )
                 ],

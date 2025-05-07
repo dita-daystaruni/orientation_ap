@@ -12,6 +12,7 @@ import 'package:orientation_app/controllers/contacts_controller.dart';
 import 'package:orientation_app/controllers/courses_controller.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/faqs_controller.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/parent_contact_controller.dart';
 import 'package:orientation_app/controllers/posts_controller.dart';
 import 'package:orientation_app/controllers/statistic_controller.dart';
@@ -22,6 +23,9 @@ import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:orientation_app/utils/custom_date_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// Include the OneSignal package
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 // TODO: change application package name
 // TODO: change application name
@@ -39,62 +43,17 @@ void main() async {
   Get.put(ActivitySessionController());
   Get.put(CourseController());
   Get.put(StatisticsController());
-  Get.put(ParentContactController());
+  Get.put(NotificationController());
 
-  // Initialize Firebase Messaging
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  // Request permission for notifications
-  await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
+  // Enable verbose logging for debugging (remove in production)
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  // Initialize with your OneSignal App ID
+  OneSignal.initialize("38534632-4801-4630-83b4-247fa15d02af");
+  // Use this method to prompt for push notifications.
+  // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
+  // OneSignal.Notifications.requestPermission(true);
 
-  const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    description: 'This channel is used for important notifications.',
-    importance: Importance.max,
-  );
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-
-    if (notification != null && android != null) {
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'high_importance_channel',
-            'High Importance Notifications',
-            channelDescription:
-                'This channel is used for important notifications.',
-            importance: Importance.max,
-            priority: Priority.high,
-            icon: '@mipmap/ic_launcher',
-          ),
-        ),
-      );
-    }
-  });
   runApp(
     GetMaterialApp(
       theme: ThemeData(

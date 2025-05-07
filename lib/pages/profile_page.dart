@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -12,6 +13,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final UserController _userController = Get.find<UserController>();
+  final NotificationController notificationController =
+      Get.find<NotificationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +127,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ListTile(
                     leading: const Icon(Icons.notifications),
                     title: const Text("Notification Access"),
-                    onTap: () async {},
+                    onTap: () async {
+                      await notificationController.requestPermission(_userController.user.value!);
+
+                    },
                   ),
                 ),
                 Visibility(
