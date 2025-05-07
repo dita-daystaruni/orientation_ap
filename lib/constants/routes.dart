@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:orientation_app/pages/add_feed_page.dart';
 import 'package:orientation_app/pages/family_add_child_page.dart';
 import 'package:orientation_app/pages/family_push_notification_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
@@ -17,6 +18,10 @@ class AppRoutes {
     GetPage(
       name: '/send-push-notification',
       page: () => const FamilyPushNotificationPage(),
+    ),
+    GetPage(
+      name: '/add-feed',
+      page: () => const AddFeedPage(),
     ),
     GetPage(
       name: '/add-child-to-family',
