@@ -22,11 +22,11 @@ class _HomePageState extends State<HomePage> {
       // extendBody: true,
       body: IndexedStack(
         index: _selectedPage,
-        children: [
-          const DashboardPage(),
-          const HelpPage(),
-          const FamilyPage(),
-          const ProfilePage(),
+        children: const [
+          DashboardPage(),
+          HelpPage(),
+          FamilyPage(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: NavigationBar(

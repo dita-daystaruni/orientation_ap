@@ -52,8 +52,23 @@ class _FamilyPageState extends State<FamilyPage> {
                 children: [
                   SliverPinnedHeader(
                     child: Text(
-                      "Orientation Statistics",
+                      "Orientation View",
                       style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.all(1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    )),
+                    child: ListTile(
+                      leading: const Icon(Icons.analytics),
+                      title: const Text("View Orientation Dashboard"),
+                      onTap: () async {
+                        Get.toNamed("/g9-dashboard-view");
+                      },
                     ),
                   ),
                 ],
@@ -180,8 +195,11 @@ class _FamilyPageState extends State<FamilyPage> {
             padding: const EdgeInsets.all(12),
             sliver: MultiSliver(
               children: [
-                const SliverPinnedHeader(
-                  child: Text("Family View"),
+                SliverPinnedHeader(
+                  child: Text(
+                    "Family View",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
                 // All Members
 

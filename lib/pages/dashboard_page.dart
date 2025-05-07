@@ -33,14 +33,24 @@ class _DashboardPageState extends State<DashboardPage> {
           Obx(
             () => SliverList.builder(
               itemBuilder: (context, index) {
-                final post = _postsController.posts[index];
-                return PostCard(post: post);
+                return PostCard(
+                  post: _postsController.posts[index],
+                );
               },
               itemCount: _postsController.posts.value.length,
             ),
           )
         ],
       ),
+      floatingActionButton:
+          _userController.user.value!.expandedProfile!.role != "Student"
+              ? FloatingActionButton(
+                  onPressed: () async {
+                    Get.toNamed("/add-feed");
+                  },
+                  child: const Icon(Icons.add),
+                )
+              : null,
     );
   }
 }
