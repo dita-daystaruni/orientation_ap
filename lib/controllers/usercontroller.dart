@@ -8,7 +8,7 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
-  final _baseUrl = "http://127.0.0.1:8090";
+  final _baseUrl = "http://192.168.100.21:8090";
   final Logger _logger = Logger();
   Rx<User?> user = Rxn<User>();
   Rx<bool> isLoggedIn = false.obs;
