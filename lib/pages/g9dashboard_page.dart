@@ -149,10 +149,6 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.apps),
-      ),
     );
   }
 }

@@ -119,7 +119,7 @@ final class FamilyController extends GetxController {
 
       final pocketBase = GetIt.instance.get<PocketBase>();
       final results = await pocketBase.collection("families").getFullList(
-            expand: "children,parent,children.profile",
+            expand: "children,parent,children.profile, parent.profile",
           );
       final families =
           results.map((result) => Family.fromJson(result.toJson())).toList();

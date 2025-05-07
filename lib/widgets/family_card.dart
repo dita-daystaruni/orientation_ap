@@ -10,7 +10,7 @@ class FamilyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed("/family-view");
+        Get.toNamed("/family-view", arguments: family);
       },
       child: Card(
         elevation: 0,
