@@ -5,9 +5,7 @@ import 'package:orientation_app/pages/family_push_notification_page.dart';
 import 'package:orientation_app/pages/family_view_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
-import 'package:orientation_app/pages/routines_events_page.dart';
 import 'package:orientation_app/pages/sign_in.dart';
-import 'package:orientation_app/pages/sign_up.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 
 class AppRoutes {
@@ -15,8 +13,6 @@ class AppRoutes {
     GetPage(name: "/splash_screen", page: () => const SplashScreen()),
     GetPage(name: "/login", page: () => const SignIn()),
     GetPage(name: "/home", page: () => const HomePage()),
-    GetPage(name: "/sign_up", page: () => const SignUp()),
-    GetPage(name: '/routines', page: () => const Routines()),
     GetPage(
       name: '/send-push-notification',
       page: () => const FamilyPushNotificationPage(),
