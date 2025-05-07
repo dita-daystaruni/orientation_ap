@@ -96,40 +96,47 @@ class _FamilyPageState extends State<FamilyPage> {
                       children: [
                         FamilyStatCard(
                           stat: _familyController
-                              .family.value!.expandedChildren.length,
+                                  .family.value?.expandedChildren.length ??
+                              0,
                           description: "Number of children",
                           icon: Icons.child_friendly,
                           color: Colors.green[600],
                         ),
                         FamilyStatCard(
-                          stat: _familyController.family.value!.expandedChildren
-                              .where(
-                                (u) =>
-                                    u.expandedProfile!.campus == "Athi River",
-                              )
-                              .length,
+                          stat: _familyController.family.value?.expandedChildren
+                                  .where(
+                                    (u) =>
+                                        u.expandedProfile!.campus ==
+                                        "Athi River",
+                                  )
+                                  .length ??
+                              0,
                           description: "Athi River Students",
                           icon: Icons.school,
                           color:
                               Theme.of(context).colorScheme.secondaryContainer,
                         ),
                         FamilyStatCard(
-                          stat: _familyController.family.value!.expandedChildren
-                              .where(
-                                (u) => u.expandedProfile!.campus == "Nairobi",
-                              )
-                              .length,
+                          stat: _familyController.family.value?.expandedChildren
+                                  .where(
+                                    (u) =>
+                                        u.expandedProfile!.campus == "Nairobi",
+                                  )
+                                  .length ??
+                              0,
                           description: "Nairobi Students",
                           icon: Icons.school_outlined,
                           color:
                               Theme.of(context).colorScheme.secondaryContainer,
                         ),
                         FamilyStatCard(
-                          stat: _familyController.family.value!.expandedChildren
-                              .where(
-                                (u) => u.expandedProfile!.campus == "Nairobi",
-                              )
-                              .length,
+                          stat: _familyController.family.value?.expandedChildren
+                                  .where(
+                                    (u) =>
+                                        u.expandedProfile!.campus == "Nairobi",
+                                  )
+                                  .length ??
+                              0,
                           description: "Reported on last count",
                           icon: Icons.check_box,
                           color: Colors.orange[600],

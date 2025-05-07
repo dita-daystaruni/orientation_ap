@@ -17,8 +17,8 @@ class _FamilyPushNotificationPageState
 
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
-  final NotificationController notificationController = Get.find<NotificationController>();
-
+  final NotificationController notificationController =
+      Get.find<NotificationController>();
 
   @override
   void dispose() {
@@ -96,13 +96,16 @@ class _FamilyPushNotificationPageState
                   ),
                   const SizedBox(height: 32),
                   FilledButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        final result = await notificationController.sendPushNotification(
+                        final result =
+                            await notificationController.sendPushNotification(
                           titleController.text.trim(),
                           bodyController.text.trim(),
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result)));
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(result)));
                       }
                     },
                     child: const Text("Send Push Notification"),

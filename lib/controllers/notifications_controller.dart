@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/web.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:orientation_app/models/user_model.dart';
 
 class NotificationController extends GetxController {
+  final Logger _logger = Logger();
 
   Future<bool> requestPermission(User user) async {
     try {
@@ -17,12 +19,14 @@ class NotificationController extends GetxController {
           "firstname": user.firstName,
           "othernames": user.otherNames,
         });
+        OneSignal.login(user.id);
       }
       return true;
     } catch (e) {
       return false;
     }
   }
+
   Future<String> sendPushNotification(String title, String body) async {
     const url = 'https://onesignal.com/api/v1/notifications';
 
@@ -42,15 +46,11 @@ class NotificationController extends GetxController {
         }),
       );
       if (response.statusCode == 200) {
-        print("Hereeeeeeeeeeeeeeeeeeeee");
-        print(response.body);
+        _logger.t(response.body);
         return "Notification sent successfully!";
-        
       } else {
         return "Failed to send notification: ${response.body}";
       }
-
-    
     } catch (e) {
       return "Error: $e";
     }

@@ -16,14 +16,8 @@ class PostsController extends GetxController {
   bool _isLastPage = false;
   bool _isFetching = false;
 
-  @override
-  Future<void> onReady() async {
-    super.onReady();
-    await fetchPosts();
-  }
-
   Future<Either<String, List<Post>>> fetchPosts({bool loadMore = false}) async {
-    if (_isFetching || _isLastPage) return right(posts);
+    if (_isFetching) return right(posts);
 
     _isFetching = true;
     try {
