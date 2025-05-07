@@ -43,11 +43,9 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
       floatingActionButton:
-          // confirm from Erick they can't be null here
           _userController.user.value!.expandedProfile!.role != "Student"
               ? FloatingActionButton(
                   onPressed: () async {
-                    print(_userController.user.value!.id);
                     Get.toNamed("/add-feed");
                   },
                   child: const Icon(Icons.add),

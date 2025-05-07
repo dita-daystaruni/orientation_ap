@@ -1,22 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:orientation_app/models/post_model.dart';
 
-class PostCard extends StatefulWidget {
+class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.post});
   final Post post;
-
-  @override
-  State<PostCard> createState() => _PostCardState();
-}
-
-class _PostCardState extends State<PostCard> {
-  @override
-  void initState() {
-    super.initState();
-    Logger().d(widget.post.toJson());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +16,37 @@ class _PostCardState extends State<PostCard> {
         children: [
           ListTile(
             leading: const Icon(Icons.person),
-            title: Text(widget.post.title),
-            subtitle: Text(widget.post.owner),
+            title: Text(post.title),
+            subtitle: Text(post.owner),
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 350,
-              maxWidth: MediaQuery.of(context).size.width,
-            ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                final attachmentUrl = widget.post.attachement[index];
-                return SizedBox(
-                  height: 600,
-                  width: MediaQuery.of(context).size.width,
-                  child: CachedNetworkImage(
-                    imageUrl: attachmentUrl,
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-              itemCount: widget.post.attachement.length,
+          Visibility(
+            visible: post.attachement.isNotEmpty,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 350,
+                maxWidth: MediaQuery.of(context).size.width,
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final attachmentUrl = post.attachement[index];
+                  return SizedBox(
+                    height: 600,
+                    width: MediaQuery.of(context).size.width,
+                    child: CachedNetworkImage(
+                      imageUrl: attachmentUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+                itemCount: post.attachement.length,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
             child: Text(
-              widget.post.content,
+              post.content,
             ),
           ),
         ],
