@@ -32,9 +32,7 @@ final class FamilyController extends GetxController {
       fam.parent.addAll(userIDs);
 
       _logger.i(fam.toJson());
-      final filter = fam.parent
-          .map((id) => 'parent ~ "$id"')
-          .join(' || ');
+      final filter = fam.parent.map((id) => 'parent ~ "$id"').join(' || ');
 
       final userRes = await pocketBase.collection("families").getFullList(
             filter: filter,
@@ -67,7 +65,6 @@ final class FamilyController extends GetxController {
             "Please check your internet connection and try again.",
       );
     } catch (e) {
-      rethrow;
       _logger.e(
         "Exception occurred while creating family",
         error: e,
@@ -112,6 +109,41 @@ final class FamilyController extends GetxController {
         "Exception occurred while logging in",
         error: e,
       );
+      return left("$e");
+    }
+  }
+
+  Future<Either<String, List<Family>>> fetchAllFamilies() async {
+    try {
+      isBusy.value = true;
+
+      final pocketBase = GetIt.instance.get<PocketBase>();
+      final results = await pocketBase.collection("families").getFullList(
+            expand: "children,parent,children.profile",
+          );
+      final families =
+          results.map((result) => Family.fromJson(result.toJson())).toList();
+
+      isBusy.value = false;
+      return right(families);
+    } on ClientException catch (e) {
+      _logger.e(
+        "Exception occurred while logging out",
+        error: e,
+      );
+
+      isBusy.value = false;
+      return left(
+        e.response["message"] ??
+            "Please check your internet connection and try again.",
+      );
+    } catch (e) {
+      _logger.e(
+        "Exception occurred while logging in",
+        error: e,
+      );
+
+      isBusy.value = false;
       return left("$e");
     }
   }

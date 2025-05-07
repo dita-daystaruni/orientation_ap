@@ -2,6 +2,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:orientation_app/pages/create_family_page.dart';
 import 'package:orientation_app/pages/family_add_child_page.dart';
 import 'package:orientation_app/pages/family_push_notification_page.dart';
+import 'package:orientation_app/pages/family_view_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/routines_events_page.dart';
@@ -31,6 +32,10 @@ class AppRoutes {
     GetPage(
       name: '/create-family',
       page: () => const CreateFamilyPage(),
+    ),
+    GetPage(
+      name: '/family-view',
+      page: () => const FamilyViewPage(),
     ),
   ];
 }
