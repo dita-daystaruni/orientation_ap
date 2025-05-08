@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
+import 'package:orientation_app/models/user_model.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class FamilyPushNotificationPage extends StatefulWidget {
@@ -19,6 +22,93 @@ class _FamilyPushNotificationPageState
   final bodyController = TextEditingController();
   final NotificationController notificationController =
       Get.find<NotificationController>();
+  final UserController userController = Get.find<UserController>();
+  final FamilyController familyController = Get.find<FamilyController>();
+
+  Future<List<String>?> showUserSelectionDialog(List<User> users) async {
+    final selectedPlayerEmails = <String>{};
+    final searchController = TextEditingController();
+    List<User> filteredUsers = List.from(users);
+
+    return await showDialog<List<String>>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            void filterUsers(String query) {
+              setState(() {
+                filteredUsers = users
+                    .where((user) => user.admissionNumber
+                        .toLowerCase()
+                        .contains(query.toLowerCase()))
+                    .toList();
+              });
+            }
+
+            return AlertDialog(
+              title: const Text('Select Recipients'),
+              content: SizedBox(
+                width: double.maxFinite,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        hintText: 'Search by admission number',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                      onChanged: filterUsers,
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredUsers.length,
+                        itemBuilder: (context, index) {
+                          final user = filteredUsers[index];
+                          final email = user.expandedProfile?.schoolEmail ?? '';
+                          final isSelected =
+                              selectedPlayerEmails.contains(email);
+                          return CheckboxListTile(
+                            value: isSelected,
+                            onChanged: (val) {
+                              setState(() {
+                                if (val == true) {
+                                  selectedPlayerEmails.add(email);
+                                } else {
+                                  selectedPlayerEmails.remove(email);
+                                }
+                              });
+                            },
+                            title: Text('${user.firstName} ${user.otherNames}'),
+                            subtitle: Text(user.admissionNumber),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, null),
+                  child: const Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, selectedPlayerEmails.toList());
+                  },
+                  child: const Text("Send"),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+
 
   @override
   void dispose() {
@@ -29,6 +119,9 @@ class _FamilyPushNotificationPageState
 
   @override
   Widget build(BuildContext context) {
+    
+    final role = userController.user.value!.expandedProfile!.role;
+
     return Scaffold(
       body: Form(
         key: formKey,
@@ -95,21 +188,127 @@ class _FamilyPushNotificationPageState
                     ),
                   ),
                   const SizedBox(height: 32),
-                  FilledButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        final result =
-                            await notificationController.sendPushNotification(
-                          titleController.text.trim(),
-                          bodyController.text.trim(),
-                        );
-                        if (!context.mounted) return;
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text(result)));
-                      }
-                    },
-                    child: const Text("Send Push Notification"),
-                  )
+                  SliverVisibility(
+                    visible: role == "G9",
+                    sliver: MultiSliver(
+                      children: [
+                        FilledButton(
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              final result = await notificationController
+                                  .sendPushNotification(
+                                titleController.text.trim(),
+                                bodyController.text.trim(),
+                              );
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(result)));
+                            }
+                          },
+                          child: const Text("Send to All"),
+                        ),
+                        const SizedBox(height: 12),
+                        FilledButton(
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              final recipients = [
+                                ...?familyController
+                                    .family.value?.expandedChildren,
+                                ...?familyController
+                                    .family.value?.expandedParent,
+                              ];
+                              final selected =
+                                  await showUserSelectionDialog(recipients);
+                              if (selected == null || selected.isEmpty) return;
+
+                              final result = await notificationController
+                                  .sendPushNotification(
+                                titleController.text.trim(),
+                                bodyController.text.trim(),
+                                selected,
+                              );
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(result)));
+                            }
+                          },
+                          child: const Text("Select Recipients"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SliverVisibility(
+                    visible: role != "G9",
+                    sliver: FilledButton(
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          final children =
+                              familyController.family.value?.expandedChildren ??
+                                  [];
+                          final targetEmails = children
+                              .map(
+                                  (child) => child.expandedProfile?.schoolEmail)
+                              .where(
+                                  (email) => email != null && email.isNotEmpty)
+                              .cast<String>()
+                              .toList();
+
+                          final result =
+                              await notificationController.sendPushNotification(
+                            titleController.text.trim(),
+                            bodyController.text.trim(),
+                            targetEmails,
+                          );
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(result)));
+                        }
+                      },
+                      child: const Text("Send Push Notification"),
+                    ),
+                  ),
+
+                  // FilledButton(
+                  //   onPressed: () async {
+                  //     if (formKey.currentState!.validate()) {
+                  //       final role =
+                  //           userController.user.value!.expandedProfile!.role;
+                  //       final children =
+                  //           familyController.family.value?.expandedChildren ??
+                  //               [];
+                  //       final parents =
+                  //           familyController.family.value?.expandedParent ?? [];
+
+
+                  //       List<String> targetEmails = [];
+
+                  //       if (role == "Dulous Parent") {
+                  //         targetEmails = children
+                  //             .map((child) =>
+                  //                 child.expandedProfile?.schoolEmail)
+                  //             .where((email) => email != null && email.isNotEmpty)
+                  //             .cast<String>()
+                  //             .toList();
+                  //       } else if (role == "G9") {
+                  //         parents.addAll(children);
+                  //         final selected =
+                  //             await showUserSelectionDialog(parents);
+                  //         if (selected == null) return;
+                  //         targetEmails = selected;
+                  //       }
+                  //       final result =
+                  //           await notificationController.sendPushNotification(
+                  //         titleController.text.trim(),
+                  //         bodyController.text.trim(),
+                  //         targetEmails
+                  //       );
+                  //       if (!context.mounted) return;
+                  //       ScaffoldMessenger.of(context)
+                  //           .showSnackBar(SnackBar(content: Text(result)));
+                  //     }
+                  //   },
+                  //   child: const Text("Send Push Notification"),
+                  // )
                 ],
               ),
             )
