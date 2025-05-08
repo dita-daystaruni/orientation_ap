@@ -81,7 +81,7 @@ final class FamilyController extends GetxController {
       final pocketBase = GetIt.instance.get<PocketBase>();
 
       final results = await pocketBase.collection("families").getFullList(
-            filter: 'children ~ "$userID" || parent = "$userID"',
+            filter: 'children ~ "$userID" || parent ~ "$userID"',
             expand: "children,parent,children.profile, parent.profile",
           );
 
@@ -91,7 +91,6 @@ final class FamilyController extends GetxController {
 
       // map the result to a family object
       family.value = Family.fromJson(results.first.toJson());
-      _logger.i(family.value!.toJson());
 
       prefs.setString("family", jsonEncode(family.value!.toJson()));
       return right(family.value!);

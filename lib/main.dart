@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/routes.dart';
@@ -23,14 +25,15 @@ void main() async {
   Get.put(FamilyController());
   Get.put(NotificationController());
 
-
-  // Enable verbose logging for debugging (remove in production)
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-  // Initialize with your OneSignal App ID
-  OneSignal.initialize("38534632-4801-4630-83b4-247fa15d02af");
-  // Use this method to prompt for push notifications.
-  // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
-  // OneSignal.Notifications.requestPermission(true);
+  if (Platform.isAndroid) {
+// Enable verbose logging for debugging (remove in production)
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    // Initialize with your OneSignal App ID
+    OneSignal.initialize("38534632-4801-4630-83b4-247fa15d02af");
+    // Use this method to prompt for push notifications.
+    // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
+    // OneSignal.Notifications.requestPermission(true);
+  }
 
   runApp(
     GetMaterialApp(
