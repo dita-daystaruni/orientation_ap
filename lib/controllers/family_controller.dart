@@ -82,7 +82,7 @@ final class FamilyController extends GetxController {
 
       final results = await pocketBase.collection("families").getFullList(
             filter: 'children ~ "$userID" || parent = "$userID"',
-            expand: "children,parent,children.profile",
+            expand: "children,parent,children.profile, parent.profile",
           );
 
       if (results.isEmpty) {
@@ -153,25 +153,55 @@ final class FamilyController extends GetxController {
     Family fam,
   ) async {
     try {
+      isBusy.value = true;
       final pocketBase = GetIt.instance.get<PocketBase>();
 
+      // get the child's ID
+      final childResults = await pocketBase.collection("users").getFullList(
+            filter: 'admissionNumber = "$admno"',
+          );
+
+      if (childResults.isEmpty) {
+        isBusy.value = false;
+        return left("The specified child admissionNumber does not exist!");
+      }
+
       final results = await pocketBase.collection("families").getFullList(
-            filter: 'children ~ "$admno"',
+            filter: 'children ~ "${childResults.first.id}"',
             expand: "children,parent,children.profile",
           );
 
       if (results.isNotEmpty) {
         family.value = Family.fromJson(results.first.toJson());
+
+        isBusy.value = false;
         return left(
           "The specified student is already a member of ${family.value!.name}",
         );
       }
+
+      // Add the child to the family
+      fam.children.add(childResults.first.id);
+      final famRes = await pocketBase
+          .collection("families")
+          .update(fam.id, body: {"children": fam.children});
+
+      if (!Family.fromJson(famRes.toJson())
+          .children
+          .contains(childResults.first.id)) {
+        isBusy.value = false;
+        return left("Failed to add child to family");
+      }
+
+      isBusy.value = false;
       return right(true);
     } on ClientException catch (e) {
       _logger.e(
         "Exception occurred while adding student to family",
         error: e,
       );
+
+      isBusy.value = false;
       return left(
         e.response["message"] ??
             "Please check your internet connection and try again.",
@@ -181,6 +211,8 @@ final class FamilyController extends GetxController {
         "Exception occurred while logging in",
         error: e,
       );
+
+      isBusy.value = false;
       return left("$e");
     }
   }
