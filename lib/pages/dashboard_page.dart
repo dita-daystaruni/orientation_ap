@@ -15,10 +15,20 @@ class _DashboardPageState extends State<DashboardPage> {
   final UserController _userController = Get.find<UserController>();
   final PostsController _postsController = Get.find<PostsController>();
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     _postsController.fetchPosts();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        _postsController.fetchPosts(
+          loadMore: true,
+        ); // Your method to fetch more
+      }
+    });
   }
 
   @override
@@ -29,6 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
           await _postsController.fetchPosts();
         },
         child: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverAppBar(
               pinned: true,
@@ -42,15 +53,17 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             Obx(
-              () => SliverList.builder(
-                itemBuilder: (context, index) {
-                  return PostCard(
-                    post: _postsController.posts[index],
-                  );
-                },
-                itemCount: _postsController.posts.value.length,
+              () => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return PostCard(
+                      post: _postsController.posts[index],
+                    );
+                  },
+                  childCount: _postsController.posts.length,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
