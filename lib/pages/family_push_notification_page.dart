@@ -212,12 +212,6 @@ class _FamilyPushNotificationPageState
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               await userController.fetchAllUsers();
-                              // final recipients = [
-                              //   ...?familyController
-                              //       .family.value?.expandedChildren,
-                              //   ...?familyController
-                              //       .family.value?.expandedParent,
-                              // ];
                               final recipients = userController.allUsers;
                               final selected =
                                   await showUserSelectionDialog(recipients);
@@ -269,48 +263,6 @@ class _FamilyPushNotificationPageState
                       child: const Text("Send Push Notification"),
                     ),
                   ),
-
-                  // FilledButton(
-                  //   onPressed: () async {
-                  //     if (formKey.currentState!.validate()) {
-                  //       final role =
-                  //           userController.user.value!.expandedProfile!.role;
-                  //       final children =
-                  //           familyController.family.value?.expandedChildren ??
-                  //               [];
-                  //       final parents =
-                  //           familyController.family.value?.expandedParent ?? [];
-
-
-                  //       List<String> targetEmails = [];
-
-                  //       if (role == "Dulous Parent") {
-                  //         targetEmails = children
-                  //             .map((child) =>
-                  //                 child.expandedProfile?.schoolEmail)
-                  //             .where((email) => email != null && email.isNotEmpty)
-                  //             .cast<String>()
-                  //             .toList();
-                  //       } else if (role == "G9") {
-                  //         parents.addAll(children);
-                  //         final selected =
-                  //             await showUserSelectionDialog(parents);
-                  //         if (selected == null) return;
-                  //         targetEmails = selected;
-                  //       }
-                  //       final result =
-                  //           await notificationController.sendPushNotification(
-                  //         titleController.text.trim(),
-                  //         bodyController.text.trim(),
-                  //         targetEmails
-                  //       );
-                  //       if (!context.mounted) return;
-                  //       ScaffoldMessenger.of(context)
-                  //           .showSnackBar(SnackBar(content: Text(result)));
-                  //     }
-                  //   },
-                  //   child: const Text("Send Push Notification"),
-                  // )
                 ],
               ),
             )
