@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/routes.dart';
@@ -24,7 +23,7 @@ void main() async {
   Get.put(FamilyController());
   Get.put(NotificationController());
 
-  if (Platform.isAndroid) {
+  if (kIsWeb) {
 // Enable verbose logging for debugging (remove in production)
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     // Initialize with your OneSignal App ID

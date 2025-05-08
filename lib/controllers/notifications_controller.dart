@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
@@ -11,7 +12,15 @@ class NotificationController extends GetxController {
   final Logger _logger = Logger();
 
   Future<bool> requestPermission(User user) async {
-    if (!Platform.isAndroid) {
+    try {
+      if (kIsWeb) {
+        return false;
+      }
+
+      if (!Platform.isAndroid) {
+        return false;
+      }
+    } catch (e) {
       return false;
     }
     try {

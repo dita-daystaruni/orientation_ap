@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
