@@ -14,9 +14,6 @@ import 'package:orientation_app/pages/splash_screen.dart';
 // Include the OneSignal package
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-// TODO: change application package name
-// TODO: change application name
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Putting controllers

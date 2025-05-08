@@ -1,4 +1,4 @@
-package com.example.orientation_app
+package com.dita.fresha
 
 import io.flutter.embedding.android.FlutterActivity
 
