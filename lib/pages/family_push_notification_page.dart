@@ -211,12 +211,14 @@ class _FamilyPushNotificationPageState
                         FilledButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              final recipients = [
-                                ...?familyController
-                                    .family.value?.expandedChildren,
-                                ...?familyController
-                                    .family.value?.expandedParent,
-                              ];
+                              await userController.fetchAllUsers();
+                              // final recipients = [
+                              //   ...?familyController
+                              //       .family.value?.expandedChildren,
+                              //   ...?familyController
+                              //       .family.value?.expandedParent,
+                              // ];
+                              final recipients = userController.allUsers;
                               final selected =
                                   await showUserSelectionDialog(recipients);
                               if (selected == null || selected.isEmpty) return;

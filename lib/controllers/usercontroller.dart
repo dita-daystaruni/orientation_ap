@@ -13,6 +13,7 @@ class UserController extends GetxController {
   Rx<User?> user = Rxn<User>();
   Rx<bool> isLoggedIn = false.obs;
   Rx<bool> isLoading = false.obs;
+  final RxList<User> allUsers = <User>[].obs;
 
   // get user object and loggenedin value
   @override
@@ -151,4 +152,20 @@ class UserController extends GetxController {
       );
     }
   }
+
+  Future<void> fetchAllUsers() async {
+    try {
+      final pocketBase = GetIt.instance.get<PocketBase>();
+      final records = await pocketBase.collection("users").getFullList(
+            expand: "profile",
+            sort: '-created',
+          );
+
+      allUsers.value =
+          records.map((record) => User.fromJson(record.toJson())).toList();
+    } catch (e) {
+      _logger.e("Error fetching all users", error: e);
+    }
+  }
+
 }
