@@ -8,6 +8,7 @@ part of 'attendance_model.dart';
 
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       id: json['id'] as String,
+      family: json['family'] as String,
       name: json['name'] as String,
       markedBy: json['markedBy'] as String,
       marked:
@@ -24,6 +25,7 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
       'id': instance.id,
       'name': instance.name,
       'markedBy': instance.markedBy,
+      'family': instance.family,
       'marked': instance.marked,
       'collectionId': instance.collectionId,
       'collectionName': instance.collectionName,

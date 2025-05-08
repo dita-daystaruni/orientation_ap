@@ -6,6 +6,7 @@ import 'package:orientation_app/constants/routes.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/posts_controller.dart';
+import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/pages/home_page.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
@@ -21,6 +22,7 @@ void main() async {
   // Putting controllers
 
   Get.put(UserController());
+  Get.put(StatisticsController());
   Get.put(PostsController());
   Get.put(FamilyController());
   Get.put(NotificationController());

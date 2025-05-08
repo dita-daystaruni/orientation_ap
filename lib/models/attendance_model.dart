@@ -8,6 +8,7 @@ class Attendance {
   final String id;
   final String name;
   final String markedBy;
+  final String family;
   final List<String> marked;
 
   final String collectionId;
@@ -21,6 +22,7 @@ class Attendance {
 
   Attendance({
     required this.id,
+    required this.family,
     required this.name,
     required this.markedBy,
     required this.marked,

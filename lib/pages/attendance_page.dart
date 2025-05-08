@@ -69,6 +69,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       }
                       return null;
                     },
+                    controller: attendanceNameController,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       labelText: "Attendance Description",
@@ -158,6 +159,7 @@ class _AttendancePageState extends State<AttendancePage> {
                               name: attendanceNameController.text,
                               created: DateTime.now(),
                               updated: DateTime.now(),
+                              family: _familyController.family.value!.id,
                               marked: attendance.keys
                                   .where((user) => attendance[user] == true)
                                   .toList()

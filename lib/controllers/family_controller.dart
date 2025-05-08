@@ -230,6 +230,8 @@ final class FamilyController extends GetxController {
           .create(body: attendance.toJson());
 
       attendance = Attendance.fromJson(attendanceRes.toJson());
+
+      isBusy.value = false;
       return right(true);
     } on ClientException catch (e) {
       _logger.e(
