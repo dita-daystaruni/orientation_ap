@@ -1,33 +1,31 @@
 // activity session model
 
-class ActivitySessionModel {
-  final int id;
+class ActivityModel {
+  final String id;
   final String title;
   final String description;
-  final String date;
-  final String startTime;
-  final String endTime;
-  final String location;
-  final bool isSession;
+  // converting to and from to datetimes local times here might make the work easier
+  final DateTime from;
+  final DateTime to;
+  final String venue;
+  final bool isMultiple;
 
-  ActivitySessionModel.fromJson(Map<String, dynamic> json)
+  ActivityModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
         description = json['description'],
-        date = json['date'],
-        startTime = json['start_time'],
-        endTime = json['end_time'],
-        location = json['location'],
-        isSession = json['is_session'];
+        from = DateTime.parse(json['from']).toLocal(),
+        to = DateTime.parse(json['to']).toLocal(),
+        venue = json['venue'],
+        isMultiple = json['multiple'];
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "description": description,
-        "date": date,
-        "start_time": startTime,
-        "end_time": endTime,
-        "location": location,
-        "is_session": isSession,
+        "from": from.toIso8601String(),
+        "to": to.toIso8601String(),
+        "venue": venue,
+        "multiple": isMultiple,
       };
 }

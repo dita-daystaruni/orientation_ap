@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/routes.dart';
+import 'package:orientation_app/controllers/activities_controller.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/posts_controller.dart';
@@ -22,7 +23,7 @@ void main() async {
   Get.put(PostsController());
   Get.put(FamilyController());
   Get.put(NotificationController());
-
+  Get.put(ActivityController());
 
   // Enable verbose logging for debugging (remove in production)
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
