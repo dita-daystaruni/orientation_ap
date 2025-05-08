@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -13,6 +15,8 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final UserController _userController = Get.find<UserController>();
+  final NotificationController _notificationController =
+      Get.find<NotificationController>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   bool consent = false;
@@ -51,7 +55,7 @@ class _SignInState extends State<SignIn> {
             pinned: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("Sign in into your account"),
+              title: Text("Lets find you and set you up for school"),
             ),
           ),
           SliverPadding(
@@ -60,7 +64,11 @@ class _SignInState extends State<SignIn> {
               children: [
                 CircleAvatar(
                   radius: 80,
-                  child: Image.asset("assets/icons/icon.png"),
+                  child: Lottie.asset(
+                    height: 350,
+                    "assets/lotties/profile.json",
+                    repeat: false,
+                  ),
                 ),
                 const SizedBox(height: 18),
                 const Text(
@@ -122,7 +130,18 @@ class _SignInState extends State<SignIn> {
 
                     if (result.isRight() &&
                         (result as dartz.Right).value == true) {
-                      Get.offAllNamed("/home");
+                      if (_userController.user.value!.verified) {
+                      _notificationController.requestPermission(_userController.user.value!);
+                        Get.offAllNamed("/home");
+                        return;
+                      }
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content:
+                                Text("Please visit the registration desk")),
+                      );
+                      await _userController.logout();
                     }
 
                     if (!context.mounted) return;

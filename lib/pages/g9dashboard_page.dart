@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
+import 'package:orientation_app/controllers/statistic_controller.dart';
 import 'package:orientation_app/models/family_model.dart';
 import 'package:orientation_app/widgets/family_card.dart';
+import 'package:orientation_app/widgets/family_stat_card.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class G9DashboardPage extends StatefulWidget {
@@ -15,12 +17,15 @@ class G9DashboardPage extends StatefulWidget {
 
 class _G9DashboardPageState extends State<G9DashboardPage> {
   final FamilyController _familyController = Get.find<FamilyController>();
+  final StatisticsController _statisticsController =
+      Get.find<StatisticsController>();
   late Future<dartz.Either<String, List<Family>>> allFamiliesResult;
 
   @override
   void initState() {
     super.initState();
     allFamiliesResult = _familyController.fetchAllFamilies();
+    _statisticsController.fetchStats();
   }
 
   @override
@@ -31,6 +36,8 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
           setState(() {
             allFamiliesResult = _familyController.fetchAllFamilies();
           });
+
+          await _statisticsController.fetchStats();
           await Future.delayed(const Duration(seconds: 2));
         },
         child: CustomScrollView(
@@ -50,10 +57,85 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
+                const SizedBox(height: 22),
+                Obx(
+                  () => Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      FamilyStatCard(
+                        stat: _statisticsController.stats.value.g9s ?? 0,
+                        description: "Number of G9s",
+                        icon: Icons.admin_panel_settings,
+                        color: Colors.green[600],
+                      ),
+                      FamilyStatCard(
+                        stat: _statisticsController.stats.value.parents ?? 0,
+                        description: "Number of Parents",
+                        icon: Icons.bedroom_parent,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                      FamilyStatCard(
+                        stat:
+                            _statisticsController.stats.value.maleStudents ?? 0,
+                        description: "Male Students",
+                        icon: Icons.male,
+                        color: Colors.grey[600],
+                      ),
+                      FamilyStatCard(
+                        stat:
+                            _statisticsController.stats.value.maleStudents ?? 0,
+                        description: "Female Students",
+                        icon: Icons.female,
+                        color: Colors.pink[600],
+                      ),
+                      FamilyStatCard(
+                        stat:
+                            _statisticsController.stats.value.nairobiStudents ??
+                                0,
+                        description: "Nairobi Students",
+                        icon: Icons.work,
+                        color: Colors.orange[600],
+                      ),
+                      FamilyStatCard(
+                        stat: _statisticsController
+                                .stats.value.athiRiverStudents ??
+                            0,
+                        description: "Athi River Students",
+                        icon: Icons.work,
+                        color: Colors.yellow[800],
+                      ),
+                      FamilyStatCard(
+                        stat:
+                            _statisticsController.stats.value.boarderStudents ??
+                                0,
+                        description: "Students Boarding",
+                        icon: Icons.bed,
+                        color: Colors.red[600],
+                      ),
+                      FamilyStatCard(
+                        stat: _statisticsController
+                                .stats.value.dayScholarStudents ??
+                            0,
+                        description: "Commutting Students",
+                        icon: Icons.local_shipping,
+                        color: Colors.brown[600],
+                      ),
+                      FamilyStatCard(
+                        stat: _statisticsController
+                                .stats.value.dayScholarStudents ??
+                            0,
+                        description: "Total number of students",
+                        icon: Icons.group,
+                        color: Colors.teal[600],
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 28),
               ]),
             ),
             SliverPadding(
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(12),
               sliver: MultiSliver(children: [
                 SliverPinnedHeader(
                   child: Text(
@@ -117,17 +199,6 @@ class _G9DashboardPageState extends State<G9DashboardPage> {
                       onTap: () async {
                         Get.toNamed("/create-family");
                       },
-                    ),
-                  ),
-                  Card(
-                    elevation: 0,
-                    margin: const EdgeInsets.all(1),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero),
-                    child: ListTile(
-                      leading: const Icon(Icons.person_search),
-                      title: const Text("Search for a user"),
-                      onTap: () async {},
                     ),
                   ),
                   Card(

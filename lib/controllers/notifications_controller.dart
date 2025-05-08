@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,9 @@ class NotificationController extends GetxController {
   final Logger _logger = Logger();
 
   Future<bool> requestPermission(User user) async {
+    if (!Platform.isAndroid) {
+      return false;
+    }
     try {
       final granted = await OneSignal.Notifications.requestPermission(true);
       if (granted) {
