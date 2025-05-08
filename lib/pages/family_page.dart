@@ -182,8 +182,10 @@ class _FamilyPageState extends State<FamilyPage> {
                       )),
                       child: ListTile(
                         leading: const Icon(Icons.checklist),
-                        title: const Text("Mark chilren attendance"),
-                        onTap: () async {},
+                        title: const Text("Attendance"),
+                        onTap: () async {
+                          Get.toNamed("/attendance-register");
+                        },
                       ),
                     ),
                     Card(
@@ -209,7 +211,7 @@ class _FamilyPageState extends State<FamilyPage> {
                       )),
                       child: ListTile(
                         leading: const Icon(Icons.person_add),
-                        title: const Text("Add child to group"),
+                        title: const Text("Add child to family"),
                         onTap: () async {
                           Get.toNamed("/add-child-to-family");
                         },

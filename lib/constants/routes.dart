@@ -1,5 +1,6 @@
 import 'package:orientation_app/models/family_model.dart';
 import 'package:orientation_app/pages/add_feed_page.dart';
+import 'package:orientation_app/pages/attendance_page.dart';
 import 'package:orientation_app/pages/create_family_page.dart';
 import 'package:orientation_app/pages/family_add_child_page.dart';
 import 'package:orientation_app/pages/family_push_notification_page.dart';
@@ -34,6 +35,10 @@ class AppRoutes {
     GetPage(
       name: '/create-family',
       page: () => const CreateFamilyPage(),
+    ),
+    GetPage(
+      name: '/attendance-register',
+      page: () => const AttendancePage(),
     ),
     GetPage(
       name: '/family-view',
