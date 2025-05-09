@@ -353,7 +353,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                                             child: CircleAvatar(
                                               maxRadius: 30,
                                               child: Text(
-                                                "A",
+                                                activityController
+                                                    .pastAndTodayAct[
+                                                        dates[index]]![idx]
+                                                    .title[0]
+                                                    .toUpperCase(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displaySmall,
