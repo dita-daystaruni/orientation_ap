@@ -12,18 +12,23 @@ class PostsController extends GetxController {
   RxList<Post> posts = RxList<Post>();
 
   int _page = 1;
-  final int _perPage = 10;
+  final int _perPage = 500;
   bool _isLastPage = false;
   bool _isFetching = false;
 
   Future<Either<String, List<Post>>> fetchPosts({bool loadMore = false}) async {
-    if (_isFetching) return right(posts);
+    if (_isFetching || (_isLastPage && loadMore)) return right(posts);
 
     _isFetching = true;
+
     try {
       final PocketBase pocketBase = GetIt.instance.get<PocketBase>();
+
+      // Only increment page if loading more and not on the last page
+      final int pageToFetch = loadMore ? _page + 1 : 1;
+
       final result = await pocketBase.collection("posts").getList(
-            page: _page,
+            page: pageToFetch,
             perPage: _perPage,
             sort: "-created",
           );
@@ -45,15 +50,15 @@ class PostsController extends GetxController {
 
       if (loadMore) {
         posts.addAll(newPosts);
+        _page++; // increment page after successful load
       } else {
         posts.assignAll(newPosts);
+        _page = 1; // reset page on fresh load
       }
 
-      // Update state
       _isLastPage = newPosts.length < _perPage;
-      if (!_isLastPage) _page++;
-
       _isFetching = false;
+
       return right(posts);
     } catch (e) {
       _isFetching = false;

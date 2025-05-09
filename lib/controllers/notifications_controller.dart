@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
@@ -11,6 +13,17 @@ class NotificationController extends GetxController {
 
   Future<bool> requestPermission(User user) async {
     try {
+      if (kIsWeb) {
+        return false;
+      }
+
+      if (!Platform.isAndroid) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    try {
       final granted = await OneSignal.Notifications.requestPermission(true);
       if (granted) {
         OneSignal.User.addEmail(user.email);
@@ -18,6 +31,7 @@ class NotificationController extends GetxController {
         OneSignal.User.addTags({
           "firstname": user.firstName,
           "othernames": user.otherNames,
+          "school_email": user.expandedProfile?.schoolEmail
         });
         OneSignal.login(user.id);
       }
@@ -27,24 +41,43 @@ class NotificationController extends GetxController {
     }
   }
 
-  Future<String> sendPushNotification(String title, String body) async {
+  Future<String> sendPushNotification(String title, String body,
+      [List<String>? userEmails]) async {
     const url = 'https://onesignal.com/api/v1/notifications';
 
     try {
+      final Map<String, dynamic> payload = {
+        "app_id": "38534632-4801-4630-83b4-247fa15d02af",
+        "headings": {"en": title},
+        "contents": {"en": body},
+      };
+
+      if (userEmails == null) {
+        payload["included_segments"] = ["All"];
+      } else {
+        List<Map<String, dynamic>> filters = [];
+        for (int i = 0; i < userEmails.length; i++) {
+          if (i > 0) filters.add({"operator": "OR"});
+          filters.add({
+            "field": "tag",
+            "key": "school_email",
+            "relation": "=",
+            "value": userEmails[i],
+          });
+        }
+        payload["filters"] = filters;
+      }
+
       final response = await http.post(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization':
-              'Basic os_v2_app_hbjummsiafddba5uer72cxicv7vqo3y7ul4ulu4e3qcr4cldp6xklk7araxafarmekrvggvcjf6cpzprqga5dcjso5xbkcmlsscplki', // Replace or use oneSignalRestApiKey variable
+              'Basic os_v2_app_hbjummsiafddba5uer72cxicv7qlg7iqfoyummnpimkgdugousorkdkmnh2rsrf4wjbrf7uubcxecrassrakbj2l4bodlnggh2n35ci',
         },
-        body: jsonEncode({
-          "app_id": "38534632-4801-4630-83b4-247fa15d02af",
-          "included_segments": ["All"],
-          "headings": {"en": title},
-          "contents": {"en": body},
-        }),
+        body: jsonEncode(payload),
       );
+
       if (response.statusCode == 200) {
         _logger.t(response.body);
         return "Notification sent successfully!";

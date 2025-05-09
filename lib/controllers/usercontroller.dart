@@ -8,11 +8,12 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
-  final _baseUrl = "http://127.0.0.1:8090";
+  final _baseUrl = "http://62.169.16.219:8080";
   final Logger _logger = Logger();
   Rx<User?> user = Rxn<User>();
   Rx<bool> isLoggedIn = false.obs;
   Rx<bool> isLoading = false.obs;
+  final RxList<User> allUsers = <User>[].obs;
 
   // get user object and loggenedin value
   @override
@@ -149,6 +150,21 @@ class UserController extends GetxController {
       return left(
         "Please check your internet connection and try again.",
       );
+    }
+  }
+
+  Future<void> fetchAllUsers() async {
+    try {
+      final pocketBase = GetIt.instance.get<PocketBase>();
+      final records = await pocketBase.collection("users").getFullList(
+            expand: "profile",
+            sort: '-created',
+          );
+
+      allUsers.value =
+          records.map((record) => User.fromJson(record.toJson())).toList();
+    } catch (e) {
+      _logger.e("Error fetching all users", error: e);
     }
   }
 }

@@ -50,7 +50,7 @@ class _FamilyPageState extends State<FamilyPage> {
                     imageUrl: (_familyController.family.value?.picture ?? "")
                             .isNotEmpty
                         ? _familyController.family.value!.picture
-                        : "https://play-lh.googleusercontent.com/veCVBVPE2oKRvtNxWoGaflKP3jszjdXZ-VEnFakWrWjmu2oRDmtmo1n42R-XXf2mCzmh=w416-h235",
+                        : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.cJYoPrfJw6LlwygL9F9sygHaE8%3Fcb%3Diwp1%26pid%3DApi&f=1&ipt=1d11c1eb3ea5867e99eba6192c06a895caec96ad65edfd4145291e2871eb845d&ipo=images",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -182,8 +182,10 @@ class _FamilyPageState extends State<FamilyPage> {
                       )),
                       child: ListTile(
                         leading: const Icon(Icons.checklist),
-                        title: const Text("Mark chilren attendance"),
-                        onTap: () async {},
+                        title: const Text("Attendance"),
+                        onTap: () async {
+                          Get.toNamed("/attendance-register");
+                        },
                       ),
                     ),
                     Card(
@@ -209,7 +211,7 @@ class _FamilyPageState extends State<FamilyPage> {
                       )),
                       child: ListTile(
                         leading: const Icon(Icons.person_add),
-                        title: const Text("Add child to group"),
+                        title: const Text("Add child to family"),
                         onTap: () async {
                           Get.toNamed("/add-child-to-family");
                         },
