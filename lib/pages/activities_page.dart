@@ -207,29 +207,30 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               padding: const EdgeInsets.all(12),
               sliver: MultiSliver(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Obx(
-                      () {
-                        if (activityController.pastAndTodayAct.isEmpty) {
-                          return const Column(
-                            children: [
-                              // ElevatedButton(
-                              //   onPressed: () async {
-                              //     await activityController
-                              //         .createSampleActivities();
-                              //   },
-                              //   child: const Text("Create Activities"),
-                              // ),
-                              Text("No Activities"),
-                            ],
-                          );
-                        }
-                        final dates =
-                            activityController.pastAndTodayAct.keys.toList();
-                        return ListView.builder(
-                          reverse: true,
-                          itemBuilder: (context, index) => Column(
+                  Obx(
+                    () {
+                      if (activityController.pastAndTodayAct.isEmpty) {
+                        return const Column(
+                          children: [
+                            // ElevatedButton(
+                            //   onPressed: () async {
+                            //     await activityController
+                            //         .createSampleActivities();
+                            //   },
+                            //   child: const Text("Create Activities"),
+                            // ),
+                            Text("No Activities"),
+                          ],
+                        );
+                      }
+                      final dates = activityController.pastAndTodayAct.keys
+                          .toList()
+                          .reversed
+                          .toList();
+                      return SliverList.builder(
+                        // reverse: true,
+                        itemBuilder: (context, index) => SizedBox(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
@@ -369,10 +370,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                               )
                             ],
                           ),
-                          itemCount: dates.length,
-                        );
-                      },
-                    ),
+                        ),
+                        itemCount: dates.length,
+                      );
+                    },
                   )
                 ],
               ),

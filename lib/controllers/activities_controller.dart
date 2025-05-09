@@ -65,8 +65,8 @@ class ActivityController extends GetxController {
   //     },
   //     {
   //       "title": "Department Meet & Greet",
-  //       "from": "2025-05-08T21:58:00.000Z",
-  //       "to": "2025-05-08T22:00:00.000Z",
+  //       "from": "2025-05-09T05:24:00.000Z",
+  //       "to": "2025-05-09T05:25:00.000Z",
   //       "venue": "Engineering Complex",
   //       "description": "Meet your department heads and staff.",
   //       "multiple": false
