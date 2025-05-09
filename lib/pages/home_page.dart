@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:orientation_app/controllers/usercontroller.dart';
 import 'package:orientation_app/pages/dashboard_page.dart';
 import 'package:orientation_app/pages/family_page.dart';
 import 'package:orientation_app/pages/activities_page.dart';
@@ -15,7 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedPage = 0;
-  final UserController _userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +20,8 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: _selectedPage,
         children: const [
-          DashboardPage(),
           ActivitiesPage(),
+          DashboardPage(),
           FamilyPage(),
           ProfilePage(),
         ],
@@ -38,14 +35,14 @@ class _HomePageState extends State<HomePage> {
         },
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: "Feed",
-          ),
-          NavigationDestination(
             icon: Icon(Icons.change_history),
             selectedIcon: Icon(Icons.run_circle),
             label: "Activities",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.rocket_launch_outlined),
+            selectedIcon: Icon(Icons.rocket_launch),
+            label: "The Wall",
           ),
           NavigationDestination(
             icon: Icon(Icons.diversity_1_outlined),

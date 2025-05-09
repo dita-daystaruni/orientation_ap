@@ -29,10 +29,10 @@ class SplashScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Academia welcomes you to Daystar University",
+                  "Welcome to Daystar University",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        fontFamily: GoogleFonts.merriweather().fontFamily,
+                        fontFamily: GoogleFonts.inter().fontFamily,
                       ),
                 ),
                 const Spacer(),

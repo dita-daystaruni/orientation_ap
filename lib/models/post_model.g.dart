@@ -24,6 +24,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
           .toList(),
       created: DateTime.parse(json['created'] as String),
       updated: DateTime.parse(json['updated'] as String),
+      expand: json['expand'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -39,4 +40,5 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'downVotedBy': instance.downVotedBy,
       'created': instance.created.toIso8601String(),
       'updated': instance.updated.toIso8601String(),
+      'expand': instance.expand,
     };

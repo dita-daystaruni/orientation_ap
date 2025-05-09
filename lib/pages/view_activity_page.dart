@@ -20,13 +20,8 @@ class ViewActivityPage extends StatelessWidget {
             snap: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                "View Activity",
-              ),
-              background: CachedNetworkImage(
-                imageUrl:
-                    ("https://play-lh.googleusercontent.com/veCVBVPE2oKRvtNxWoGaflKP3jszjdXZ-VEnFakWrWjmu2oRDmtmo1n42R-XXf2mCzmh=w416-h235"),
-                fit: BoxFit.cover,
+              title: Text(
+                activity.title,
               ),
             ),
           ),
@@ -34,20 +29,12 @@ class ViewActivityPage extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             sliver: MultiSliver(
               children: [
-                SliverPinnedHeader(
-                  child: Container(
-                    color: Theme.of(context).colorScheme.surface,
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      activity.title,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                      softWrap: true,
-                    ),
+                ListTile(
+                  leading: const Icon(Icons.timer),
+                  title: Text(
+                    "${activity.from.toString().split(" ")[1].substring(0, 5)} - ${activity.to.toString().split(" ")[1].substring(0, 5)}",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                ),
-                Text(
-                  "From: ${activity.from.toString().split(" ")[1].substring(0, 5)} To: ${activity.to.toString().split(" ")[1].substring(0, 5)}",
-                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
@@ -67,68 +54,67 @@ class ViewActivityPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-                !activity.isMultiple
-                    ? Row(
-                        children: [
-                          const Icon(Icons.place),
-                          Text(activity.venue),
-                        ],
-                      )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) =>
-                              // get the multiple venues
-
-                              DecoratedBox(
-                            decoration: BoxDecoration(
-                              border: index == 0
-                                  ? Border.symmetric(
-                                      horizontal: BorderSide(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .outline,
-                                      ),
-                                    )
-                                  : Border(
-                                      bottom: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline),
-                                    ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    child: Text(
-                                      venues?[index]["title"] ?? "",
-                                      softWrap: true,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    child: Text(
-                                      venues?[index]["venue"] ?? "",
-                                      softWrap: true,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          itemCount: venues?.length ?? 0,
-                        ),
-                      )
               ],
             ),
-          )
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            sliver: activity.isMultiple
+                ? SliverList.builder(
+                    itemBuilder: (context, index) => Container(
+                      decoration: BoxDecoration(
+                        border: index == 0
+                            ? Border.symmetric(
+                                horizontal: BorderSide(
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                              )
+                            : Border(
+                                bottom: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.outline),
+                              ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              child: Text(
+                                venues?[index]["title"] ?? "",
+                                softWrap: true,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              child: Text(
+                                venues?[index]["venue"] ?? "",
+                                softWrap: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    itemCount: venues?.length ?? 0,
+                  )
+                : SliverToBoxAdapter(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green[900],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListTile(
+                  textColor: Colors.white,
+                  iconColor: Colors.white,
+                        title: Text(activity.venue),
+                        leading: const Icon(Icons.location_on),
+                      ),
+                    ),
+                  ),
+          ),
         ],
       ),
     );

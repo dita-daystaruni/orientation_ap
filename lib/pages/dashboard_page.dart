@@ -48,7 +48,7 @@ class _DashboardPageState extends State<DashboardPage> {
               expandedHeight: 200,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  "Hi ${_userController.user.value!.firstName}",
+                  "${_userController.user.value!.firstName}'s feed",
                 ),
               ),
             ),

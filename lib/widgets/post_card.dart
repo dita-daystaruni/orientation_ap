@@ -11,13 +11,17 @@ class PostCard extends StatelessWidget {
     return Card(
       elevation: 0,
       child: Column(
-        spacing: 12,
+        spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ListTile(
-            leading: const Icon(Icons.person),
+            leading: const CircleAvatar(
+              child: Icon(Icons.person_outline),
+            ),
             title: Text(post.title),
-            subtitle: Text(post.owner),
+            subtitle: Text(
+              post.expandedOwner?.firstName ?? "system user",
+            ),
           ),
           Visibility(
             visible: post.attachement.isNotEmpty,

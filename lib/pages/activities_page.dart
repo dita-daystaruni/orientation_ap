@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:orientation_app/controllers/activities_controller.dart';
 import 'package:orientation_app/pages/view_activity_page.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -31,7 +32,12 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         child: CustomScrollView(
           slivers: [
             const SliverAppBar(
-              title: Text("Activities"),
+              pinned: true,
+              floating: true,
+              expandedHeight: 200,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text("Routines & Activities"),
+              ),
             ),
             SliverPadding(
               padding: const EdgeInsets.all(12),
@@ -45,12 +51,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                           Card(
                             color: Theme.of(context).colorScheme.surface,
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                12.0,
-                                12.0,
-                                12.0,
-                              ),
+                              padding: const EdgeInsets.all(12),
                               child: activityController
                                               .ongoingAndUpcomingActivity[
                                           "ongoing"] ==
@@ -181,6 +182,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                                     ),
                             ),
                           ),
+                          Lottie.asset("assets/lotties/orange.json", repeat: false),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               vertical: 8.0,
@@ -228,152 +230,140 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                           .reversed
                           .toList();
                       return SliverList.builder(
-                        // reverse: true,
-                        itemBuilder: (context, index) => SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  activityController
-                                      .getWeekDay(dates[index].weekday),
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ClampingScrollPhysics(),
-                                itemBuilder: (context, idx) => Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ViewActivityPage(
-                                            activity: activityController
-                                                    .pastAndTodayAct[
+                        itemBuilder: (context, index) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              activityController
+                                  .getWeekDay(dates[index].weekday),
+                              style: Theme.of(context).textTheme.titleLarge,
+                              textAlign: TextAlign.start,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, idx) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ViewActivityPage(
+                                        activity:
+                                            activityController.pastAndTodayAct[
                                                 dates[index]]![idx],
-                                            venues: activityController
+                                        venues: activityController
+                                                .pastAndTodayAct[dates[index]]![
+                                                    idx]
+                                                .isMultiple
+                                            ? activityController
+                                                .extractSubEvents(
+                                                activityController
                                                     .pastAndTodayAct[
                                                         dates[index]]![idx]
-                                                    .isMultiple
-                                                ? activityController
-                                                    .extractSubEvents(
-                                                    activityController
-                                                        .pastAndTodayAct[
-                                                            dates[index]]![idx]
-                                                        .venue,
-                                                  )
-                                                : null,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(12),
-                                        ),
-                                        border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                        ),
+                                                    .venue,
+                                              )
+                                            : null,
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.6,
-                                                  child: Text(
-                                                    activityController
-                                                        .pastAndTodayAct[
-                                                            dates[index]]![idx]
-                                                        .title,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                    softWrap: true,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "From: ${activityController.pastAndTodayAct[dates[index]]![idx].from.toString().split(" ")[1].substring(0, 5)} To: ${activityController.pastAndTodayAct[dates[index]]![idx].to.toString().split(" ")[1].substring(0, 5)}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium!
-                                                      .copyWith(
-                                                        color: Colors.grey,
-                                                      ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 16.0),
-                                                  child: Row(
-                                                    children: [
-                                                      const Icon(Icons.place),
-                                                      Text(
-                                                        activityController
-                                                                .pastAndTodayAct[
-                                                                    dates[
-                                                                        index]]![
-                                                                    idx]
-                                                                .isMultiple
-                                                            ? "Multiple.."
-                                                            : activityController
-                                                                .pastAndTodayAct[
-                                                                    dates[
-                                                                        index]]![
-                                                                    idx]
-                                                                .venue,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyMedium,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 16.0),
-                                            child: CircleAvatar(
-                                              maxRadius: 30,
+                                    ),
+                                  );
+                                },
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                    border: Border.all(
+                                      color:
+                                          Theme.of(context).colorScheme.outline,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6,
                                               child: Text(
                                                 activityController
                                                     .pastAndTodayAct[
                                                         dates[index]]![idx]
-                                                    .title[0]
-                                                    .toUpperCase(),
+                                                    .title,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .displaySmall,
+                                                    .titleMedium,
+                                                softWrap: true,
                                               ),
                                             ),
-                                          )
-                                        ],
+                                            Text(
+                                              "From: ${activityController.pastAndTodayAct[dates[index]]![idx].from.toString().split(" ")[1].substring(0, 5)} To: ${activityController.pastAndTodayAct[dates[index]]![idx].to.toString().split(" ")[1].substring(0, 5)}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                    color: Colors.grey,
+                                                  ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 16.0),
+                                              child: Row(
+                                                children: [
+                                                  const Icon(Icons.place),
+                                                  Text(
+                                                    activityController
+                                                            .pastAndTodayAct[
+                                                                dates[index]]![
+                                                                idx]
+                                                            .isMultiple
+                                                        ? "Multiple.."
+                                                        : activityController
+                                                            .pastAndTodayAct[
+                                                                dates[index]]![
+                                                                idx]
+                                                            .venue,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                      const Spacer(),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 16.0),
+                                        child: CircleAvatar(
+                                          maxRadius: 30,
+                                          child: Text(
+                                            activityController
+                                                .pastAndTodayAct[dates[index]]![
+                                                    idx]
+                                                .title[0]
+                                                .toUpperCase(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall,
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                itemCount: activityController
-                                    .pastAndTodayAct[dates[index]]!.length,
-                              )
-                            ],
-                          ),
+                              ),
+                              itemCount: activityController
+                                  .pastAndTodayAct[dates[index]]!.length,
+                            )
+                          ],
                         ),
                         itemCount: dates.length,
                       );

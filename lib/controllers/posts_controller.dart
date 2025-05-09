@@ -28,6 +28,7 @@ class PostsController extends GetxController {
       final int pageToFetch = loadMore ? _page + 1 : 1;
 
       final result = await pocketBase.collection("posts").getList(
+        expand: "owner, owner.profile",
             page: pageToFetch,
             perPage: _perPage,
             sort: "-created",
