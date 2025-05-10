@@ -7,6 +7,7 @@ import 'package:orientation_app/pages/family_push_notification_page.dart';
 import 'package:orientation_app/pages/family_view_page.dart';
 import 'package:orientation_app/pages/g9dashboard_page.dart';
 import 'package:orientation_app/pages/home_page.dart';
+import 'package:orientation_app/pages/mark_attendance.dart';
 import 'package:orientation_app/pages/sign_in.dart';
 import 'package:orientation_app/pages/splash_screen.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,10 @@ class AppRoutes {
     GetPage(
       name: '/attendance-register',
       page: () => const AttendancePage(),
+    ),
+    GetPage(
+      name: '/mark-attendance',
+      page: () => const MarkAttendance(),
     ),
     GetPage(
       name: '/family-view',

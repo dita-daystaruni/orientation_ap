@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -45,13 +44,6 @@ class _FamilyPageState extends State<FamilyPage> {
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
                     _familyController.family.value?.name ?? "My Family",
-                  ),
-                  background: CachedNetworkImage(
-                    imageUrl: (_familyController.family.value?.picture ?? "")
-                            .isNotEmpty
-                        ? _familyController.family.value!.picture
-                        : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.cJYoPrfJw6LlwygL9F9sygHaE8%3Fcb%3Diwp1%26pid%3DApi&f=1&ipt=1d11c1eb3ea5867e99eba6192c06a895caec96ad65edfd4145291e2871eb845d&ipo=images",
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),

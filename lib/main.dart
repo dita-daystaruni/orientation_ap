@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:orientation_app/constants/routes.dart';
 import 'package:orientation_app/controllers/activities_controller.dart';
+import 'package:orientation_app/controllers/attendance_controller.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/notifications_controller.dart';
 import 'package:orientation_app/controllers/posts_controller.dart';
@@ -17,6 +18,7 @@ void main() async {
   // Putting controllers
 
   Get.put(UserController());
+  Get.put(AttendanceController());
   Get.put(StatisticsController());
   Get.put(PostsController());
   Get.put(FamilyController());
