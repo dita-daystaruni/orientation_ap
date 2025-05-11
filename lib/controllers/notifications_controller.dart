@@ -73,7 +73,7 @@ class NotificationController extends GetxController {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization':
-              'Basic os_v2_app_hbjummsiafddba5uer72cxicv7qlg7iqfoyummnpimkgdugousorkdkmnh2rsrf4wjbrf7uubcxecrassrakbj2l4bodlnggh2n35ci',
+              'Basic os_v2_app_p6wcwssnafdgllke52cjpsujeltiof4cch3e2nflre5nwta3dhoyfmori2nw66fpxqh6gssfvudkxijyyldtgl2l4zvi35zesiy2eky',
         },
         body: jsonEncode(payload),
       );
