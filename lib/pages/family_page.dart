@@ -249,6 +249,13 @@ class _FamilyPageState extends State<FamilyPage> {
                                   icon: const Icon(Icons.call),
                                 ),
                           onTap: () {
+                            if ((_userController
+                                        .user.value?.expandedProfile?.role ??
+                                    '') ==
+                                "Student") {
+                              return;
+                            }
+
                             Get.to(UserViewPage(user: user));
                           },
                         );
@@ -295,6 +302,13 @@ class _FamilyPageState extends State<FamilyPage> {
                                             icon: const Icon(Icons.call),
                                           ),
                                 onTap: () {
+                                  if ((_userController.user.value
+                                              ?.expandedProfile?.role ??
+                                          '') ==
+                                      "Student") {
+                                    return;
+                                  }
+
                                   Get.to(UserViewPage(user: user));
                                 },
                               );
