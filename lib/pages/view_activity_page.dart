@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:orientation_app/models/activity_session_model.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -32,7 +32,7 @@ class ViewActivityPage extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.timer),
                   title: Text(
-                    "${activity.from.toString().split(" ")[1].substring(0, 5)} - ${activity.to.toString().split(" ")[1].substring(0, 5)}",
+                    "From ${DateFormat('hh:mm a').format(activity.from)} • To • ${DateFormat('hh:mm a').format(activity.to)} ",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -107,8 +107,8 @@ class ViewActivityPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ListTile(
-                  textColor: Colors.white,
-                  iconColor: Colors.white,
+                        textColor: Colors.white,
+                        iconColor: Colors.white,
                         title: Text(activity.venue),
                         leading: const Icon(Icons.location_on),
                       ),
