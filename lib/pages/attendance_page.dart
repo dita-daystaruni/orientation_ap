@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:orientation_app/controllers/attendance_controller.dart';
 import 'package:orientation_app/controllers/family_controller.dart';
 import 'package:orientation_app/controllers/usercontroller.dart';
@@ -84,12 +85,17 @@ class _AttendancePageState extends State<AttendancePage> {
                                 final attendance =
                                     _attendanceController.attendances[index];
                                 return ListTile(
+                                  onTap: () {
+                                    Get.toNamed(
+                                      "/attendance-view",
+                                      arguments: attendance,
+                                    );
+                                  },
                                   leading: const CircleAvatar(
                                     child: Icon(Icons.group),
                                   ),
                                   title: Text(
-                                    attendance.expandedAttendanceType?.name ??
-                                        "unkown",
+                                    "${attendance.expandedAttendanceType?.name ?? "unkown"} • ${DateFormat.MMMMEEEEd().format(attendance.created)}",
                                   ),
                                   subtitle: Text(
                                       "Marked by ${attendance.expandedMarker?.firstName ?? 'systemUser'} "),

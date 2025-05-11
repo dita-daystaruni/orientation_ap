@@ -12,6 +12,48 @@ final class AttendanceController extends GetxController {
   RxList<Attendance> attendances = <Attendance>[].obs;
   RxList<AttendanceType> attendanceTypes = <AttendanceType>[].obs;
 
+  Future<Either<String, bool>> updateAttendance(Attendance attendance) async {
+    try {
+      isLoading.value = true;
+
+      final pocketBase = GetIt.instance.get<PocketBase>();
+
+      final attendanceRes = await pocketBase
+          .collection("attendance")
+          .update(attendance.id, body: attendance.toJson());
+
+      attendance = Attendance.fromJson(attendanceRes.toJson());
+
+      final res = await fetchAllAttendances(attendance.family);
+
+      isLoading.value = false;
+      return res.fold((error) {
+        return left(error);
+      }, (ok) {
+        return right(true);
+      });
+    } on ClientException catch (e) {
+      _logger.e(
+        "Exception occurred while updating attendance",
+        error: e,
+      );
+
+      isLoading.value = false;
+      return left(
+        e.response["message"] ??
+            "Please check your internet connection and try again.",
+      );
+    } catch (e) {
+      _logger.e(
+        "Exception occurred while updating attendance",
+        error: e,
+      );
+
+      isLoading.value = false;
+      return left("$e");
+    }
+  }
+
   Future<Either<String, bool>> markAttendance(Attendance attendance) async {
     try {
       isLoading.value = true;

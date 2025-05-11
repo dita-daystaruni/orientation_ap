@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:orientation_app/models/attendance_model.dart';
 import 'package:orientation_app/models/family_model.dart';
-import 'package:orientation_app/models/user_model.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -193,42 +192,6 @@ final class FamilyController extends GetxController {
         isBusy.value = false;
         return left("Failed to add child to family");
       }
-
-      isBusy.value = false;
-      return right(true);
-    } on ClientException catch (e) {
-      _logger.e(
-        "Exception occurred while adding student to family",
-        error: e,
-      );
-
-      isBusy.value = false;
-      return left(
-        e.response["message"] ??
-            "Please check your internet connection and try again.",
-      );
-    } catch (e) {
-      _logger.e(
-        "Exception occurred while logging in",
-        error: e,
-      );
-
-      isBusy.value = false;
-      return left("$e");
-    }
-  }
-
-  Future<Either<String, bool>> markAttendance(Attendance attendance) async {
-    try {
-      isBusy.value = true;
-
-      final pocketBase = GetIt.instance.get<PocketBase>();
-
-      final attendanceRes = await pocketBase
-          .collection("attendance")
-          .create(body: attendance.toJson());
-
-      attendance = Attendance.fromJson(attendanceRes.toJson());
 
       isBusy.value = false;
       return right(true);
