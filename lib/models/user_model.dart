@@ -1,54 +1,92 @@
-import 'package:orientation_app/models/parent_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// user model
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class User {
-  final int userId;
-  final String firstName;
-  final String lastName;
-  final String userName;
+  final String collectionId;
+  final String collectionName;
+  final String id;
   final String email;
-  final String campus;
-  final String userType;
-  final String admNo;
-  final String course;
-  final String phoneNo;
-  final String token;
+  final bool emailVisibility;
+  final bool verified;
+  final String firstName;
+  final String otherNames;
+  final String? profile;
+  final String admissionNumber;
+  final DateTime created;
+  final DateTime updated;
+
+  /// Expanded fields from PocketBase (optional)
+  final Map<String, dynamic>? expand;
+
+  User({
+    required this.collectionId,
+    required this.collectionName,
+    required this.id,
+    required this.email,
+    required this.emailVisibility,
+    required this.verified,
+    required this.firstName,
+    required this.otherNames,
+    this.profile,
+    this.expand,
+    required this.admissionNumber,
+    required this.created,
+    required this.updated,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  /// Helper to get expanded profile
+  Profile? get expandedProfile {
+    if (expand != null && expand!.containsKey('profile')) {
+      return Profile.fromJson(expand!['profile']);
+    }
+    return null;
+  }
+}
+
+@JsonSerializable()
+class Profile {
+  final String collectionId;
+  final String collectionName;
+  final String id;
+  final String parent;
+  final String profilePicture;
+  final String residence;
+  final String programme;
   final String gender;
-  final String accomodation;
-  final FreshManParent? parent;
+  final String role;
+  final bool reported;
+  final String campus;
+  final String phoneNumber;
+  final String schoolEmail;
+  final DateTime created;
+  final DateTime updated;
 
-  User.fromJson(Map<String, dynamic> json)
-      : userId = json['user_id'],
-        firstName = json['first_name'],
-        lastName = json['last_name'],
-        userName = json['username'],
-        email = json['email'],
-        phoneNo = json['phone_number'],
-        campus = json['campus'],
-        userType = json['user_type'],
-        admNo = json['admission_number'],
-        course = json['course'],
-        parent = json['parent'] != null
-            ? FreshManParent.fromJson(json["parent"])
-            : null,
-        gender = json['gender'],
-        accomodation = json['accomodation'],
-        token = json['token'];
+  Profile({
+    required this.collectionId,
+    required this.collectionName,
+    required this.id,
+    required this.parent,
+    required this.profilePicture,
+    required this.residence,
+    required this.programme,
+    required this.gender,
+    required this.role,
+    required this.reported,
+    required this.campus,
+    required this.phoneNumber,
+    required this.schoolEmail,
+    required this.created,
+    required this.updated,
+  });
 
-  Map<String, dynamic> toJson() => {
-        'user_id': userId,
-        'first_name': firstName,
-        'last_name': lastName,
-        'username': userName,
-        'email': email,
-        'campus': campus,
-        'user_type': userType,
-        'admission_number': admNo,
-        'course': course,
-        'phone_number': phoneNo,
-        'token': token,
-        'parent': parent?.toJson(),
-        'gender': gender,
-        'accomodation': accomodation,
-      };
+  factory Profile.fromJson(Map<String, dynamic> json) =>
+      _$ProfileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }

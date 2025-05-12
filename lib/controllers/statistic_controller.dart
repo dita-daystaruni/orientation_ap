@@ -1,49 +1,42 @@
-import 'dart:convert';
-
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:orientation_app/models/statistic_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
+import 'package:orientation_app/models/statistics_model.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 class StatisticsController extends GetxController {
-  Rx<StatisticsModel?> statistics = Rxn<StatisticsModel>();
-  Rx<int> totalStudents = 0.obs;
-  Rx<bool> isFetching = false.obs;
-  Rx<bool> fetchingTotal = false.obs;
+  Rx<StatisticsModel> stats = StatisticsModel().obs;
+  final Logger _logger = Logger();
+  RxBool isBusy = false.obs;
 
-  @override
-  void onInit() async {
-    // set statistics
-    await getStatisticsFromSP();
-    totalStudents.value = statistics.value?.totalStudents ?? 0;
-    super.onInit();
-  }
+  Future<Either<String, StatisticsModel>> fetchStats() async {
+    try {
+      final pocketBase = GetIt.instance.get<PocketBase>();
 
-  // caches faqs
-  Future<void> addStatisticToSP(String statistics) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("statistics", statistics);
-  }
+      final statsData = await pocketBase.collection("stats").getOne("1");
+      stats.value = StatisticsModel.fromJson(statsData.toJson());
 
-  // gets users contacts from SP
-  Future getStatisticsFromSP() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-    final String? statisticsString = prefs.getString("statistics");
-    if (statisticsString != null) {
-      // decode the string to a dict then create the instance
-      statistics.value = StatisticsModel.fromJson(
-        jsonDecode(statisticsString),
+      return right(stats.value);
+    } on ClientException catch (e) {
+      _logger.e(
+        "Exception occurred while adding student to family",
+        error: e,
       );
-      return statistics.value;
-    }
-    return null;
-  }
 
-  // updates statistics
-  Future updateStats(String statisticsString) async {
-    statistics.value = StatisticsModel.fromJson(
-      jsonDecode(statisticsString),
-    );
-    isFetching.value = false;
+      isBusy.value = false;
+      return left(
+        e.response["message"] ??
+            "Please check your internet connection and try again.",
+      );
+    } catch (e) {
+      _logger.e(
+        "Exception occurred while logging in",
+        error: e,
+      );
+
+      isBusy.value = false;
+      return left("$e");
+    }
   }
 }

@@ -1,12 +1,10 @@
-import 'dart:math';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-import 'package:orientation_app/constants/custom_colors.dart';
-import 'package:orientation_app/models/user_model.dart';
-import 'package:orientation_app/pages/firsttime_user.dart';
-import 'package:orientation_app/pages/preparation_page.dart';
-import 'package:orientation_app/services/authentication.dart';
+import 'package:lottie/lottie.dart';
+import 'package:orientation_app/controllers/notifications_controller.dart';
+import 'package:orientation_app/controllers/usercontroller.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -16,254 +14,151 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController admnocontroller = TextEditingController();
-
+  final UserController _userController = Get.find<UserController>();
+  final NotificationController _notificationController =
+      Get.find<NotificationController>();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
-  bool ischecked = false;
-  bool ispasswordvisible = true;
-  bool iswaiting = false;
+  bool consent = false;
+  bool _showPassword = true;
+
+  Future<bool?> _promptConsent() => showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Just a minute before you continue"),
+          content: const Text(
+            "By continuing, you consent to Academia processing your data to enhance your experience during your time at Daystar University.",
+          ),
+          actions: [
+            FilledButton(
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+                child: const Text("I Agree")),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: const Text("Decline"))
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: CustomColors.backgroundColor,
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            floating: true,
+            pinned: true,
+            expandedHeight: 200,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("Lets find you and set you up for school"),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(12),
+            sliver: MultiSliver(
               children: [
-                Image.asset(
-                  "assets/images/grajweshencap.png",
-                  height: 150,
-                  width: 200,
+                CircleAvatar(
+                  radius: 80,
+                  child: Lottie.asset(
+                    height: 350,
+                    "assets/lotties/profile.json",
+                    repeat: false,
+                  ),
                 ),
+                const SizedBox(height: 18),
                 const Text(
-                  "Sign in to your Account",
-                  style: TextStyle(
-                    color: CustomColors.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 28,
-                  ),
+                  "Please provide your admission number and password to get onboarded into Daystar University",
                 ),
-                const Spacer(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    "Please enter your details to login to your account and keep track of your orientation progress.",
-                    style: TextStyle(
-                      color: CustomColors.textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: emailController,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Admission Number",
+                    hintText: "e.g. 00-0000",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        cursorColor: CustomColors.buttonColor,
-                        controller: admnocontroller,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: CustomColors.buttonColor,
-                            ),
-                          ),
-                          hintText: 'Admission Number',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: TextFormField(
-                          cursorColor: CustomColors.buttonColor,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: CustomColors.buttonColor,
-                              ),
-                            ),
-                            hintText: 'Password',
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  ispasswordvisible = !ispasswordvisible;
-                                });
-                              },
-                              icon: Icon(ispasswordvisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                          ),
-                          controller: passwordcontroller,
-                          obscureText: ispasswordvisible,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      activeColor: CustomColors.buttonColor,
-                      value: ischecked,
-                      onChanged: (value) {
+                const SizedBox(height: 8),
+                TextFormField(
+                  obscureText: _showPassword,
+                  controller: passwordcontroller,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
                         setState(() {
-                          ischecked = !ischecked;
+                          _showPassword = !_showPassword;
                         });
                       },
+                      icon: Icon(_showPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                     ),
-                    const Text(
-                      "I agree to Terms & Conditions",
-                      style: TextStyle(
-                        color: CustomColors.textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
+                    labelText: "Password",
+                    hintText: "Please provide your password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ],
+                  ),
                 ),
-                const Spacer(),
-                iswaiting
-                    ? const CircularProgressIndicator(
-                        color: CustomColors.buttonColor,
-                      )
-                    : FilledButton(
-                        onPressed: () async {
-                          // validating user input
-                          if (admnocontroller.text.trim().isEmpty ||
-                              passwordcontroller.text.trim().isEmpty) {
-                            Get.snackbar('Empty Field(s)',
-                                'Ensure you have filled all the fiels');
-                          } else if (!ischecked) {
-                            Get.snackbar('Required',
-                                'Please Accept Terms And Conditions');
-                          } else {
-                            setState(() {
-                              iswaiting = !iswaiting;
-                            });
-                            // sending login request
-                            try {
-                              var response = await signIn(
-                                admnocontroller.text.trim(),
-                                passwordcontroller.text.trim(),
-                              );
-                              switch (response[0]) {
-                                case 200:
-                                  // successful login take user to login page
-                                  User user = User.fromJson(response[1]);
-                                  // Get.offAndToNamed("/landing_page");
-                                  if (!context.mounted) return;
-                                  // drop the current page
-                                  Navigator.pop(context);
-                                  // move to the next page
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (builder) => PreparationPage(
-                                          user: user,
-                                        ),
-                                      ));
-                                case 412:
-                                  // first time user take them back to login
-                                  String randompass =
-                                      "${generateRandomLetters()}-${admnocontroller.text.trim()}";
-                                  if (!context.mounted) return;
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (builder) => FirsttimeUser(
-                                        admNo: admnocontroller.text.trim(),
-                                        password: randompass,
-                                      ),
-                                    ),
-                                  );
-                                case < 500:
-                                  // server issues
-                                  setState(() {
-                                    iswaiting = !iswaiting;
-                                  });
-                                  Get.snackbar(
-                                    'Something Went Wrong!!',
-                                    response[1]['message'],
-                                  );
-                                default:
-                                  // server issues
-                                  setState(() {
-                                    iswaiting = !iswaiting;
-                                  });
-                                  Get.snackbar(
-                                    'Something Went Wrong!!',
-                                    'Retry Or Contact dita@daystar.ac.ke To Report Incidence',
-                                  );
-                              }
-                            } on ClientException catch (e) {
-                              // client has no internet or server might be down
+                const SizedBox(height: 22),
+                FilledButton(
+                  onPressed: () async {
+                    final consent = (await _promptConsent() ?? false);
+                    if (!consent) return;
+                    final result = await _userController.login(
+                      emailController.text,
+                      passwordcontroller.text,
+                    );
 
-                              debugPrint(
-                                "Exception in Log in Page ${e.toString()}",
-                              );
-                              setState(() {
-                                iswaiting = !iswaiting;
-                              });
-                              Get.snackbar(
-                                'Kindly Check Your Internet Connection And Retry',
-                                'If Your Connection Is Great, Contact dita@daystar.ac.ke To Report Incidence',
-                              );
-                            } catch (e) {
-                              // exception occured
-                              // rethrow;
-                              debugPrint(
-                                "Exception in Log in Page ${e.toString()}",
-                              );
-                              setState(() {
-                                iswaiting = !iswaiting;
-                              });
-                              Get.snackbar(
-                                'Something Went Wrong!🥲',
-                                'Retry Or Contact dita@daystar.ac.ke To Report Incidence If Issue Persists',
-                              );
-                            }
-                          }
-                        },
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                            CustomColors.buttonColor,
-                          ),
+                    if (result.isLeft() && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          (result as dartz.Left).value,
                         ),
-                        child: const Text(
-                          "Log In",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
+                      ));
+                    }
+
+                    if (result.isRight() &&
+                        (result as dartz.Right).value == true) {
+                      if (_userController.user.value!.verified) {
+                      _notificationController.requestPermission(_userController.user.value!);
+                        Get.offAllNamed("/home");
+                        return;
+                      }
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content:
+                                Text("Please visit the registration desk")),
+                      );
+                      await _userController.logout();
+                    }
+
+                    if (!context.mounted) return;
+                  },
+                  child: Obx(
+                    () => _userController.isLoading.value
+                        ? const CircularProgressIndicator.adaptive(
+                            backgroundColor: Colors.white,
+                          )
+                        : const Text("Sign into Academia"),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
-  }
-
-  String generateRandomLetters() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    Random random = Random();
-
-    String randomLetters = '';
-    for (int i = 0; i < 3; i++) {
-      randomLetters += letters[random.nextInt(letters.length)];
-    }
-
-    return randomLetters;
   }
 }
